@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/sunb26/xat
+
+# https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md#generating-build-files
+gazelle(name = "gazelle")
+
+go_library(
+    name = "xat_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/sunb26/xat",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "xat",
+    embed = [":xat_lib"],
+    visibility = ["//visibility:public"],
+)
