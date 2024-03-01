@@ -1,13 +1,13 @@
 load("@gazelle//:def.bzl", "gazelle")
-load("@rules_go//go:def.bzl", "go_binary", "go_library", "nogo", "TOOLS_NOGO")
+load("@rules_go//go:def.bzl", "TOOLS_NOGO", "go_binary", "go_library", "nogo")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
 
 nogo(
-  name = "nogo",
-  deps = TOOLS_NOGO,
-  visibility = ["//visibility:public"],
+    name = "nogo",
+    visibility = ["//visibility:public"],
+    deps = TOOLS_NOGO,
 )
 
 # gazelle:prefix github.com/sunb26/xat

@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "serve_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/sunb26/xat/cmd/serve",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "serve",
+    embed = [":serve_lib"],
+    visibility = ["//visibility:public"],
+)
