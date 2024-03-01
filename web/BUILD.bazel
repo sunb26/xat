@@ -26,3 +26,12 @@ js_run_devserver(
   chdir = package_name(),
   data = NEXT,
 )
+
+next_bin.next(
+  name = "web",
+  args = ["build"],
+  chdir = package_name(),
+  out_dirs = [".next"],
+  srcs = NEXT,
+  visibility = ["//:__pkg__"],
+)
