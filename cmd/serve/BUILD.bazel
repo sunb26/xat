@@ -1,10 +1,18 @@
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 go_library(
     name = "serve_lib",
     srcs = ["main.go"],
+    embedsrcs = [":web"],
     importpath = "github.com/sunb26/xat/cmd/serve",
     visibility = ["//visibility:private"],
+)
+
+copy_to_directory(
+    name = "web",
+    srcs = ["//web"],
+    root_paths = ["web/out"],
 )
 
 go_binary(

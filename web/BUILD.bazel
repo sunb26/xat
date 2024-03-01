@@ -33,6 +33,6 @@ next_bin.next(
     srcs = NEXT,
     args = ["build"],
     chdir = package_name(),
-    out_dirs = [".next"],
-    visibility = ["//:__pkg__"],
+    out_dirs = ["out"],
+    visibility = ["//cmd/serve:__pkg__"],
 )
