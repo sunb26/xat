@@ -1,5 +1,11 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "nogo", "TOOLS_NOGO")
 load("@gazelle//:def.bzl", "gazelle")
+
+nogo(
+  name = "nogo",
+  deps = TOOLS_NOGO,
+  visibility = ["//visibility:public"],
+)
 
 # gazelle:prefix github.com/sunb26/xat
 
