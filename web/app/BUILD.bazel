@@ -1,0 +1,17 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+js_library(
+  name = "app",
+  srcs = [
+    "favicon.ico",
+    "globals.css",
+    "layout.tsx",
+    "page.tsx",
+  ],
+  visibility = ["//web:__pkg__"],
+  deps = [
+    "//web:node_modules/@types/react",
+    "//web:node_modules/@types/react-dom",
+    "//web:node_modules/next",
+  ],
+)
