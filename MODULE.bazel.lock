@@ -2264,7 +2264,7 @@
         "accumulatedFileDigests": {
           "@@//:.npmrc": "d94d573d5aa644cdd09ff46d9b9c5e9b59185533420308c9a55ad5dc3176f22b",
           "@@aspect_bazel_lib~2.5.3~toolchains~yq_darwin_arm64//:yq": "db8c11ca4c1dda8fe7c211e82e28191d48bd9ae83471b952003e819de79bcb51",
-          "@@//:pnpm-lock.yaml": "3bf2882bf35c47ebc35de54dde82786b325303ce3d08ca7cb6900b0f10dc975e"
+          "@@//:pnpm-lock.yaml": "c1c72b11d6bd4943646c13ec6cdc7d1c0a90fcc18434771984282474c1a5ee72"
         },
         "envVariables": {},
         "generatedRepoSpecs": {
@@ -6404,6 +6404,43 @@
               "generate_bzl_library_targets": false
             }
           },
+          "npm__class-variance-authority__0.7.0__links": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_links",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__class-variance-authority__0.7.0__links",
+              "package": "class-variance-authority",
+              "version": "0.7.0",
+              "dev": false,
+              "root_package": "",
+              "link_packages": {
+                "web": [
+                  "class-variance-authority"
+                ]
+              },
+              "deps": {
+                "clsx": "2.0.0"
+              },
+              "transitive_closure": {
+                "class-variance-authority": [
+                  "0.7.0"
+                ],
+                "clsx": [
+                  "2.0.0"
+                ]
+              },
+              "lifecycle_build_target": false,
+              "lifecycle_hooks_env": [],
+              "lifecycle_hooks_execution_requirements": [],
+              "lifecycle_hooks_use_default_shell_env": false,
+              "bins": {},
+              "npm_translate_lock_repo": "npm",
+              "package_visibility": [
+                "//visibility:public"
+              ],
+              "replace_package": ""
+            }
+          },
           "npm__at_nextui-org_use-is-mounted__2.0.4__react_18.2.0": {
             "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
             "ruleClassName": "npm_import_rule",
@@ -8692,7 +8729,11 @@
               "version": "2.2.1",
               "root_package": "",
               "link_workspace": "",
-              "link_packages": {},
+              "link_packages": {
+                "web": [
+                  "tailwind-merge"
+                ]
+              },
               "integrity": "sha512-o+2GTLkthfa5YUt4JxPfzMIpQzZ3adD1vLVkvKE1Twl9UAhGsEbIZhHHZVRttyW177S8PDJI3bTQNaebyofK3Q==",
               "url": "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-2.2.1.tgz",
               "commit": "",
@@ -11025,6 +11066,35 @@
               "link_packages": {},
               "integrity": "sha512-Zut3rN1odIUBLZdijeyou+UqsLeRE76d9A+npykYGu29ndqmo3w4sLn8QeQcdj1IR71ZnG0pW2Y2BazhK5XrrQ==",
               "url": "https://registry.npmjs.org/@react-types/radio/-/radio-3.7.1.tgz",
+              "commit": "",
+              "patch_args": [],
+              "patches": [],
+              "custom_postinstall": "",
+              "npm_auth": "",
+              "npm_auth_basic": "",
+              "npm_auth_username": "",
+              "npm_auth_password": "",
+              "lifecycle_hooks": [],
+              "extra_build_content": "",
+              "generate_bzl_library_targets": false
+            }
+          },
+          "npm__class-variance-authority__0.7.0": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_rule",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__class-variance-authority__0.7.0",
+              "package": "class-variance-authority",
+              "version": "0.7.0",
+              "root_package": "",
+              "link_workspace": "",
+              "link_packages": {
+                "web": [
+                  "class-variance-authority"
+                ]
+              },
+              "integrity": "sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==",
+              "url": "https://registry.npmjs.org/class-variance-authority/-/class-variance-authority-0.7.0.tgz",
               "commit": "",
               "patch_args": [],
               "patches": [],
@@ -15998,6 +16068,35 @@
               "generate_bzl_library_targets": false
             }
           },
+          "npm__lucide-react__0.354.0__react_18.2.0": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_rule",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__lucide-react__0.354.0__react_18.2.0",
+              "package": "lucide-react",
+              "version": "0.354.0_react_18.2.0",
+              "root_package": "",
+              "link_workspace": "",
+              "link_packages": {
+                "web": [
+                  "lucide-react"
+                ]
+              },
+              "integrity": "sha512-qI0x/hhcuHieaUUxFejesm5T/ditszQ2x1gUkqKnTMZRAOdxT2nGzbOFYrhc0wRjuA2MN1o5JCrcRPYcHH3l8A==",
+              "url": "https://registry.npmjs.org/lucide-react/-/lucide-react-0.354.0.tgz",
+              "commit": "",
+              "patch_args": [],
+              "patches": [],
+              "custom_postinstall": "",
+              "npm_auth": "",
+              "npm_auth_basic": "",
+              "npm_auth_username": "",
+              "npm_auth_password": "",
+              "lifecycle_hooks": [],
+              "extra_build_content": "",
+              "generate_bzl_library_targets": false
+            }
+          },
           "npm__at_react-aria_ssr__3.9.2__react_18.2.0__links": {
             "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
             "ruleClassName": "npm_import_links",
@@ -16164,6 +16263,49 @@
                 ],
                 "supports-preserve-symlinks-flag": [
                   "1.0.0"
+                ]
+              },
+              "lifecycle_build_target": false,
+              "lifecycle_hooks_env": [],
+              "lifecycle_hooks_execution_requirements": [],
+              "lifecycle_hooks_use_default_shell_env": false,
+              "bins": {},
+              "npm_translate_lock_repo": "npm",
+              "package_visibility": [
+                "//visibility:public"
+              ],
+              "replace_package": ""
+            }
+          },
+          "npm__lucide-react__0.354.0__react_18.2.0__links": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_links",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__lucide-react__0.354.0__react_18.2.0__links",
+              "package": "lucide-react",
+              "version": "0.354.0_react_18.2.0",
+              "dev": false,
+              "root_package": "",
+              "link_packages": {
+                "web": [
+                  "lucide-react"
+                ]
+              },
+              "deps": {
+                "react": "18.2.0"
+              },
+              "transitive_closure": {
+                "js-tokens": [
+                  "4.0.0"
+                ],
+                "loose-envify": [
+                  "1.4.0"
+                ],
+                "lucide-react": [
+                  "0.354.0_react_18.2.0"
+                ],
+                "react": [
+                  "18.2.0"
                 ]
               },
               "lifecycle_build_target": false,
@@ -19823,6 +19965,35 @@
                 "//visibility:public"
               ],
               "replace_package": ""
+            }
+          },
+          "npm__tailwindcss-animate__1.0.7__tailwindcss_3.4.1": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_rule",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__tailwindcss-animate__1.0.7__tailwindcss_3.4.1",
+              "package": "tailwindcss-animate",
+              "version": "1.0.7_tailwindcss_3.4.1",
+              "root_package": "",
+              "link_workspace": "",
+              "link_packages": {
+                "web": [
+                  "tailwindcss-animate"
+                ]
+              },
+              "integrity": "sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==",
+              "url": "https://registry.npmjs.org/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz",
+              "commit": "",
+              "patch_args": [],
+              "patches": [],
+              "custom_postinstall": "",
+              "npm_auth": "",
+              "npm_auth_basic": "",
+              "npm_auth_username": "",
+              "npm_auth_password": "",
+              "lifecycle_hooks": [],
+              "extra_build_content": "",
+              "generate_bzl_library_targets": false
             }
           },
           "npm__at_jridgewell_trace-mapping__0.3.24": {
@@ -25219,6 +25390,342 @@
               "generate_bzl_library_targets": false
             }
           },
+          "npm__tailwindcss-animate__1.0.7__tailwindcss_3.4.1__links": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_links",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__tailwindcss-animate__1.0.7__tailwindcss_3.4.1__links",
+              "package": "tailwindcss-animate",
+              "version": "1.0.7_tailwindcss_3.4.1",
+              "dev": true,
+              "root_package": "",
+              "link_packages": {
+                "web": [
+                  "tailwindcss-animate"
+                ]
+              },
+              "deps": {
+                "tailwindcss": "3.4.1"
+              },
+              "transitive_closure": {
+                "@alloc/quick-lru": [
+                  "5.2.0"
+                ],
+                "@isaacs/cliui": [
+                  "8.0.2"
+                ],
+                "@jridgewell/gen-mapping": [
+                  "0.3.5"
+                ],
+                "@jridgewell/resolve-uri": [
+                  "3.1.2"
+                ],
+                "@jridgewell/set-array": [
+                  "1.2.1"
+                ],
+                "@jridgewell/sourcemap-codec": [
+                  "1.4.15"
+                ],
+                "@jridgewell/trace-mapping": [
+                  "0.3.24"
+                ],
+                "@nodelib/fs.scandir": [
+                  "2.1.5"
+                ],
+                "@nodelib/fs.stat": [
+                  "2.0.5"
+                ],
+                "@nodelib/fs.walk": [
+                  "1.2.8"
+                ],
+                "@pkgjs/parseargs": [
+                  "0.11.0"
+                ],
+                "ansi-regex": [
+                  "5.0.1",
+                  "6.0.1"
+                ],
+                "ansi-styles": [
+                  "4.3.0",
+                  "6.2.1"
+                ],
+                "any-promise": [
+                  "1.3.0"
+                ],
+                "anymatch": [
+                  "3.1.3"
+                ],
+                "arg": [
+                  "5.0.2"
+                ],
+                "balanced-match": [
+                  "1.0.2"
+                ],
+                "binary-extensions": [
+                  "2.2.0"
+                ],
+                "brace-expansion": [
+                  "2.0.1"
+                ],
+                "braces": [
+                  "3.0.2"
+                ],
+                "camelcase-css": [
+                  "2.0.1"
+                ],
+                "chokidar": [
+                  "3.6.0"
+                ],
+                "color-convert": [
+                  "2.0.1"
+                ],
+                "color-name": [
+                  "1.1.4"
+                ],
+                "commander": [
+                  "4.1.1"
+                ],
+                "cross-spawn": [
+                  "7.0.3"
+                ],
+                "cssesc": [
+                  "3.0.0"
+                ],
+                "didyoumean": [
+                  "1.2.2"
+                ],
+                "dlv": [
+                  "1.1.3"
+                ],
+                "eastasianwidth": [
+                  "0.2.0"
+                ],
+                "emoji-regex": [
+                  "8.0.0",
+                  "9.2.2"
+                ],
+                "fast-glob": [
+                  "3.3.2"
+                ],
+                "fastq": [
+                  "1.17.1"
+                ],
+                "fill-range": [
+                  "7.0.1"
+                ],
+                "foreground-child": [
+                  "3.1.1"
+                ],
+                "fsevents": [
+                  "2.3.3"
+                ],
+                "function-bind": [
+                  "1.1.2"
+                ],
+                "glob": [
+                  "10.3.10"
+                ],
+                "glob-parent": [
+                  "5.1.2",
+                  "6.0.2"
+                ],
+                "hasown": [
+                  "2.0.1"
+                ],
+                "is-binary-path": [
+                  "2.1.0"
+                ],
+                "is-core-module": [
+                  "2.13.1"
+                ],
+                "is-extglob": [
+                  "2.1.1"
+                ],
+                "is-fullwidth-code-point": [
+                  "3.0.0"
+                ],
+                "is-glob": [
+                  "4.0.3"
+                ],
+                "is-number": [
+                  "7.0.0"
+                ],
+                "isexe": [
+                  "2.0.0"
+                ],
+                "jackspeak": [
+                  "2.3.6"
+                ],
+                "jiti": [
+                  "1.21.0"
+                ],
+                "lilconfig": [
+                  "2.1.0",
+                  "3.1.1"
+                ],
+                "lines-and-columns": [
+                  "1.2.4"
+                ],
+                "lru-cache": [
+                  "10.2.0"
+                ],
+                "merge2": [
+                  "1.4.1"
+                ],
+                "micromatch": [
+                  "4.0.5"
+                ],
+                "minimatch": [
+                  "9.0.3"
+                ],
+                "minipass": [
+                  "7.0.4"
+                ],
+                "mz": [
+                  "2.7.0"
+                ],
+                "nanoid": [
+                  "3.3.7"
+                ],
+                "normalize-path": [
+                  "3.0.0"
+                ],
+                "object-assign": [
+                  "4.1.1"
+                ],
+                "object-hash": [
+                  "3.0.0"
+                ],
+                "path-key": [
+                  "3.1.1"
+                ],
+                "path-parse": [
+                  "1.0.7"
+                ],
+                "path-scurry": [
+                  "1.10.1"
+                ],
+                "picocolors": [
+                  "1.0.0"
+                ],
+                "picomatch": [
+                  "2.3.1"
+                ],
+                "pify": [
+                  "2.3.0"
+                ],
+                "pirates": [
+                  "4.0.6"
+                ],
+                "postcss": [
+                  "8.4.35"
+                ],
+                "postcss-import": [
+                  "15.1.0_postcss_8.4.35"
+                ],
+                "postcss-js": [
+                  "4.0.1_postcss_8.4.35"
+                ],
+                "postcss-load-config": [
+                  "4.0.2_postcss_8.4.35"
+                ],
+                "postcss-nested": [
+                  "6.0.1_postcss_8.4.35"
+                ],
+                "postcss-selector-parser": [
+                  "6.0.15"
+                ],
+                "postcss-value-parser": [
+                  "4.2.0"
+                ],
+                "queue-microtask": [
+                  "1.2.3"
+                ],
+                "read-cache": [
+                  "1.0.0"
+                ],
+                "readdirp": [
+                  "3.6.0"
+                ],
+                "resolve": [
+                  "1.22.8"
+                ],
+                "reusify": [
+                  "1.0.4"
+                ],
+                "run-parallel": [
+                  "1.2.0"
+                ],
+                "shebang-command": [
+                  "2.0.0"
+                ],
+                "shebang-regex": [
+                  "3.0.0"
+                ],
+                "signal-exit": [
+                  "4.1.0"
+                ],
+                "source-map-js": [
+                  "1.0.2"
+                ],
+                "string-width": [
+                  "4.2.3",
+                  "5.1.2"
+                ],
+                "strip-ansi": [
+                  "6.0.1",
+                  "7.1.0"
+                ],
+                "sucrase": [
+                  "3.35.0"
+                ],
+                "supports-preserve-symlinks-flag": [
+                  "1.0.0"
+                ],
+                "tailwindcss": [
+                  "3.4.1"
+                ],
+                "tailwindcss-animate": [
+                  "1.0.7_tailwindcss_3.4.1"
+                ],
+                "thenify": [
+                  "3.3.1"
+                ],
+                "thenify-all": [
+                  "1.6.0"
+                ],
+                "to-regex-range": [
+                  "5.0.1"
+                ],
+                "ts-interface-checker": [
+                  "0.1.13"
+                ],
+                "util-deprecate": [
+                  "1.0.2"
+                ],
+                "which": [
+                  "2.0.2"
+                ],
+                "wrap-ansi": [
+                  "7.0.0",
+                  "8.1.0"
+                ],
+                "yaml": [
+                  "2.4.0"
+                ]
+              },
+              "lifecycle_build_target": false,
+              "lifecycle_hooks_env": [],
+              "lifecycle_hooks_execution_requirements": [],
+              "lifecycle_hooks_use_default_shell_env": false,
+              "bins": {},
+              "npm_translate_lock_repo": "npm",
+              "package_visibility": [
+                "//visibility:public"
+              ],
+              "replace_package": ""
+            }
+          },
           "npm__at_nextui-org_shared-icons__2.0.6__react_18.2.0": {
             "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
             "ruleClassName": "npm_import_rule",
@@ -28185,7 +28692,11 @@
               "version": "2.1.0",
               "dev": false,
               "root_package": "",
-              "link_packages": {},
+              "link_packages": {
+                "web": [
+                  "clsx"
+                ]
+              },
               "deps": {},
               "transitive_closure": {
                 "clsx": [
@@ -31969,7 +32480,11 @@
               "version": "2.2.1",
               "dev": false,
               "root_package": "",
-              "link_packages": {},
+              "link_packages": {
+                "web": [
+                  "tailwind-merge"
+                ]
+              },
               "deps": {
                 "@babel/runtime": "7.24.0"
               },
@@ -32058,6 +32573,31 @@
               "link_packages": {},
               "integrity": "sha512-QW8HiM1shhT2GuzkvklfjcKDiWFXHOeFCIA/huJPwHsslwcydgk7X+z2zXpEijP98UCY7HbubZt5J2Zgvf0CaQ==",
               "url": "https://registry.npmjs.org/browserslist/-/browserslist-4.23.0.tgz",
+              "commit": "",
+              "patch_args": [],
+              "patches": [],
+              "custom_postinstall": "",
+              "npm_auth": "",
+              "npm_auth_basic": "",
+              "npm_auth_username": "",
+              "npm_auth_password": "",
+              "lifecycle_hooks": [],
+              "extra_build_content": "",
+              "generate_bzl_library_targets": false
+            }
+          },
+          "npm__clsx__2.0.0": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_rule",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__clsx__2.0.0",
+              "package": "clsx",
+              "version": "2.0.0",
+              "root_package": "",
+              "link_workspace": "",
+              "link_packages": {},
+              "integrity": "sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==",
+              "url": "https://registry.npmjs.org/clsx/-/clsx-2.0.0.tgz",
               "commit": "",
               "patch_args": [],
               "patches": [],
@@ -35323,7 +35863,11 @@
               "version": "2.1.0",
               "root_package": "",
               "link_workspace": "",
-              "link_packages": {},
+              "link_packages": {
+                "web": [
+                  "clsx"
+                ]
+              },
               "integrity": "sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==",
               "url": "https://registry.npmjs.org/clsx/-/clsx-2.1.0.tgz",
               "commit": "",
@@ -40122,6 +40666,34 @@
                 ],
                 "react": [
                   "18.2.0"
+                ]
+              },
+              "lifecycle_build_target": false,
+              "lifecycle_hooks_env": [],
+              "lifecycle_hooks_execution_requirements": [],
+              "lifecycle_hooks_use_default_shell_env": false,
+              "bins": {},
+              "npm_translate_lock_repo": "npm",
+              "package_visibility": [
+                "//visibility:public"
+              ],
+              "replace_package": ""
+            }
+          },
+          "npm__clsx__2.0.0__links": {
+            "bzlFile": "@@aspect_rules_js~1.38.0//npm/private:npm_import.bzl",
+            "ruleClassName": "npm_import_links",
+            "attributes": {
+              "name": "aspect_rules_js~1.38.0~npm~npm__clsx__2.0.0__links",
+              "package": "clsx",
+              "version": "2.0.0",
+              "dev": false,
+              "root_package": "",
+              "link_packages": {},
+              "deps": {},
+              "transitive_closure": {
+                "clsx": [
+                  "2.0.0"
                 ]
               },
               "lifecycle_build_target": false,
@@ -49080,327 +49652,6 @@
                 "https://dl.google.com/go/{}"
               ],
               "version": "1.21.1"
-            }
-          },
-          "rules_go__download_0_windows_amd64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~rules_go__download_0_windows_amd64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.21.1"
-            }
-          }
-        },
-        "recordedRepoMappingEntries": [
-          [
-            "bazel_features~1.1.1",
-            "bazel_features_globals",
-            "bazel_features~1.1.1~version_extension~bazel_features_globals"
-          ],
-          [
-            "bazel_features~1.1.1",
-            "bazel_features_version",
-            "bazel_features~1.1.1~version_extension~bazel_features_version"
-          ],
-          [
-            "rules_go~0.46.0",
-            "bazel_tools",
-            "bazel_tools"
-          ],
-          [
-            "rules_go~0.46.0",
-            "io_bazel_rules_go",
-            "rules_go~0.46.0"
-          ],
-          [
-            "rules_go~0.46.0",
-            "io_bazel_rules_go_bazel_features",
-            "bazel_features~1.1.1"
-          ]
-        ]
-      },
-      "os:linux,arch:amd64": {
-        "bzlTransitiveDigest": "jzrF1nNjy3IFXXT/8q4rFvr7D3n7Yq4c1nkajUqSQxs=",
-        "accumulatedFileDigests": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "main___download_0_darwin_amd64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~main___download_0_darwin_amd64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.22.0"
-            }
-          },
-          "main___download_0": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~main___download_0",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "experiments": [],
-              "patches": [],
-              "patch_strip": 0,
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.22.0",
-              "strip_prefix": "go"
-            }
-          },
-          "rules_go__download_0_darwin_arm64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~rules_go__download_0_darwin_arm64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.21.1"
-            }
-          },
-          "go_host_compatible_sdk_label": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:extensions.bzl",
-            "ruleClassName": "host_compatible_toolchain",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~go_host_compatible_sdk_label",
-              "toolchain": "@main___download_0//:ROOT"
-            }
-          },
-          "rules_go__download_0_darwin_amd64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~rules_go__download_0_darwin_amd64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.21.1"
-            }
-          },
-          "go_toolchains": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_multiple_toolchains",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~go_toolchains",
-              "prefixes": [
-                "_0000_main___download_0_",
-                "_0001_main___download_0_darwin_amd64_",
-                "_0002_main___download_0_darwin_arm64_",
-                "_0003_main___download_0_linux_arm64_",
-                "_0004_main___download_0_windows_amd64_",
-                "_0005_main___download_0_windows_arm64_",
-                "_0006_go_default_sdk_",
-                "_0007_rules_go__download_0_darwin_amd64_",
-                "_0008_rules_go__download_0_darwin_arm64_",
-                "_0009_rules_go__download_0_linux_arm64_",
-                "_0010_rules_go__download_0_windows_amd64_",
-                "_0011_rules_go__download_0_windows_arm64_"
-              ],
-              "geese": [
-                "",
-                "darwin",
-                "darwin",
-                "linux",
-                "windows",
-                "windows",
-                "",
-                "darwin",
-                "darwin",
-                "linux",
-                "windows",
-                "windows"
-              ],
-              "goarchs": [
-                "",
-                "amd64",
-                "arm64",
-                "arm64",
-                "amd64",
-                "arm64",
-                "",
-                "amd64",
-                "arm64",
-                "arm64",
-                "amd64",
-                "arm64"
-              ],
-              "sdk_repos": [
-                "main___download_0",
-                "main___download_0_darwin_amd64",
-                "main___download_0_darwin_arm64",
-                "main___download_0_linux_arm64",
-                "main___download_0_windows_amd64",
-                "main___download_0_windows_arm64",
-                "go_default_sdk",
-                "rules_go__download_0_darwin_amd64",
-                "rules_go__download_0_darwin_arm64",
-                "rules_go__download_0_linux_arm64",
-                "rules_go__download_0_windows_amd64",
-                "rules_go__download_0_windows_arm64"
-              ],
-              "sdk_types": [
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote",
-                "remote"
-              ],
-              "sdk_versions": [
-                "1.22.0",
-                "1.22.0",
-                "1.22.0",
-                "1.22.0",
-                "1.22.0",
-                "1.22.0",
-                "1.21.1",
-                "1.21.1",
-                "1.21.1",
-                "1.21.1",
-                "1.21.1",
-                "1.21.1"
-              ]
-            }
-          },
-          "io_bazel_rules_nogo": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:nogo.bzl",
-            "ruleClassName": "go_register_nogo",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~io_bazel_rules_nogo",
-              "nogo": "'@@//:nogo'",
-              "includes": [
-                "'@@//:__subpackages__'"
-              ],
-              "excludes": []
-            }
-          },
-          "main___download_0_windows_amd64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~main___download_0_windows_amd64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.22.0"
-            }
-          },
-          "main___download_0_linux_arm64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~main___download_0_linux_arm64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.22.0"
-            }
-          },
-          "main___download_0_windows_arm64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~main___download_0_windows_arm64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.22.0"
-            }
-          },
-          "rules_go__download_0_windows_arm64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~rules_go__download_0_windows_arm64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.21.1"
-            }
-          },
-          "rules_go__download_0_linux_arm64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~rules_go__download_0_linux_arm64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.21.1"
-            }
-          },
-          "go_default_sdk": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~go_default_sdk",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "experiments": [],
-              "patches": [],
-              "patch_strip": 0,
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.21.1",
-              "strip_prefix": "go"
-            }
-          },
-          "main___download_0_darwin_arm64": {
-            "bzlFile": "@@rules_go~0.46.0//go/private:sdk.bzl",
-            "ruleClassName": "go_download_sdk_rule",
-            "attributes": {
-              "name": "rules_go~0.46.0~go_sdk~main___download_0_darwin_arm64",
-              "goos": "",
-              "goarch": "",
-              "sdks": {},
-              "urls": [
-                "https://dl.google.com/go/{}"
-              ],
-              "version": "1.22.0"
             }
           },
           "rules_go__download_0_windows_amd64": {
