@@ -24,3 +24,15 @@ Tax Form: https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/t
     - commit generated build files
     - select a target to run (e.g. in `//:BUILD.bazel` there is `:xat`)
     - run the target `bazel run //:xat`
+
+## deploy
+
+```bash
+fly auth login
+podman init
+podman start
+podman login registry.fly.io -u x --password $(fly auth token) \
+  --authfile ~/.docker/config.json
+aspect run //cmd/serve:push --config=deploy
+fly deploy --config cmd/serve/fly.toml
+```
