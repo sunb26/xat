@@ -1,1 +1,8 @@
 build --disk_cache=~/.cache/bazel
+
+build:deploy --compilation_mode=opt
+build:deploy --extra_toolchains=@llvm_toolchain_with_sysroot//:cc-toolchain-x86_64-linux
+# https://github.com/grailbio/bazel-toolchain/pull/229.
+build:deploy --features=-libtool
+build:deploy --features=fully_static_link
+build:deploy --platforms=@rules_go//go/toolchain:linux_amd64
