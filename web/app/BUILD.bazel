@@ -7,9 +7,11 @@ js_library(
         "globals.css",
         "layout.tsx",
         "page.tsx",
+        "providers.tsx",
     ],
     visibility = ["//web:__pkg__"],
     deps = [
+        "//web:node_modules/@nextui-org/react",
         "//web:node_modules/@types/react",
         "//web:node_modules/@types/react-dom",
         "//web:node_modules/next",
