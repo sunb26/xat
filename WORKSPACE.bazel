@@ -46,7 +46,15 @@ http_archive(
 )
 load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repository_set")
 rules_rust_dependencies()
-rust_register_toolchains(edition = "2021", versions = ["1.76.0"])
+RUST_VERSION = "1.76.0"
+rust_register_toolchains(edition = "2021", versions = [RUST_VERSION])
+rust_repository_set(
+  name = "rust_x86_64_unknown_musl",
+  edition = "2021",
+  exec_triple = "aarch64-apple-darwin",
+  extra_target_triples = ["x86_64-unknown-linux-musl"],
+  versions = [RUST_VERSION],
+)
 load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository", "render_config")
 crates_repository(
   name = "crates",

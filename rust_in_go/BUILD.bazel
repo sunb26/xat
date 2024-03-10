@@ -12,7 +12,7 @@ rust_static_library(
 
 go_library(
     name = "rust_in_go_lib",
-    srcs = ["main.go", "lib.h"],
+    srcs = ["main.go"],
     cdeps = [":lib"],
     cgo = True,
     importpath = "github.com/sunb26/xat/rust_in_go",
