@@ -18,7 +18,7 @@ build --incompatible_strict_action_env
 build --experimental_writable_outputs
 
 build --@rules_rust//:clippy_flags=-D,clippy::enum_glob_use,-D,clippy::nursery,-D,clippy::pedantic,-D,clippy::unwrap_used
-build --@rules_rust//:extra_rustc_flag="-Dunsafe_code"
+build --@rules_rust//:extra_rustc_flag=-Dunsafe_code
 build --@rules_rust//:rustfmt.toml=//:.rustfmt.toml
 # https://github.com/bazelbuild/rules_rust/issues/2418
 # https://github.com/rust-lang/rust-clippy/pull/12203
@@ -29,12 +29,16 @@ build --output_groups=+clippy_checks
 build --aspects=@rules_rust//rust:defs.bzl%rustfmt_aspect
 build --output_groups=+rustfmt_checks
 
+build:deploy --@rules_rust//:extra_rustc_flag=-Clink-arg=-s
+build:deploy --@rules_rust//:extra_rustc_flag=-Clto
+build:deploy --@rules_rust//:extra_rustc_flag=-Cpanic=abort
 build:deploy --compilation_mode=opt
 build:deploy --extra_toolchains=@llvm_toolchain_with_sysroot//:cc-toolchain-x86_64-linux
 # https://github.com/grailbio/bazel-toolchain/pull/229.
 build:deploy --features=-libtool
 build:deploy --features=fully_static_link
 build:deploy --platforms=@toolchains_llvm//platforms:linux-x86_64
+build:deploy --strip=always
 
 test --build_tests_only
 test --incompatible_exclusive_test_sandboxed
