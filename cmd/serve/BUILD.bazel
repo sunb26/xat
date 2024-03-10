@@ -21,6 +21,7 @@ copy_to_directory(
 go_binary(
     name = "serve",
     embed = [":serve_lib"],
+    pure = "on",
     visibility = ["//visibility:public"],
 )
 
