@@ -1,5 +1,6 @@
 /bazel-*
 /node_modules
+/rust-project.json
 .DS_Store
 .env*.local
 build

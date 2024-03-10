@@ -38,3 +38,26 @@ llvm_toolchain(
   sysroot = {"linux-x86_64": "@org_chromium_sysroot_linux_x64//:sysroot"},
   toolchain_roots = {"": "@llvm_toolchain_llvm//"},
 )
+
+http_archive(
+  name = "rules_rust",
+  integrity = "sha256-ZQGWDD5NoySV0eEAfe0HaaU0yxlcMN6jaqVPnYo/A2E=",
+  urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.38.0/rules_rust-v0.38.0.tar.gz"],
+)
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repository_set")
+rules_rust_dependencies()
+rust_register_toolchains(edition = "2021", versions = ["1.76.0"])
+load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository", "render_config")
+crates_repository(
+  name = "crates",
+  cargo_lockfile = "//:Cargo.lock",
+  lockfile = "//:Cargo.bazel.lock",
+  packages = {
+    "color-eyre": crate.spec(version = "0.6.2"),
+    "eyre": crate.spec(version = "0.6.12"),
+  },
+)
+load("@crates//:defs.bzl", "crate_repositories")
+crate_repositories()
+load("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
+rust_analyzer_dependencies()

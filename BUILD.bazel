@@ -1,6 +1,7 @@
 load("@gazelle//:def.bzl", "gazelle")
-load("@rules_go//go:def.bzl", "TOOLS_NOGO", "go_binary", "go_library", "nogo")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_go//go:def.bzl", "TOOLS_NOGO", "go_binary", "go_library", "nogo")
+load("@rules_rust//rust:defs.bzl", "rust_binary")
 
 npm_link_all_packages(name = "node_modules")
 
@@ -16,14 +17,20 @@ nogo(
 gazelle(name = "gazelle")
 
 go_library(
-    name = "xat_lib",
+    name = "xat_go_lib",
     srcs = ["main.go"],
     importpath = "github.com/sunb26/xat",
     visibility = ["//visibility:private"],
 )
 
 go_binary(
-    name = "xat",
-    embed = [":xat_lib"],
+    name = "xat_go",
+    embed = [":xat_go_lib"],
     visibility = ["//visibility:public"],
+)
+
+rust_binary(
+    name = "xat_rust",
+    srcs = ["main.rs"],
+    deps = ["@crates//:eyre"],
 )

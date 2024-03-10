@@ -2,6 +2,7 @@ common --keep_going
 
 clean --async
 
+build --action_env=CARGO_BAZEL_REPIN=true
 build --noexperimental_check_external_repository_files
 build --noexperimental_check_output_files
 # https://github.com/aspect-build/rules_js/issues/409

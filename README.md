@@ -13,8 +13,8 @@ Tax Form: https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/t
 2. generate build files `aspect run //:gazelle`
 3. inspect generated build files `git diff`
 4. commit generated build files
-5. select a target to run (e.g. in `//:BUILD.bazel` there is `:xat`)
-6. run the target `aspect run //:xat`
+5. select a target to run (e.g. in `//:BUILD.bazel` there is `:xat_go`)
+6. run the target `aspect run //:xat_go`
 
 ### Linux
 1. Install `bazelisk` as a wrapper for `aspect cli` [here](https://github.com/bazelbuild/bazelisk?tab=readme-ov-file#installation).
@@ -22,8 +22,8 @@ Tax Form: https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/t
     - generate build files `bazel run //:gazelle`
     - inspect generated build files `git diff`
     - commit generated build files
-    - select a target to run (e.g. in `//:BUILD.bazel` there is `:xat`)
-    - run the target `bazel run //:xat`
+    - select a target to run (e.g. in `//:BUILD.bazel` there is `:xat_go`)
+    - run the target `bazel run //:xat_go`
 
 ## deploy
 
@@ -36,3 +36,11 @@ podman login registry.fly.io -u x --password $(fly auth token) \
 aspect run //cmd/serve:push --config=deploy
 fly deploy --config cmd/serve/fly.toml
 ```
+
+## rust
+
+- enable rust-analyzer LSP support by generating `rust-project.json`
+  ```bash
+  aspect run @rules_rust//tools/rust_analyzer:gen_rust_project
+  ```
+- run hello world binary `aspect run //:xat_rust`
