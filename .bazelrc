@@ -17,6 +17,18 @@ build --jobs=64
 build --incompatible_strict_action_env
 build --experimental_writable_outputs
 
+build --@rules_rust//:clippy_flags=-D,clippy::enum_glob_use,-D,clippy::nursery,-D,clippy::pedantic,-D,clippy::unwrap_used
+build --@rules_rust//:extra_rustc_flag="-Funsafe_code"
+build --@rules_rust//:rustfmt.toml=//:.rustfmt.toml
+# https://github.com/bazelbuild/rules_rust/issues/2418
+# https://github.com/rust-lang/rust-clippy/pull/12203
+build --@rules_rust//rust/settings:experimental_toolchain_generated_sysroot=False
+
+build --aspects=@rules_rust//rust:defs.bzl%rust_clippy_aspect
+build --output_groups=+clippy_checks
+build --aspects=@rules_rust//rust:defs.bzl%rustfmt_aspect
+build --output_groups=+rustfmt_checks
+
 build:deploy --compilation_mode=opt
 build:deploy --extra_toolchains=@llvm_toolchain_with_sysroot//:cc-toolchain-x86_64-linux
 # https://github.com/grailbio/bazel-toolchain/pull/229.

@@ -34,3 +34,5 @@ rust_binary(
     srcs = ["main.rs"],
     deps = ["@crates//:eyre"],
 )
+
+exports_files([".rustfmt.toml"])

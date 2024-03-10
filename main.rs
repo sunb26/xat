@@ -1,4 +1,3 @@
-fn main() -> eyre::Result<()> {
-    println!("Hello, world!");
-    Ok(())
+fn main() {
+  println!("Hello, world!");
 }
