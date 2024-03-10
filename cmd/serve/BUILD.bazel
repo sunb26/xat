@@ -31,7 +31,6 @@ oci_image(
     architecture = "amd64",
     tars = [":tar"],
     entrypoint = ["/serve"],
-    tags = ["manual"],
 )
 
 oci_push(
@@ -39,5 +38,4 @@ oci_push(
     image = ":image",
     repository = "registry.fly.io/xat-serve",
     remote_tags = ["latest"],
-    tags = ["manual"],
 )

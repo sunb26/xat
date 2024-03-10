@@ -1,2 +1,9 @@
 /bazel-*
 /node_modules
+.DS_Store
+.env*.local
+build
+coverage
+data
+node_modules
+out
