@@ -18,7 +18,7 @@ build --incompatible_strict_action_env
 build --experimental_writable_outputs
 
 build --@rules_rust//:clippy_flags=-D,clippy::enum_glob_use,-D,clippy::nursery,-D,clippy::pedantic,-D,clippy::unwrap_used
-build --@rules_rust//:extra_rustc_flag="-Funsafe_code"
+build --@rules_rust//:extra_rustc_flag="-Dunsafe_code"
 build --@rules_rust//:rustfmt.toml=//:.rustfmt.toml
 # https://github.com/bazelbuild/rules_rust/issues/2418
 # https://github.com/rust-lang/rust-clippy/pull/12203

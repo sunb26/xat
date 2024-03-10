@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_rust//rust:defs.bzl", "rust_static_library")
+
+rust_static_library(
+    name = "lib",
+    srcs = ["lib.rs"],
+    deps = [
+        "@crates//:libc",
+        "@crates//:tap",
+    ],
+)
+
+go_library(
+    name = "rust_in_go_lib",
+    srcs = ["main.go", "lib.h"],
+    cdeps = [":lib"],
+    cgo = True,
+    importpath = "github.com/sunb26/xat/rust_in_go",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "rust_in_go",
+    embed = [":rust_in_go_lib"],
+    visibility = ["//visibility:public"],
+)

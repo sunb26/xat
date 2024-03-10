@@ -1,5 +1,5 @@
 {
-  "checksum": "018b5169c90acb6ceb4e33a7c096899a430134baf563237ff59fbffd9fc9e6cf",
+  "checksum": "5ef2d524f4e730694ab71585aed81a04379955bd47f6fbde20c9632fe3a5f941",
   "crates": {
     "addr2line 0.21.0": {
       "name": "addr2line",
@@ -380,6 +380,14 @@
             {
               "id": "eyre 0.6.12",
               "target": "eyre"
+            },
+            {
+              "id": "libc 0.2.153",
+              "target": "libc"
+            },
+            {
+              "id": "tap 1.0.1",
+              "target": "tap"
             }
           ],
           "selects": {}
@@ -595,6 +603,13 @@
         "compile_data_glob": [
           "**"
         ],
+        "crate_features": {
+          "common": [
+            "default",
+            "std"
+          ],
+          "selects": {}
+        },
         "deps": {
           "common": [
             {
@@ -899,6 +914,36 @@
         },
         "edition": "2018",
         "version": "0.1.7"
+      },
+      "license": "MIT"
+    },
+    "tap 1.0.1": {
+      "name": "tap",
+      "version": "1.0.1",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/tap/1.0.1/download",
+          "sha256": "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "tap",
+            "crate_root": "src/lib.rs",
+            "srcs": [
+              "**/*.rs"
+            ]
+          }
+        }
+      ],
+      "library_target_name": "tap",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "edition": "2015",
+        "version": "1.0.1"
       },
       "license": "MIT"
     },
@@ -1354,7 +1399,9 @@
   },
   "direct_deps": [
     "color-eyre 0.6.2",
-    "eyre 0.6.12"
+    "eyre 0.6.12",
+    "libc 0.2.153",
+    "tap 1.0.1"
   ],
   "direct_dev_deps": []
 }
