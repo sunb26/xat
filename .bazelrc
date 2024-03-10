@@ -34,9 +34,7 @@ build:deploy --extra_toolchains=@llvm_toolchain_with_sysroot//:cc-toolchain-x86_
 # https://github.com/grailbio/bazel-toolchain/pull/229.
 build:deploy --features=-libtool
 build:deploy --features=fully_static_link
-build:deploy --platforms=@rules_go//go/toolchain:linux_amd64,@toolchains_llvm//platforms:linux-x86_64
-build:deploy --@rules_go//go/config:pure=false
-build:deploy --@rules_go//go/config:static=true
+build:deploy --platforms=@toolchains_llvm//platforms:linux-x86_64
 
 test --build_tests_only
 test --incompatible_exclusive_test_sandboxed
