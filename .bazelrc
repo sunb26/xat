@@ -1,4 +1,20 @@
+common --keep_going
+
+clean --async
+
+build --noexperimental_check_external_repository_files
+build --noexperimental_check_output_files
+# https://github.com/aspect-build/rules_js/issues/409
+# build --nosandbox_default_allow_network
+build --incompatible_default_to_explicit_init_py
+# https://github.com/aspect-build/rules_js/issues/1408
+build --noincompatible_disallow_unsound_directory_outputs
 build --disk_cache=~/.cache/bazel
+build --nolegacy_external_runfiles
+build --nolegacy_important_outputs
+build --jobs=64
+build --incompatible_strict_action_env
+build --experimental_writable_outputs
 
 build:deploy --compilation_mode=opt
 build:deploy --extra_toolchains=@llvm_toolchain_with_sysroot//:cc-toolchain-x86_64-linux
@@ -6,3 +22,9 @@ build:deploy --extra_toolchains=@llvm_toolchain_with_sysroot//:cc-toolchain-x86_
 build:deploy --features=-libtool
 build:deploy --features=fully_static_link
 build:deploy --platforms=@rules_go//go/toolchain:linux_amd64
+
+test --build_tests_only
+test --incompatible_exclusive_test_sandboxed
+test --test_verbose_timeout_warnings
+
+try-import %workspace%/.bazelrc.user
