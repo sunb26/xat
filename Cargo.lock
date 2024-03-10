@@ -77,6 +77,8 @@ version = "0.0.1"
 dependencies = [
  "color-eyre",
  "eyre",
+ "libc",
+ "tap",
 ]
 
 [[package]]
@@ -169,6 +171,12 @@ checksum = "f40ca3c46823713e0d4209592e8d6e826aa57e928f09752619fc696c499637f6"
 dependencies = [
  "lazy_static",
 ]
+
+[[package]]
+name = "tap"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 
 [[package]]
 name = "thread_local"

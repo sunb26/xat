@@ -5,7 +5,7 @@ js_library(
     srcs = ["utils.ts"],
     visibility = ["//web:__pkg__"],
     deps = [
-      "//web:node_modules/clsx",
-      "//web:node_modules/tailwind-merge",
+        "//web:node_modules/clsx",
+        "//web:node_modules/tailwind-merge",
     ],
 )

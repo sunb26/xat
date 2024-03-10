@@ -55,6 +55,8 @@ crates_repository(
   packages = {
     "color-eyre": crate.spec(version = "0.6.2"),
     "eyre": crate.spec(version = "0.6.12"),
+    "libc": crate.spec(version = "0.2.153"),
+    "tap": crate.spec(version = "1.0.1"),
   },
 )
 load("@crates//:defs.bzl", "crate_repositories")

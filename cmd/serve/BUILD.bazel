@@ -3,6 +3,7 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
+# gazelle:ignore
 go_library(
     name = "serve_lib",
     srcs = ["main.go"],
@@ -23,19 +24,22 @@ go_binary(
     visibility = ["//visibility:public"],
 )
 
-pkg_tar(name = "tar", srcs = [":serve"])
+pkg_tar(
+    name = "tar",
+    srcs = [":serve"],
+)
 
 oci_image(
     name = "image",
-    os = "linux",
     architecture = "amd64",
-    tars = [":tar"],
     entrypoint = ["/serve"],
+    os = "linux",
+    tars = [":tar"],
 )
 
 oci_push(
     name = "push",
     image = ":image",
-    repository = "registry.fly.io/xat-serve",
     remote_tags = ["latest"],
+    repository = "registry.fly.io/xat-serve",
 )
