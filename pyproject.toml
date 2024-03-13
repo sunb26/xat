@@ -1,0 +1,4 @@
+[project]
+name = "xat"
+version = "0"
+dependencies = ["paddleocr==2.7.0.3"]

@@ -1,9 +1,17 @@
+load("@aspect_rules_py//py:defs.bzl", "py_binary")
 load("@gazelle//:def.bzl", "gazelle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_go//go:def.bzl", "TOOLS_NOGO", "go_binary", "go_library", "nogo")
+load("@rules_python//python/pip_install:requirements.bzl", "compile_pip_requirements")
+load("@pip//:requirements.bzl", "requirement")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
 npm_link_all_packages(name = "node_modules")
+
+compile_pip_requirements(
+    name = "requirements",
+    generate_hashes = False,
+)
 
 nogo(
     name = "nogo",
@@ -32,7 +40,13 @@ go_binary(
 rust_binary(
     name = "xat_rust",
     srcs = ["main.rs"],
-    deps = ["@crates//:eyre"],
+)
+
+py_binary(
+    name = "xat_py",
+    main = "main.py",
+    srcs = ["main.py"],
+    deps = [requirement("paddleocr")],
 )
 
 exports_files([".rustfmt.toml"])
