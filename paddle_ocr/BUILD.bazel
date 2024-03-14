@@ -1,0 +1,12 @@
+load("@aspect_rules_py//py:defs.bzl", "py_binary")
+load("@pip//:requirements.bzl", "requirement")
+
+py_binary(
+    name = "paddle_ocr",
+    main = "main.py",
+    srcs = ["main.py"],
+    deps = [
+        requirement("absl-py"),
+        requirement("paddleocr"),
+    ],
+)
