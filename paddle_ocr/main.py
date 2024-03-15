@@ -1,3 +1,4 @@
+import os
 from typing import Annotated, Any
 
 import paddle
@@ -35,7 +36,13 @@ class Model(pykka.ThreadingActor):
         super().__init__()
         self._mock = mock
         paddle.utils.run_check()
-        self._ocr = PaddleOCR(use_angle_cls=True, lang="en")
+        self._ocr = PaddleOCR(
+            use_angle_cls=True,
+            lang="en",
+            det_model_dir=os.environ["PADDLE_MODEL"],
+            rec_model_dir=os.environ["PADDLE_MODEL"],
+            cls_model_dir=os.environ["PADDLE_MODEL"],
+        )
 
     def infer(self, uri_or_content: str | bytes) -> list[list[Any]]:
         if self._mock:

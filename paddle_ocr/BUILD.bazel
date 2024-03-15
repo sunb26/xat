@@ -5,7 +5,9 @@ load("@rules_python//python/pip_install:repositories.bzl", install_requirement =
 py_binary(
     name = "paddle_ocr",
     main = "main.py",
+    env = {"PADDLE_MODEL": "$(execpath //paddle_ocr/data:model)"},
     srcs = ["main.py"],
+    data = ["//paddle_ocr/data:model"],
     deps = [
         requirement("absl-py"),
         requirement("fastapi"),
