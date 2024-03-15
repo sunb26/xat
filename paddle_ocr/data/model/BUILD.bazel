@@ -1,0 +1,5 @@
+filegroup(
+  name = "model",
+  srcs = glob(["*/**"]),
+  visibility = ["//paddle_ocr/data:__pkg__"],
+)

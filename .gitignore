@@ -8,7 +8,7 @@ build
 coverage
 data
 !/paddle_ocr/data/BUILD.bazel
-!/paddle_ocr/data/model/dummy
+!/paddle_ocr/data/model/BUILD.bazel
 node_modules
 out
 
