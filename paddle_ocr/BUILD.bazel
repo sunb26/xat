@@ -8,8 +8,12 @@ py_binary(
     srcs = ["main.py"],
     deps = [
         requirement("absl-py"),
+        requirement("fastapi"),
         requirement("paddleocr"),
         requirement("paddlepaddle"),
+        requirement("pykka"),
+        requirement("python-multipart"),
         install_requirement("setuptools"),
+        requirement("uvicorn"),
     ],
 )
