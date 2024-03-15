@@ -8,7 +8,7 @@ bazel_dep(name = "rules_nodejs", version = "6.0.5")
 bazel_dep(name = "rules_oci", version = "1.7.4")
 bazel_dep(name = "rules_pkg", version = "0.10.1")
 bazel_dep(name = "rules_python", version = "0.31.0")
-bazel_dep(name = "toolchains_llvm", version = "0.10.3")
+bazel_dep(name = "toolchains_llvm", version = "1.0.0")
 
 LLVM_VERSION = "16.0.4"
 GO_VERSION = "1.22.1"
