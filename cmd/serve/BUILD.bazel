@@ -35,7 +35,10 @@ oci_image(
     architecture = "amd64",
     entrypoint = ["/serve"],
     os = "linux",
-    tars = [":tar"],
+    tars = [
+        "//paddle_ocr:tar",
+        ":tar",
+    ],
 )
 
 oci_push(

@@ -1,3 +1,4 @@
+load("@aspect_bazel_lib//lib:tar.bzl", "mtree_spec", "tar")
 load("@aspect_rules_py//py:defs.bzl", "py_binary")
 load("@pip//:requirements.bzl", "requirement")
 load("@rules_python//python/pip_install:repositories.bzl", install_requirement = "requirement")
@@ -18,4 +19,16 @@ py_binary(
         install_requirement("setuptools"),
         requirement("uvicorn"),
     ],
+)
+
+mtree_spec(
+    name = "mtree",
+    srcs = [":paddle_ocr"],
+)
+
+tar(
+    name = "tar",
+    srcs = [":paddle_ocr"],
+    mtree = ":mtree",
+    visibility = ["//cmd/serve:__pkg__"],
 )
