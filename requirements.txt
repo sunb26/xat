@@ -55,7 +55,7 @@ flask==3.0.2
     #   visualdl
 flask-babel==4.0.0
     # via visualdl
-fonttools==4.49.0
+fonttools==4.50.0
     # via
     #   matplotlib
     #   paddleocr
