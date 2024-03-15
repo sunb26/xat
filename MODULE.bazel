@@ -12,7 +12,7 @@ bazel_dep(name = "toolchains_llvm", version = "0.10.3")
 
 LLVM_VERSION = "16.0.4"
 GO_VERSION = "1.22.1"
-PYTHON_VERSION = "3.11"
+PYTHON_VERSION = "3.11.7"
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(

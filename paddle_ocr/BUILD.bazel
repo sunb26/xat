@@ -1,0 +1,15 @@
+load("@aspect_rules_py//py:defs.bzl", "py_binary")
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python/pip_install:repositories.bzl", install_requirement = "requirement")
+
+py_binary(
+    name = "paddle_ocr",
+    main = "main.py",
+    srcs = ["main.py"],
+    deps = [
+        requirement("absl-py"),
+        requirement("paddleocr"),
+        requirement("paddlepaddle"),
+        install_requirement("setuptools"),
+    ],
+)

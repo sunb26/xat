@@ -1,4 +1,4 @@
 [project]
 name = "xat"
 version = "0"
-dependencies = ["paddleocr==2.7.0.3"]
+dependencies = ["absl-py==2.1.0", "paddleocr==2.7.0.3", "paddlepaddle==2.6.0"]
