@@ -1,0 +1,8 @@
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
+
+copy_to_directory(
+    name = "model",
+    srcs = glob(["model/**"]),
+    root_paths = ["model"],
+    visibility = ["//paddle_ocr:__pkg__"],
+)

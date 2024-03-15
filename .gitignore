@@ -6,8 +6,8 @@
 .env*.local
 build
 coverage
-!/paddle_ocr/data/BUILD.bazel
 data
+!/paddle_ocr/data/BUILD.bazel
 node_modules
 out
 
