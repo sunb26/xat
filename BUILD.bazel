@@ -67,6 +67,7 @@ copy_file(
     src = ":hivemind_extract",
     out = "hivemind",
     is_executable = True,
+    visibility = ["//cmd/serve:__pkg__"],
 )
 
 pkg_tar(
@@ -171,7 +172,10 @@ config_setting(
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-    visibility = ["//paddle_ocr:__pkg__"],
+    visibility = [
+        "//cmd/serve:__pkg__",
+        "//paddle_ocr:__pkg__",
+    ],
 )
 
 config_setting(
@@ -180,7 +184,10 @@ config_setting(
         "@platforms//os:macos",
         "@platforms//cpu:arm64",
     ],
-    visibility = ["//paddle_ocr:__pkg__"],
+    visibility = [
+        "//cmd/serve:__pkg__",
+        "//paddle_ocr:__pkg__",
+    ],
 )
 
 # gazelle:prefix github.com/sunb26/xat

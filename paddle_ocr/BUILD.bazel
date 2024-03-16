@@ -34,6 +34,7 @@ py_binary(
         ],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
+    visibility = ["//cmd/serve:__pkg__"],
 )
 
 copy_to_directory(

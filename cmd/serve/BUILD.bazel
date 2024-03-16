@@ -25,6 +25,30 @@ go_binary(
     visibility = ["//visibility:public"],
 )
 
+sh_binary(
+    name = "server",
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+    srcs = ["server.sh"],
+    args = select({
+        "//:linux_x86_64": [],
+        "//:macos_arm64": [
+            # https://github.com/PaddlePaddle/PaddleOCR/issues/11588
+            "--mock",
+        ],
+        "//conditions:default": ["@platforms//:incompatible"],
+    }),
+    data = [
+        "//:hivemind",
+        "//paddle_ocr",
+        ":serve",
+    ],
+    env = {
+        "HIVEMIND": "$(rootpath //:hivemind)",
+        "PADDLE_OCR": "$(rootpath //paddle_ocr)",
+        "SERVE": "$(rootpath :serve)",
+    },
+)
+
 pkg_tar(name = "tar", srcs = [":serve"])
 pkg_tar(name = "procfile_tar", srcs = ["Procfile"])
 

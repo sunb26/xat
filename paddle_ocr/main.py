@@ -52,8 +52,8 @@ class Model(pykka.ThreadingActor):
 
 
 def main(argv: list[str]) -> None:
-    if len(argv) > 1:
-        raise ValueError("too many arguments")
+    print(argv)
+    print([f"{key}={flag.value}" for key, flag in flags.FLAGS.__flags.items()])
     model = Model.start(mock=_MOCK.value).proxy()
     api = FastAPI()
 
