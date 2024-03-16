@@ -77,7 +77,7 @@ run_binary(
         "pymupdf",
     ],
     srcs = ["requirements.txt"],
-    outs = ["requirements.patched.txt"],
+    outs = ["requirements_patched_out"],
 )
 
 write_source_file(
