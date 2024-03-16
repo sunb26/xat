@@ -40,6 +40,9 @@ build:deploy --features=fully_static_link
 build:deploy --platforms=@toolchains_llvm//platforms:linux-x86_64
 build:deploy --strip=always
 
+# https://github.com/aspect-build/rules_js/issues/1408
+startup --host_jvm_args=-DBAZEL_TRACK_SOURCE_DIRECTORIES=1
+
 test --build_tests_only
 test --incompatible_exclusive_test_sandboxed
 test --test_verbose_timeout_warnings

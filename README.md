@@ -54,6 +54,7 @@ fly deploy --config cmd/serve/fly.toml
 ## python
 
 ### dependencies
+
 1. declare dependencies in `requirements.in`
 2. compile lockfile `requirements.txt` with `bazel run //:requirements.update`
 3. patch lockfile `requirements.patched.txt` with `bazel run//:requirements.patch`
