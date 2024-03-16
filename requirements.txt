@@ -6,8 +6,12 @@
 #
 absl-py==2.1.0
     # via xat (pyproject.toml)
+annotated-types==0.6.0
+    # via pydantic
 anyio==4.3.0
-    # via httpx
+    # via
+    #   httpx
+    #   starlette
 astor==0.8.1
     # via paddlepaddle
 attrdict==2.0.1
@@ -30,7 +34,9 @@ certifi==2024.2.2
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
-    # via flask
+    # via
+    #   flask
+    #   uvicorn
 contourpy==1.2.0
     # via matplotlib
 cssselect==1.2.0
@@ -45,6 +51,8 @@ decorator==5.1.1
     # via paddlepaddle
 et-xmlfile==1.1.0
     # via openpyxl
+fastapi==0.110.0
+    # via xat (pyproject.toml)
 fire==0.6.0
     # via
     #   paddleocr
@@ -63,7 +71,9 @@ fonttools==4.50.0
 future==1.0.0
     # via bce-python-sdk
 h11==0.14.0
-    # via httpcore
+    # via
+    #   httpcore
+    #   uvicorn
 httpcore==1.0.4
     # via httpx
 httpx==0.27.0
@@ -171,6 +181,12 @@ pyclipper==1.3.0.post5
     # via paddleocr
 pycryptodome==3.20.0
     # via bce-python-sdk
+pydantic==2.6.4
+    # via fastapi
+pydantic-core==2.16.3
+    # via pydantic
+pykka==4.0.2
+    # via xat (pyproject.toml)
 # HACK: manually pin pymupdf to 1.21.0
 # 1.21.0 is the earliest version offering a wheel for macos arm64
 # a wheel is a pre-built binary distribution which avoids building from source
@@ -190,6 +206,8 @@ python-docx==1.1.0
     # via
     #   paddleocr
     #   pdf2docx
+python-multipart==0.0.9
+    # via xat (pyproject.toml)
 pytz==2024.1
     # via
     #   flask-babel
@@ -230,6 +248,8 @@ sniffio==1.3.1
     #   httpx
 soupsieve==2.5
     # via beautifulsoup4
+starlette==0.36.3
+    # via fastapi
 termcolor==2.4.0
     # via fire
 tifffile==2024.2.12
@@ -237,11 +257,17 @@ tifffile==2024.2.12
 tqdm==4.66.2
     # via paddleocr
 typing-extensions==4.10.0
-    # via python-docx
+    # via
+    #   fastapi
+    #   pydantic
+    #   pydantic-core
+    #   python-docx
 tzdata==2024.1
     # via pandas
 urllib3==2.2.1
     # via requests
+uvicorn==0.28.0
+    # via xat (pyproject.toml)
 visualdl==2.5.3
     # via paddleocr
 werkzeug==3.0.1
