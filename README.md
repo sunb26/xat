@@ -37,6 +37,12 @@ aspect run //cmd/serve:push --config=deploy
 fly deploy --config cmd/serve/fly.toml
 ```
 
+## go
+
+- avoid using your local go toolchain as it may lead to incompatibility
+- use the builtin toolchain instead `aspect run @rules_go//go` as a replacement for `go`
+- see [guide](https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md) for adding dependencies and managing `go.mod`
+
 ## rust
 
 - enable rust-analyzer LSP support by generating `rust-project.json`
