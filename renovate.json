@@ -3,5 +3,6 @@
   "extends": ["config:recommended"],
   "autoApprove": true,
   "automerge": true,
-  "platformAutomerge": true
+  "platformAutomerge": true,
+  "ignorePaths": ["**/requirements.txt"]
 }
