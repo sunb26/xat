@@ -176,7 +176,7 @@ pycryptodome==3.20.0
 # a wheel is a pre-built binary distribution which avoids building from source
 # build-from-source fails due to pymupdf's setup.py requiring non-hermetic dependencies like swig
 # pymupdf==1.20.2
-pymupdf==1.21.0
+pymupdf==1.23.26
     # via
     #   paddleocr
     #   pdf2docx
