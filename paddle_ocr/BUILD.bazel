@@ -9,7 +9,7 @@ py_binary(
     name = "paddle_ocr",
     srcs = ["main.py"],
     data = [":data"],
-    env = {"PADDLE_MODEL": "$$RUNFILES_DIR/$$BAZEL_WORKSPACE/$(rootpath :data)/model"},
+    env = {"PADDLE_MODEL": "$$RUNFILES_DIR/$(rlocationpath :data)/model"},
     main = "main.py",
     deps = [
         requirement_builtin("setuptools"),

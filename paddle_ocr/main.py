@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from typing import Annotated, Any
 
-import paddle
 import pykka
 import uvicorn
 from absl import app, flags
@@ -36,7 +35,6 @@ class Model(pykka.ThreadingActor):
     def __init__(self, mock: bool) -> None:
         super().__init__()
         self._mock = mock
-        paddle.utils.run_check()
         paddle_model = Path(os.environ["PADDLE_MODEL"])
         self._ocr = PaddleOCR(
             use_angle_cls=True,
