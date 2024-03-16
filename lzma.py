@@ -1,8 +1,6 @@
 import lzma
 
-from absl import app
-from absl import flags
-
+from absl import app, flags
 
 _INPUT = flags.DEFINE_string("input", None, "Path to input .gz file.")
 _OUTPUT = flags.DEFINE_string("output", None, "Path to output decompressed file.")

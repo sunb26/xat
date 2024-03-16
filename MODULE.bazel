@@ -167,7 +167,7 @@ pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
   hub_name = "pip_linux_x86_64",
   python_version = PYTHON_VERSION,
-  requirements_lock = "//:requirements.txt",
+  requirements_lock = "//:requirements.patched.txt",
   download_only = True,
   extra_pip_args = [
     "--platform",
@@ -188,7 +188,7 @@ use_repo(pip, "pip_linux_x86_64")
 pip.parse(
   hub_name = "pip_macos_arm64",
   python_version = PYTHON_VERSION,
-  requirements_lock = "//:requirements.txt",
+  requirements_lock = "//:requirements.patched.txt",
   download_only = True,
   extra_pip_args = ["--platform", "macosx_14_4_arm64"],
 )

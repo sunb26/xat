@@ -50,3 +50,10 @@ fly deploy --config cmd/serve/fly.toml
   bazel run @rules_rust//tools/rust_analyzer:gen_rust_project
   ```
 - run hello world binary `bazel run //:xat_rust`
+
+## python
+
+### dependencies
+1. declare dependencies in `requirements.in`
+2. compile lockfile `requirements.txt` with `bazel run //:requirements.update`
+3. patch lockfile `requirements.patched.txt` with `bazel run//:requirements.patch`

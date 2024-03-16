@@ -26,9 +26,9 @@ go_binary(
 )
 
 sh_binary(
-    name = "server",
+    name = "local",
     deps = ["@bazel_tools//tools/bash/runfiles"],
-    srcs = ["server.sh"],
+    srcs = ["local.sh"],
     args = select({
         "//:linux_x86_64": [],
         "//:macos_arm64": [

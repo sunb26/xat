@@ -1,5 +1,6 @@
 load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
 load("@aspect_rules_py//py:defs.bzl", "py_binary")
 load("@gazelle//:def.bzl", "gazelle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
@@ -33,6 +34,15 @@ alias(
     }),
 )
 
+alias(
+    name = "pip_requirements_parser",
+    actual = select({
+        ":linux_x86_64": requirement_linux_x86_64("pip-requirements-parser"),
+        ":macos_arm64": requirement_macos_arm64("pip-requirements-parser"),
+        "//conditions:default": "@platforms//:incompatible",
+    }),
+)
+
 py_binary(
     name = "gunzip",
     srcs = ["gunzip.py"],
@@ -43,6 +53,37 @@ py_binary(
     name = "lzma",
     srcs = ["lzma.py"],
     deps = [":absl_py"],
+)
+
+py_binary(
+    name = "requirements_patcher",
+    srcs = ["requirements.py"],
+    deps = [":absl_py", ":pip_requirements_parser"],
+)
+
+run_binary(
+    name = "requirements_patched",
+    tool = ":requirements_patcher",
+    args = [
+        "--input",
+        "$(execpath requirements.txt)",
+        "--output",
+        "$@",
+        "--exclude",
+        "fire",
+        "--exclude",
+        "pdf2docx",
+        "--exclude",
+        "pymupdf",
+    ],
+    srcs = ["requirements.txt"],
+    outs = ["requirements.patched.txt"],
+)
+
+write_source_file(
+    name = "requirements.patch",
+    in_file = ":requirements_patched",
+    out_file = "requirements.patched.txt",
 )
 
 alias(
@@ -59,12 +100,12 @@ run_binary(
     tool = ":gunzip",
     args = ["--input", "$(execpath :hivemind_x86_64)", "--output", "$@"],
     srcs = [":hivemind_x86_64"],
-    outs = ["hivemind_extract"],
+    outs = ["hivemind_extract_out"],
 )
 
 copy_file(
-    name = "hivemind",
-    src = ":hivemind_extract",
+    name = "hivemind_bin",
+    src = ":hivemind_extract_out",
     out = "hivemind",
     is_executable = True,
     visibility = ["//cmd/serve:__pkg__"],
@@ -72,7 +113,7 @@ copy_file(
 
 pkg_tar(
     name = "hivemind_tar",
-    srcs = [":hivemind"],
+    srcs = [":hivemind_bin"],
     visibility = ["//cmd/serve:__pkg__"],
 )
 
