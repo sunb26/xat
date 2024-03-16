@@ -127,7 +127,7 @@ numpy==1.26.4
     #   visualdl
 opencv-contrib-python==4.9.0.80
     # via paddleocr
-opencv-python==4.6.0.66
+opencv-python==4.9.0.80
     # via
     #   imgaug
     #   paddleocr
