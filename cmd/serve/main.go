@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -16,5 +17,6 @@ func main() {
 		log.Fatal(err)
 	}
 	http.Handle("/", http.FileServerFS(content))
+	fmt.Println("Listening on 127.0.0.1:3000")
 	log.Fatal(http.ListenAndServe(":3000", nil))
 }

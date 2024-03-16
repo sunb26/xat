@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push", "oci_tarball")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 # gazelle:ignore
@@ -25,20 +25,36 @@ go_binary(
     visibility = ["//visibility:public"],
 )
 
-pkg_tar(
-    name = "tar",
-    srcs = [":serve"],
-)
+pkg_tar(name = "tar", srcs = [":serve"])
+pkg_tar(name = "procfile_tar", srcs = ["Procfile"])
 
 oci_image(
     name = "image",
-    architecture = "amd64",
-    entrypoint = ["/serve"],
-    os = "linux",
+    base = "@debian",
+    entrypoint = ["/hivemind", "/Procfile"],
     tars = [
+        "//:hivemind_tar",
+        "//:libgomp_tar",
+        "//:libgl_tar",
+        "//:libglib_tar",
+        "//:libglvnd_tar",
+        "//:libglx_tar",
+        "//:libx11_tar",
+        "//:libxcb_tar",
+        "//:libxau_tar",
+        "//:libxdmcp_tar",
+        "//:libbsd_tar",
         "//paddle_ocr:tar",
         ":tar",
+        ":procfile_tar",
     ],
+    user = "root",
+)
+
+oci_tarball(
+    name = "tarball",
+    image = ":image",
+    repo_tags = ["registry.fly.io/xat-serve:latest"],
 )
 
 oci_push(

@@ -1,0 +1,30 @@
+diff --git a/METADATA b/METADATA
+--- a/paddleocr-2.7.0.3.dist-info/METADATA
++++ b/paddleocr-2.7.0.3.dist-info/METADATA
+@@ -35,14 +35,10 @@ Requires-Dist: lxml
+ Requires-Dist: premailer
+ Requires-Dist: openpyxl
+ Requires-Dist: attrdict
+-Requires-Dist: PyMuPDF (<1.21.0)
+ Requires-Dist: Pillow (>=10.0.0)
+ Requires-Dist: pyyaml
+-Requires-Dist: python-docx
+ Requires-Dist: beautifulsoup4
+ Requires-Dist: fonttools (>=4.24.0)
+-Requires-Dist: fire (>=0.3.0)
+-Requires-Dist: pdf2docx
+
+ # Paddleocr Package
+
+diff --git a/RECORD b/RECORD
+--- a/paddleocr-2.7.0.3.dist-info/RECORD
++++ b/paddleocr-2.7.0.3.dist-info/RECORD
+@@ -206,7 +206,7 @@ paddleocr/tools/infer/predict_sr.py,sha256=tFtsHgFpPTkId2RcFcASKNWywuODEV9TnOB9n
+ paddleocr/tools/infer/predict_system.py,sha256=74eO3cVo1weoOmFyxYoB8uIIGWeIZwSap6Y3WAUqhAA,10063
+ paddleocr/tools/infer/utility.py,sha256=ZWD3znN0OYWZ4OdWR_Y7uLMjv6hGvoh0jsAvWNbYmoY,25064
+ paddleocr-2.7.0.3.dist-info/LICENSE,sha256=_2MRxWwbIskgnJbMivwW2pHCTuVaFeFOvEb-GWDb2FY,11438
+-paddleocr-2.7.0.3.dist-info/METADATA,sha256=LrVyTjH0MnEQZnUp3PG3ZopMzL97jzP76eyxMhBozbM,26936
++paddleocr-2.7.0.3.dist-info/METADATA,sha256=mT20R_AwpnHUI0Jf3hSqgOHZJlOG73Hlbp8Tuatryy8,26822
+ paddleocr-2.7.0.3.dist-info/WHEEL,sha256=OqRkF0eY5GHssMorFjlbTIq072vpHpF60fIQA6lS9xA,92
+ paddleocr-2.7.0.3.dist-info/entry_points.txt,sha256=cjDUNJpavwqh6WODokn76iGDz6KwV_EnU12jMCipH3o,56
+ paddleocr-2.7.0.3.dist-info/top_level.txt,sha256=9iaw3B53tyEpdWJBsg8hBNdQv3SCgLx3CAHrOaIzbBM,10
