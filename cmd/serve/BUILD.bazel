@@ -38,26 +38,25 @@ sh_binary(
         "//conditions:default": ["@platforms//:incompatible"],
     }),
     data = [
-        "//:hivemind",
+        "//:pm2_cli",
         "//paddle_ocr",
         ":serve",
     ],
     env = {
-        "HIVEMIND": "$(rootpath //:hivemind)",
         "PADDLE_OCR": "$(rootpath //paddle_ocr)",
+        "PM2": "$(rootpath //:pm2_cli)",
         "SERVE": "$(rootpath :serve)",
     },
 )
 
 pkg_tar(name = "tar", srcs = [":serve"])
-pkg_tar(name = "procfile_tar", srcs = ["Procfile"])
 
 oci_image(
     name = "image",
     base = "@debian",
-    entrypoint = ["/hivemind", "/Procfile"],
+    # NOTE: delegate process handling to fly.io runtime
+    # https://fly.io/docs/app-guides/multiple-processes/#process-groups
     tars = [
-        "//:hivemind_tar",
         "//:libgomp_tar",
         "//:libgl_tar",
         "//:libglib_tar",
@@ -70,7 +69,6 @@ oci_image(
         "//:libbsd_tar",
         "//paddle_ocr:tar",
         ":tar",
-        ":procfile_tar",
     ],
     user = "root",
 )

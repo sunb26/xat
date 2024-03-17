@@ -15,7 +15,14 @@ source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null ||
 f=
 set -e
 # --- end runfiles.bash initialization v3 ---
-cat <<EOF | $HIVEMIND -
-serve: $SERVE
-paddle_ocr: $PADDLE_OCR "${@:-}"
-EOF
+export PM2_HOME=$TMPDIR/.pm2
+cleanup() {
+	$PM2 stop all
+	$PM2 flush
+	$PM2 delete all
+	$PM2 kill
+}
+trap cleanup EXIT
+$PM2 start --force $SERVE
+$PM2 start --force --interpreter bash $PADDLE_OCR -- "${@:-}"
+$PM2 logs

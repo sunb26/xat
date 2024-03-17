@@ -4,6 +4,7 @@ load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
 load("@aspect_rules_py//py:defs.bzl", "py_binary")
 load("@gazelle//:def.bzl", "gazelle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//:pm2/package_json.bzl", pm2_bin = "bin")
 load("@pip_macos_arm64//:requirements.bzl", requirement_macos_arm64 = "requirement")
 load("@pip_linux_x86_64//:requirements.bzl", requirement_linux_x86_64 = "requirement")
 load("@rules_go//go:def.bzl", "TOOLS_NOGO", "go_binary", "go_library", "nogo")
@@ -12,6 +13,8 @@ load("@rules_python//python/pip_install:requirements.bzl", "compile_pip_requirem
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
 npm_link_all_packages(name = "node_modules")
+
+pm2_bin.pm2_binary(name = "pm2_cli", visibility = ["//cmd/serve:__pkg__"])
 
 compile_pip_requirements(
     name = "requirements",
@@ -41,12 +44,6 @@ alias(
         ":macos_arm64": requirement_macos_arm64("pip-requirements-parser"),
         "//conditions:default": "@platforms//:incompatible",
     }),
-)
-
-py_binary(
-    name = "gunzip",
-    srcs = ["gunzip.py"],
-    deps = [":absl_py"],
 )
 
 py_binary(
@@ -84,37 +81,6 @@ write_source_file(
     name = "requirements.patch",
     in_file = ":requirements_patched",
     out_file = "requirements.patched.txt",
-)
-
-alias(
-    name = "hivemind_x86_64",
-    actual = select({
-        ":linux_x86_64": "@hivemind_linux_x86_64//file",
-        ":macos_arm64": "@hivemind_macos_arm64//file",
-        "//conditions:default": "@platforms//:incompatible",
-    }),
-)
-
-run_binary(
-    name = "hivemind_extract",
-    tool = ":gunzip",
-    args = ["--input", "$(execpath :hivemind_x86_64)", "--output", "$@"],
-    srcs = [":hivemind_x86_64"],
-    outs = ["hivemind_extract_out"],
-)
-
-copy_file(
-    name = "hivemind_bin",
-    src = ":hivemind_extract_out",
-    out = "hivemind",
-    is_executable = True,
-    visibility = ["//cmd/serve:__pkg__"],
-)
-
-pkg_tar(
-    name = "hivemind_tar",
-    srcs = [":hivemind_bin"],
-    visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(

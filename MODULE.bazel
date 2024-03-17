@@ -102,20 +102,6 @@ oci.pull(
 )
 use_repo(oci, "debian")
 
-http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
-http_file(
-  name = "hivemind_macos_arm64",
-  executable = True,
-  integrity = "sha256-//Eeez5dWWoIZue59lQNxAy5ABJf5FroVRc0gd5jkMM=",
-  urls = ["https://github.com/DarthSim/hivemind/releases/download/v1.1.0/hivemind-v1.1.0-macos-amd64.gz"],
-)
-http_file(
-  name = "hivemind_linux_x86_64",
-  executable = True,
-  integrity = "sha256-gJyhxf7bv8qP37OkubucQYaLBG81+Fo+iTzPJYOjkho=",
-  urls = ["https://github.com/DarthSim/hivemind/releases/download/v1.1.0/hivemind-v1.1.0-linux-amd64.gz"],
-)
-
 llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
 llvm.toolchain(llvm_version = LLVM_VERSION)
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
