@@ -4,5 +4,5 @@
   "autoApprove": true,
   "automerge": true,
   "platformAutomerge": true,
-  "ignorePaths": ["**/requirements.txt"]
+  "ignorePaths": ["requirements.txt"]
 }
