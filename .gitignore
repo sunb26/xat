@@ -7,6 +7,7 @@
 build
 coverage
 data
+!/paddle_ocr/data/dummy
 node_modules
 out
 

@@ -3,6 +3,7 @@ bazel_dep(name = "aspect_rules_js", version = "1.38.0")
 bazel_dep(name = "aspect_rules_py", version = "0.7.1")
 bazel_dep(name = "bazel_skylib", version = "1.5.0")
 bazel_dep(name = "gazelle", version = "0.35.0")
+bazel_dep(name = "platforms", version = "0.0.8")
 bazel_dep(name = "rules_go", version = "0.46.0")
 bazel_dep(name = "rules_nodejs", version = "6.0.5")
 bazel_dep(name = "rules_oci", version = "1.7.4")
@@ -16,10 +17,103 @@ PYTHON_VERSION = "3.11.7"
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
-  name = "org_chromium_sysroot_linux_x64",
+  name = "org_chromium_sysroot_linux_x86_64",
   integrity = "sha256-G+YOfEVqvFkKYTxk+rTqx2MsgexvInNKYbU2aaRAc0Y=",
   urls = ["https://commondatastorage.googleapis.com/chrome-linux-sysroot/toolchain/2028cdaf24259d23adcff95393b8cc4f0eef714b/debian_bullseye_amd64_sysroot.tar.xz"],
   build_file_content = """filegroup(name = "sysroot", srcs = glob(["*/**"]), visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libgomp_x86_64",
+  sha256 = "1dbc499d2055cb128fa4ed678a7adbcced3d882b3509e26d5aa3742a4b9e5b2f",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/g/gcc-12/libgomp1_12.2.0-14_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libgl_x86_64",
+  sha256 = "6f89b1702c48e9a2437bb3c1ffac8e1ab2d828fc28b3d14b2eecd4cc19b2c790",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libgl1_1.6.0-1_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libglib_x86_64",
+  sha256 = "7e90ba4670377ae29f1a718798b4d5e088ac97d2dfa20a13b4b2ea357b61ec29",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/g/glib2.0/libglib2.0-0_2.74.6-2_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libglvnd_x86_64",
+  sha256 = "b6da5b153dd62d8b5e5fbe25242db1fc05c068707c365db49abda8c2427c75f8",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libglvnd0_1.6.0-1_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libglx_x86_64",
+  sha256 = "95f568df73dedf43ae66834a75502112e0d4f3ad7124f3dbfa790b739383b896",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libglx0_1.6.0-1_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libx11_x86_64",
+  sha256 = "d88c973e79fd9b65838d77624142952757e47a6eb1a58602acf0911cf35989f4",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libx11/libx11-6_1.8.4-2+deb12u2_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libxcb_x86_64",
+  sha256 = "fdc61332a3892168f3cc9cfa1fe9cf11a91dc3e0acacbc47cbc50ebaa234cc71",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxcb/libxcb1_1.15-1_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libxau_x86_64",
+  sha256 = "679db1c4579ec7c61079adeaae8528adeb2e4bf5465baa6c56233b995d714750",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxau/libxau6_1.0.9-1_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libxdmcp_x86_64",
+  sha256 = "ecb8536f5fb34543b55bb9dc5f5b14c9dbb4150a7bddb3f2287b7cab6e9d25ef",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxdmcp/libxdmcp6_1.1.2-3_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "libbsd_x86_64",
+  sha256 = "bb31cc8b40f962a85b2cec970f7f79cc704a1ae4bad24257a822055404b2c60b",
+  urls = ["http://ftp.us.debian.org/debian/pool/main/libb/libbsd/libbsd0_0.11.7-2_amd64.deb"],
+  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+)
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+  name = "debian",
+  # bookworm-slim
+  digest = "sha256:ccb33c3ac5b02588fc1d9e4fc09b952e433d0c54d8618d0ee1afadf1f3cf2455",
+  image = "docker.io/library/debian",
+  platforms = [
+    "linux/amd64",
+    "linux/arm/v5",
+    "linux/arm/v7",
+    "linux/arm64/v8",
+    "linux/386",
+    "linux/mips64le",
+    "linux/ppc64le",
+    "linux/s390x",
+  ],
+)
+use_repo(oci, "debian")
+
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+http_file(
+  name = "hivemind_macos_arm64",
+  executable = True,
+  integrity = "sha256-//Eeez5dWWoIZue59lQNxAy5ABJf5FroVRc0gd5jkMM=",
+  urls = ["https://github.com/DarthSim/hivemind/releases/download/v1.1.0/hivemind-v1.1.0-macos-amd64.gz"],
+)
+http_file(
+  name = "hivemind_linux_x86_64",
+  executable = True,
+  integrity = "sha256-gJyhxf7bv8qP37OkubucQYaLBG81+Fo+iTzPJYOjkho=",
+  urls = ["https://github.com/DarthSim/hivemind/releases/download/v1.1.0/hivemind-v1.1.0-linux-amd64.gz"],
 )
 
 llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
@@ -31,7 +125,7 @@ llvm.toolchain_root(name = "llvm_toolchain_with_sysroot", label = "@llvm_toolcha
 llvm.sysroot(
   name = "llvm_toolchain_with_sysroot",
   targets = ["linux-x86_64"],
-  label = "@org_chromium_sysroot_linux_x64//:sysroot",
+  label = "@org_chromium_sysroot_linux_x86_64//:sysroot",
 )
 use_repo(llvm, "llvm_toolchain_with_sysroot")
 
@@ -39,6 +133,10 @@ go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(version = GO_VERSION)
 go_sdk.download(version = GO_VERSION, goarch = "amd64", goos = "linux")
 go_sdk.nogo(nogo = "//:nogo")
+go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
+go_deps.from_file(go_mod = "//:go.mod")
+# https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md#external-dependencies
+# use_repo(go_deps, "")
 
 NODE_VERSION = "20.10.0"
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
@@ -67,10 +165,36 @@ python = use_extension("@rules_python//python/extensions:python.bzl", "python", 
 python.toolchain(python_version = PYTHON_VERSION, configure_coverage_tool = True)
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
-  hub_name = "pip",
+  hub_name = "pip_linux_x86_64",
   python_version = PYTHON_VERSION,
-  requirements_lock = "//:requirements.txt",
-  # NOTE: see hack in requirements.txt at pymupdf line
-  extra_pip_args = ["--only-binary", "pymupdf"],
+  requirements_lock = "//:requirements.patched.txt",
+  download_only = True,
+  extra_pip_args = [
+    "--platform",
+    "linux_86_64",
+    "--platform",
+    "manylinux_2_28",
+    "--platform",
+    "manylinux_2_24",
+    "--platform",
+    "manylinux1_x86_64",
+    "--platform",
+    "manylinux2010_x86_64",
+    "--platform",
+    "manylinux2014_x86_64",
+  ],
 )
-use_repo(pip, "pip")
+use_repo(pip, "pip_linux_x86_64")
+pip.parse(
+  hub_name = "pip_macos_arm64",
+  python_version = PYTHON_VERSION,
+  requirements_lock = "//:requirements.patched.txt",
+  download_only = True,
+  extra_pip_args = ["--platform", "macosx_14_4_arm64"],
+)
+pip.override(
+  file = "paddleocr-2.7.0.3-py3-none-any.whl",
+  patch_strip = 1,
+  patches = ["//:patch/paddleocr_2_7_0_3.patch"],
+)
+use_repo(pip, "pip_macos_arm64")

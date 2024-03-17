@@ -1,19 +1,56 @@
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
+load("@aspect_bazel_lib//lib:tar.bzl", "mtree_spec", "tar")
 load("@aspect_rules_py//py:defs.bzl", "py_binary")
-load("@pip//:requirements.bzl", "requirement")
-load("@rules_python//python/pip_install:repositories.bzl", install_requirement = "requirement")
+load("@pip_macos_arm64//:requirements.bzl", requirement_macos_arm64 = "requirement")
+load("@pip_linux_x86_64//:requirements.bzl", requirement_linux_x86_64 = "requirement")
+load("@rules_python//python/pip_install:repositories.bzl", requirement_builtin = "requirement")
 
 py_binary(
     name = "paddle_ocr",
-    main = "main.py",
     srcs = ["main.py"],
+    data = [":data"],
+    env = {"PADDLE_MODEL": "$$RUNFILES_DIR/$(rlocationpath :data)/model"},
+    main = "main.py",
     deps = [
-        requirement("absl-py"),
-        requirement("fastapi"),
-        requirement("paddleocr"),
-        requirement("paddlepaddle"),
-        requirement("pykka"),
-        requirement("python-multipart"),
-        install_requirement("setuptools"),
-        requirement("uvicorn"),
-    ],
+        requirement_builtin("setuptools"),
+    ] + select({
+        "//:linux_x86_64": [
+            requirement_linux_x86_64("absl-py"),
+            requirement_linux_x86_64("fastapi"),
+            requirement_linux_x86_64("paddleocr"),
+            requirement_linux_x86_64("paddlepaddle"),
+            requirement_linux_x86_64("pykka"),
+            requirement_linux_x86_64("python-multipart"),
+            requirement_linux_x86_64("uvicorn"),
+        ],
+        "//:macos_arm64": [
+            requirement_macos_arm64("absl-py"),
+            requirement_macos_arm64("fastapi"),
+            requirement_macos_arm64("paddleocr"),
+            requirement_macos_arm64("paddlepaddle"),
+            requirement_macos_arm64("pykka"),
+            requirement_macos_arm64("python-multipart"),
+            requirement_macos_arm64("uvicorn"),
+        ],
+        "//conditions:default": ["@platforms//:incompatible"],
+    }),
+    visibility = ["//cmd/serve:__pkg__"],
+)
+
+copy_to_directory(
+    name = "data",
+    srcs = glob(["data/**"]),
+    root_paths = ["paddle_ocr/data"],
+)
+
+mtree_spec(
+    name = "mtree",
+    srcs = [":paddle_ocr"],
+)
+
+tar(
+    name = "tar",
+    srcs = [":paddle_ocr"],
+    mtree = ":mtree",
+    visibility = ["//cmd/serve:__pkg__"],
 )

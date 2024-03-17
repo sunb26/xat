@@ -1,6 +1,7 @@
+import os
+from pathlib import Path
 from typing import Annotated, Any
 
-import paddle
 import pykka
 import uvicorn
 from absl import app, flags
@@ -34,8 +35,15 @@ class Model(pykka.ThreadingActor):
     def __init__(self, mock: bool) -> None:
         super().__init__()
         self._mock = mock
-        paddle.utils.run_check()
-        self._ocr = PaddleOCR(use_angle_cls=True, lang="en")
+        paddle_model = Path(os.environ["PADDLE_MODEL"])
+        self._ocr = PaddleOCR(
+            use_angle_cls=True,
+            lang="en",
+            # NOTE: model dirs taken from paddleocr.py (containing PaddleOCR)
+            det_model_dir=str(paddle_model / "en_PP-OCRv3_det_infer"),
+            rec_model_dir=str(paddle_model / "en_PP-OCRv4_rec_infer"),
+            cls_model_dir=str(paddle_model / "ch_ppocr_mobile_v2.0_cls_infer"),
+        )
 
     def infer(self, uri_or_content: str | bytes) -> list[list[Any]]:
         if self._mock:
@@ -44,8 +52,8 @@ class Model(pykka.ThreadingActor):
 
 
 def main(argv: list[str]) -> None:
-    if len(argv) > 1:
-        raise ValueError("too many arguments")
+    print(argv)
+    print([f"{key}={flag.value}" for key, flag in flags.FLAGS.__flags.items()])
     model = Model.start(mock=_MOCK.value).proxy()
     api = FastAPI()
 
