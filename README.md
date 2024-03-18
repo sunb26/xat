@@ -8,6 +8,7 @@
 Tax Form: https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/gst-tps/bspsbch/rtrns/wrkngcp-eng.pdf
 
 ## run
+
 ### MacOS
 1. install `aspect` build tool [here](https://github.com/aspect-build/aspect-cli?tab=readme-ov-file#installation)
 2. generate build files `bazel run //:gazelle`
