@@ -1,0 +1,48 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+
+sh_binary(
+    name = "apply",
+    srcs = [":apply_sh"],
+    data = [
+        "schema.hcl",
+        ":atlas",
+    ],
+    env = {
+        "ATLAS": "$(rootpath :atlas)",
+        "SCHEMA": "$(rootpath schema.hcl)",
+    },
+    tags = ["manual"],
+)
+
+write_file(
+    name = "apply_sh",
+    out = "apply.sh",
+    content = ["$ATLAS apply --url $$DSN --to \"file://$SCHEMA\" --dry-run"],
+    is_executable = True,
+)
+
+write_source_file(
+    name = "inspect",
+    diff_test = False,
+    in_file = ":atlas_inspect_gen",
+    out_file = "schema.hcl",
+    tags = ["manual"],
+)
+
+genrule(
+    name = "atlas_inspect_gen",
+    outs = ["schema.hcl"],
+    cmd = "$(execpath :atlas) schema inspect --url $$DSN > $@",
+    tags = ["manual"],
+    tools = [":atlas"],
+)
+
+alias(
+    name = "atlas",
+    actual = select({
+        "//:linux_x86_64": "@atlas_linux_x86_64//file",
+        "//:macos_arm64": "@atlas_macos_arm64//file",
+        "//conditions:default": "@platforms//:incompatible",
+    }),
+)

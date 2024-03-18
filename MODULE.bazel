@@ -83,6 +83,18 @@ http_archive(
   build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
 )
 
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+http_file(
+  name = "atlas_macos_arm64",
+  executable = True,
+  urls = ["https://release.ariga.io/atlas/atlas-darwin-arm64-latest"],
+)
+http_file(
+  name = "atlas_linux_x86_64",
+  executable = True,
+  urls = ["https://release.ariga.io/atlas/atlas-linux-amd64-latest"],
+)
+
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
   name = "debian",

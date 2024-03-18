@@ -11,6 +11,7 @@ py_binary(
     data = [":data"],
     env = {"PADDLE_MODEL": "$$RUNFILES_DIR/$(rlocationpath :data)/model"},
     main = "main.py",
+    visibility = ["//cmd/serve:__pkg__"],
     deps = [
         requirement_builtin("setuptools"),
     ] + select({
@@ -34,7 +35,6 @@ py_binary(
         ],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    visibility = ["//cmd/serve:__pkg__"],
 )
 
 copy_to_directory(
