@@ -17,10 +17,6 @@ table "expense_snapshot_v1" {
     null = true
     type = text
   }
-  column "source" {
-    null = false
-    type = text
-  }
   column "title" {
     null = false
     type = text
@@ -94,10 +90,6 @@ table "income_snapshot_v1" {
   }
   column "scan_id" {
     null = true
-    type = text
-  }
-  column "source" {
-    null = false
     type = text
   }
   column "title" {
