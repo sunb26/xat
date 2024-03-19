@@ -6,7 +6,12 @@ table "expense_snapshot_v1" {
   }
   column "snapshot_id" {
     null = false
-    type = text
+    type = bigint
+    identity {
+      generated = ALWAYS
+      start = 0
+      increment = 1
+    }
   }
   column "scan_id" {
     null = true
@@ -20,7 +25,7 @@ table "expense_snapshot_v1" {
     null = false
     type = text
   }
-  column "amount_delta" {
+  column "amount" {
     null = false
     type = double_precision
   }
@@ -80,7 +85,12 @@ table "income_snapshot_v1" {
   }
   column "snapshot_id" {
     null = false
-    type = text
+    type = bigint
+    identity {
+      generated = ALWAYS
+      start = 0
+      increment = 1
+    }
   }
   column "scan_id" {
     null = true
@@ -94,7 +104,7 @@ table "income_snapshot_v1" {
     null = false
     type = text
   }
-  column "amount_delta" {
+  column "amount" {
     null = false
     type = double_precision
   }
@@ -150,7 +160,12 @@ table "organization_snapshot_v1" {
   }
   column "snapshot_id" {
     null = false
-    type = text
+    type = bigint
+    identity {
+      generated = ALWAYS
+      start = 0
+      increment = 1
+    }
   }
   column "title" {
     null = false
@@ -300,7 +315,12 @@ table "user_snapshot_v1" {
   }
   column "snapshot_id" {
     null = false
-    type = text
+    type = bigint
+    identity {
+      generated = ALWAYS
+      start = 0
+      increment = 1
+    }
   }
   column "given_name" {
     null = false
