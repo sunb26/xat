@@ -1,4 +1,6 @@
 load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
+load("@aspect_bazel_lib//lib:paths.bzl", "BASH_RLOCATION_FUNCTION")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push", "oci_tarball")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
@@ -28,7 +30,7 @@ go_binary(
 sh_binary(
     name = "local",
     deps = ["@bazel_tools//tools/bash/runfiles"],
-    srcs = ["local.sh"],
+    srcs = ["local_sh"],
     args = select({
         "//:linux_x86_64": [],
         "//:macos_arm64": [
@@ -47,6 +49,26 @@ sh_binary(
         "PM2": "$(rootpath //:pm2_cli)",
         "SERVE": "$(rootpath :serve)",
     },
+)
+
+write_file(
+    name = "local_sh",
+    out = "local.sh",
+    content = [
+        BASH_RLOCATION_FUNCTION,
+        "export PM2_HOME=$TMPDIR/.pm2",
+        "cleanup() {",
+        "$PM2 stop all",
+        "$PM2 flush",
+        "$PM2 delete all",
+        "$PM2 kill",
+        "}",
+        "trap cleanup EXIT",
+        "$PM2 start --force $SERVE",
+        "$PM2 start --force --interpreter bash $PADDLE_OCR -- ${@:-}",
+        "$PM2 logs",
+    ],
+    is_executable = True,
 )
 
 pkg_tar(name = "tar", srcs = [":serve"])
