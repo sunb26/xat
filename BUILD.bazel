@@ -14,7 +14,10 @@ load("@rules_rust//rust:defs.bzl", "rust_binary")
 
 npm_link_all_packages(name = "node_modules")
 
-pm2_bin.pm2_binary(name = "pm2_cli", visibility = ["//cmd/serve:__pkg__"])
+pm2_bin.pm2_binary(
+    name = "pm2_cli",
+    visibility = ["//cmd/serve:__pkg__"],
+)
 
 compile_pip_requirements(
     name = "requirements",
@@ -55,12 +58,16 @@ py_binary(
 py_binary(
     name = "requirements_patcher",
     srcs = ["requirements.py"],
-    deps = [":absl_py", ":pip_requirements_parser"],
+    deps = [
+        ":absl_py",
+        ":pip_requirements_parser",
+    ],
 )
 
 run_binary(
     name = "requirements_patched",
-    tool = ":requirements_patcher",
+    srcs = ["requirements.txt"],
+    outs = ["requirements_patched_out"],
     args = [
         "--input",
         "$(execpath requirements.txt)",
@@ -73,8 +80,7 @@ run_binary(
         "--exclude",
         "pymupdf",
     ],
-    srcs = ["requirements.txt"],
-    outs = ["requirements_patched_out"],
+    tool = ":requirements_patcher",
 )
 
 write_source_file(
@@ -85,91 +91,141 @@ write_source_file(
 
 run_binary(
     name = "libgomp_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libgomp_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libgomp_x86_64//:data.tar.xz"],
     outs = ["libgomp.tar"],
+    args = [
+        "--input",
+        "$(execpath @libgomp_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libgl_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libgl_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libgl_x86_64//:data.tar.xz"],
     outs = ["libgl.tar"],
+    args = [
+        "--input",
+        "$(execpath @libgl_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libglib_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libglib_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libglib_x86_64//:data.tar.xz"],
     outs = ["libglib.tar"],
+    args = [
+        "--input",
+        "$(execpath @libglib_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libglvnd_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libglvnd_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libglvnd_x86_64//:data.tar.xz"],
     outs = ["libglvnd.tar"],
+    args = [
+        "--input",
+        "$(execpath @libglvnd_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libglx_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libglx_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libglx_x86_64//:data.tar.xz"],
     outs = ["libglx.tar"],
+    args = [
+        "--input",
+        "$(execpath @libglx_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libx11_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libx11_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libx11_x86_64//:data.tar.xz"],
     outs = ["libx11.tar"],
+    args = [
+        "--input",
+        "$(execpath @libx11_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libxcb_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libxcb_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libxcb_x86_64//:data.tar.xz"],
     outs = ["libxcb.tar"],
+    args = [
+        "--input",
+        "$(execpath @libxcb_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libxau_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libxau_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libxau_x86_64//:data.tar.xz"],
     outs = ["libxau.tar"],
+    args = [
+        "--input",
+        "$(execpath @libxau_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libxdmcp_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libxdmcp_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libxdmcp_x86_64//:data.tar.xz"],
     outs = ["libxdmcp.tar"],
+    args = [
+        "--input",
+        "$(execpath @libxdmcp_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
 run_binary(
     name = "libbsd_tar",
-    tool = ":lzma",
-    args = ["--input", "$(execpath @libbsd_x86_64//:data.tar.xz)", "--output", "$@"],
     srcs = ["@libbsd_x86_64//:data.tar.xz"],
     outs = ["libbsd.tar"],
+    args = [
+        "--input",
+        "$(execpath @libbsd_x86_64//:data.tar.xz)",
+        "--output",
+        "$@",
+    ],
+    tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
 )
 
@@ -180,6 +236,7 @@ config_setting(
         "@platforms//cpu:x86_64",
     ],
     visibility = [
+        "//atlas:__pkg__",
         "//cmd/serve:__pkg__",
         "//paddle_ocr:__pkg__",
     ],
@@ -192,6 +249,7 @@ config_setting(
         "@platforms//cpu:arm64",
     ],
     visibility = [
+        "//atlas:__pkg__",
         "//cmd/serve:__pkg__",
         "//paddle_ocr:__pkg__",
     ],
