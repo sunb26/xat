@@ -18,7 +18,7 @@ sh_binary(
 write_file(
     name = "apply_sh",
     out = "apply.sh",
-    content = ["$ATLAS apply --url $$DSN --to \"file://$SCHEMA\" --dry-run"],
+    content = ["$ATLAS schema apply --url $DSN --to \"file://$SCHEMA\" ${@:-}"],
     is_executable = True,
 )
 
@@ -33,7 +33,7 @@ write_source_file(
 genrule(
     name = "atlas_inspect_gen",
     outs = ["schema.hcl"],
-    cmd = "$(execpath :atlas) schema inspect --url $$DSN > $@",
+    cmd = "$(execpath :atlas) schema inspect --url $$DSN $${@:-} > $@",
     tags = ["manual"],
     tools = [":atlas"],
 )
