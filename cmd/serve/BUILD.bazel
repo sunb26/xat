@@ -32,8 +32,8 @@ sh_binary(
     deps = ["@bazel_tools//tools/bash/runfiles"],
     srcs = ["local_sh"],
     args = select({
-        "//:linux_x86_64": [],
-        "//:macos_arm64": [
+        "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [],
+        "@rules_rust//rust/platform:aarch64-apple-darwin": [
             # https://github.com/PaddlePaddle/PaddleOCR/issues/11588
             "--mock",
         ],

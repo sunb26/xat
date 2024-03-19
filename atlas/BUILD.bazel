@@ -41,8 +41,8 @@ genrule(
 alias(
     name = "atlas",
     actual = select({
-        "//:linux_x86_64": "@atlas_linux_x86_64//file",
-        "//:macos_arm64": "@atlas_macos_arm64//file",
+        "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": "@atlas_x86_64-unknown-linux//file",
+        "@rules_rust//rust/platform:aarch64-apple-darwin": "@atlas_aarch64-apple-darwin//file",
         "//conditions:default": "@platforms//:incompatible",
     }),
 )

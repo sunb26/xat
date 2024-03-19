@@ -10,7 +10,7 @@ rules_rust_dependencies()
 RUST_VERSION = "1.76.0"
 rust_register_toolchains(edition = "2021", versions = [RUST_VERSION])
 rust_repository_set(
-  name = "rust_x86_64_unknown_musl",
+  name = "rust_x86_64-unknown-linux-musl",
   edition = "2021",
   exec_triple = "aarch64-apple-darwin",
   extra_target_triples = ["x86_64-unknown-linux-musl"],

@@ -1,8 +1,8 @@
 load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
 load("@aspect_bazel_lib//lib:tar.bzl", "mtree_spec", "tar")
 load("@aspect_rules_py//py:defs.bzl", "py_binary")
-load("@pip_macos_arm64//:requirements.bzl", requirement_macos_arm64 = "requirement")
-load("@pip_linux_x86_64//:requirements.bzl", requirement_linux_x86_64 = "requirement")
+load("@pip_aarch64-apple-darwin//:requirements.bzl", requirement_aarch64_apple_darwin = "requirement")
+load("@pip_x86_64-unknown-linux//:requirements.bzl", requirement_x86_64_unknown_linux = "requirement")
 load("@rules_python//python/pip_install:repositories.bzl", requirement_builtin = "requirement")
 
 py_binary(
@@ -15,23 +15,23 @@ py_binary(
     deps = [
         requirement_builtin("setuptools"),
     ] + select({
-        "//:linux_x86_64": [
-            requirement_linux_x86_64("absl-py"),
-            requirement_linux_x86_64("fastapi"),
-            requirement_linux_x86_64("paddleocr"),
-            requirement_linux_x86_64("paddlepaddle"),
-            requirement_linux_x86_64("pykka"),
-            requirement_linux_x86_64("python-multipart"),
-            requirement_linux_x86_64("uvicorn"),
+        "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [
+            requirement_x86_64_unknown_linux("absl-py"),
+            requirement_x86_64_unknown_linux("fastapi"),
+            requirement_x86_64_unknown_linux("paddleocr"),
+            requirement_x86_64_unknown_linux("paddlepaddle"),
+            requirement_x86_64_unknown_linux("pykka"),
+            requirement_x86_64_unknown_linux("python-multipart"),
+            requirement_x86_64_unknown_linux("uvicorn"),
         ],
-        "//:macos_arm64": [
-            requirement_macos_arm64("absl-py"),
-            requirement_macos_arm64("fastapi"),
-            requirement_macos_arm64("paddleocr"),
-            requirement_macos_arm64("paddlepaddle"),
-            requirement_macos_arm64("pykka"),
-            requirement_macos_arm64("python-multipart"),
-            requirement_macos_arm64("uvicorn"),
+        "@rules_rust//rust/platform:aarch64-apple-darwin": [
+            requirement_aarch64_apple_darwin("absl-py"),
+            requirement_aarch64_apple_darwin("fastapi"),
+            requirement_aarch64_apple_darwin("paddleocr"),
+            requirement_aarch64_apple_darwin("paddlepaddle"),
+            requirement_aarch64_apple_darwin("pykka"),
+            requirement_aarch64_apple_darwin("python-multipart"),
+            requirement_aarch64_apple_darwin("uvicorn"),
         ],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
