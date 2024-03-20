@@ -110,7 +110,7 @@ table "income_snapshot_v1" {
   }
   column "create_time" {
     null = false
-    type = time
+    type = timestamptz
   }
   primary_key {
     columns = [column.income_id, column.snapshot_id]
@@ -203,7 +203,7 @@ table "organization_snapshot_v1" {
   }
   column "create_time" {
     null = false
-    type = time
+    type = timestamptz
   }
   primary_key {
     columns = [column.organization_id, column.snapshot_id]
@@ -257,7 +257,7 @@ table "organization_v1" {
   }
   column "create_time" {
     null = false
-    type = time
+    type = timestamptz
   }
   primary_key {
     columns = [column.organization_id]
@@ -343,7 +343,7 @@ table "scan_v1" {
   }
   column "create_time" {
     null = false
-    type = time
+    type = timestamptz
   }
   primary_key {
     columns = [column.project_id, column.scan_id]
@@ -404,7 +404,7 @@ table "user_snapshot_v1" {
   }
   column "create_time" {
     null = false
-    type = time
+    type = timestamptz
   }
   primary_key {
     columns = [column.user_id, column.snapshot_id]
@@ -461,7 +461,7 @@ table "user_v1" {
   }
   column "create_time" {
     null = false
-    type = time
+    type = timestamptz
   }
   primary_key {
     columns = [column.user_id]
