@@ -32,7 +32,7 @@ table "expense_snapshot_v1" {
   column "deductible" {
     null = false
     type = double_precision
-    comment = "The percentage of the expense that is deductible. If an expense is deductible, then it can be subtracted from taxable income so that you get taxed less. <https://www.investopedia.com/articles/tax/09/self-employed-tax-deductions.asp>"
+    comment = "The percentage of the expense that is deductible. If an expense is deductible, then it can be subtracted from taxable income so that you get taxed less. See link: <https://www.investopedia.com/articles/tax/09/self-employed-tax-deductions.asp>"
   }
   column "create_time" {
     null = false
@@ -190,12 +190,12 @@ table "organization_snapshot_v1" {
   column "income_type" {
     null = false
     type = text
-    comment = "This is either Commission or Business/Professional. See <https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125> for more information."
+    comment = "This is either Commission or Business/Professional. See link <https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125> for more information."
   }
   column "industry_code" {
     null = false
     type = text
-    comment = "The code pertaining to the industry the business is related to. These are mostly used for statistical purposes. <https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/sole-proprietorships-partnerships/report-business-income-expenses/industry-codes.html>"
+    comment = "The code pertaining to the industry the business is related to. These are mostly used for statistical purposes. See link <https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/sole-proprietorships-partnerships/report-business-income-expenses/industry-codes.html>."
   }
   column "main_product" {
     null = true
@@ -206,7 +206,7 @@ table "organization_snapshot_v1" {
     null = false
     type = bool
     default = false
-    comment = "An attribute of the T2125 form - additional info is required if the business is a partnership. <https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125>"
+    comment = "An attribute of the T2125 form - additional info is required if the business is a partnership. See link <https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125>."
   }
   column "address" {
     null = true
