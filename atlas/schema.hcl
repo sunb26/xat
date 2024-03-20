@@ -17,6 +17,7 @@ table "expense_snapshot_v1" {
   column "scan_id" {
     null = true
     type = bigint
+    comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry."
   }
   column "title" {
     null = false
@@ -102,6 +103,7 @@ table "income_snapshot_v1" {
   column "scan_id" {
     null = true
     type = bigint
+    comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry."
   }
   column "title" {
     null = false
@@ -111,6 +113,7 @@ table "income_snapshot_v1" {
   column "amount" {
     null = false
     type = money
+    comment = "The amount listed on the invoice for this source of income."
   }
   column "create_time" {
     null = false
@@ -165,7 +168,7 @@ table "income_v1" {
 
 table "organization_snapshot_v1" {
   schema = schema.public
-  comment = "A snapshot in time of a given organization entry. A new snapshot is created every time the organization entry is modified."
+  comment = "A snapshot in time of a given organization entry. A new snapshot is created every time the organization entry is modified. Refer to the link for explanations of the organization table fields: <https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125>."
   column "organization_id" {
     null = false
     type = bigint
@@ -187,10 +190,12 @@ table "organization_snapshot_v1" {
   column "income_type" {
     null = false
     type = text
+    comment = "This is either Commission or Business/Professional. See <https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125> for more information."
   }
   column "industry_code" {
     null = false
     type = text
+    comment = "The code pertaining to the industry the business is related to. These are mostly used for statistical purposes. <https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/sole-proprietorships-partnerships/report-business-income-expenses/industry-codes.html>"
   }
   column "main_product" {
     null = true
@@ -224,7 +229,7 @@ table "organization_snapshot_v1" {
 }
 table "organization_v1" {
   schema = schema.public
-  comment = "Refer to the link for explanations of the organization table fields: https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125."
+  comment = "An organization refers to the business that is being filed under. All organization data lives in the organization_snapshot table."
   column "organization_id" {
     null = false
     type = bigint
@@ -233,41 +238,6 @@ table "organization_v1" {
       start = 0
       increment = 1
     }
-  }
- column "title" {
-    null = false
-    type = text
-    comment = "The name of organization."
-  }
-  column "income_type" {
-    null = false
-    type = text
-    comment = "This is either Commission or Business/Professional. See link for more information."
-  }
-  column "industry_code" {
-    null = false
-    type = text
-    comment = "The code pertaining to the industry the business is related to. These are mostly used for statistical purposes."
-  }
-  column "main_product" {
-    null = true
-    type = text
-    comment = "The main product/service sold by the organization. This field is optional on the T2125 form."
-  }
-  column "partnership" {
-    null = false
-    type = bool
-    default = false
-    comment = "An attribute of the T2125 form - additional info required if the business is a partnership."
-  }
-  column "address" {
-    null = true
-    type = text
-    comment = "The organization's physical address if applicable."
-  }
-  column "create_time" {
-    null = false
-    type = timestamptz
   }
   primary_key {
     columns = [column.organization_id]
@@ -353,7 +323,7 @@ table "scan_v1" {
   column "image" {
     null = false
     type = bytea
-    comment = "The storage of the compressed image file."
+    comment = "The content of the compressed image file."
   }
   column "create_time" {
     null = false
@@ -433,7 +403,7 @@ table "user_snapshot_v1" {
 }
 table "user_v1" {
   schema = schema.public
-  comment = "A user can open many projects and belongs to an organization."
+  comment = "A user can open many projects and belongs to an organization. All user data lives in the user_snapshot table."
   column "organization_id" {
     null = false
     type = bigint
@@ -446,38 +416,6 @@ table "user_v1" {
       start = 0
       increment = 1
     }
-  }
-  column "given_name" {
-    null = false
-    type = text
-  }
-  column "middle_name" {
-    null = false
-    type = text
-  }
-  column "family_name" {
-    null = false
-    type = text
-  }
-  column "date_of_birth" {
-    null = false
-    type = date
-  }
-  column "marital_status" {
-    null = false
-    type = text
-  }
-  column "citizenship" {
-    null = false
-    type = text
-  }
-  column "email" {
-    null = false
-    type = text
-  }
-  column "create_time" {
-    null = false
-    type = timestamptz
   }
   primary_key {
     columns = [column.user_id]
