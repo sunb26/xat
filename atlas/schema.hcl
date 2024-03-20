@@ -75,7 +75,7 @@ table "expense_v1" {
     on_update   = CASCADE
     on_delete   = CASCADE
   }
-  index "expense_id_idx" {
+index "expense_id_idx" {
     unique  = true
     columns = [column.expense_id]
   }
@@ -176,7 +176,7 @@ table "organization_snapshot_v1" {
   column "title" {
     null = false
     type = text
-    comment = "name of business"
+    comment = "name of organization"
   }
   column "income_type" {
     null = false
@@ -189,7 +189,7 @@ table "organization_snapshot_v1" {
   column "main_product" {
     null = true
     type = text
-    comment = "main product/service sold by the business"
+    comment = "main product/service sold by the organization"
   }
   column "partnership" {
     null = false
@@ -199,7 +199,7 @@ table "organization_snapshot_v1" {
   column "address" {
     null = true
     type = text
-    comment = "business physical address if applicable"
+    comment = "organization physical address if applicable"
   }
   column "create_time" {
     null = false
@@ -230,7 +230,7 @@ table "organization_v1" {
  column "title" {
     null = false
     type = text
-    comment = "name of business"
+    comment = "name of organization"
   }
   column "income_type" {
     null = false
@@ -243,7 +243,7 @@ table "organization_v1" {
   column "main_product" {
     null = true
     type = text
-    comment = "main product/service sold by the business"
+    comment = "main product/service sold by the organization"
   }
   column "partnership" {
     null = false
@@ -253,7 +253,7 @@ table "organization_v1" {
   column "address" {
     null = true
     type = text
-    comment = "business physical address if applicable"
+    comment = "organization physical address if applicable"
   }
   column "create_time" {
     null = false
@@ -287,7 +287,7 @@ table "project_v1" {
     on_update   = CASCADE
     on_delete   = CASCADE
   }
-  index "project_id_idx" {
+index "project_id_idx" {
     unique  = true
     columns = [column.project_id]
   }
@@ -309,7 +309,7 @@ table "scan_inference_v1" {
   }
   column "inference_result" {
     null = false
-    type = bytea
+    type = jsonb
     comment = "JSON of inference output"
   }
   primary_key {
@@ -354,7 +354,7 @@ table "scan_v1" {
     on_update   = CASCADE
     on_delete   = CASCADE
   }
-  index "scan_id_idx" {
+index "scan_id_idx" {
     unique  = true
     columns = [column.scan_id]
   }
