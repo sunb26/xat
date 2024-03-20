@@ -158,9 +158,6 @@ table "income_v1" {
   }
 }
 
-# Refer to the link for explanations of the organization table fields
-# https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125
-
 table "organization_snapshot_v1" {
   schema = schema.public
   column "organization_id" {
@@ -220,6 +217,7 @@ table "organization_snapshot_v1" {
 }
 table "organization_v1" {
   schema = schema.public
+  comment = "Refer to the link for explanations of the organization table fields: https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125"
   column "organization_id" {
     null = false
     type = bigint
