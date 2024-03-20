@@ -10,6 +10,7 @@ NEXT = [
     "//web/app",
     "//web/lib",
     "//web/public",
+    "//web/components",
     "next.config.mjs",
     "postcss.config.js",
     "tailwind.config.ts",
