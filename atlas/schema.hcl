@@ -1,5 +1,6 @@
 table "expense_snapshot_v1" {
   schema = schema.public
+  comment = "A snapshot in time of a given expense entry. A new snapshot is created every time the expense entry is modified."
   column "expense_id" {
     null = false
     type = bigint
@@ -20,16 +21,17 @@ table "expense_snapshot_v1" {
   column "title" {
     null = false
     type = text
-    comment = "name of item/service expense"
+    comment = "The name of item/service expense."
   }
   column "amount" {
     null = false
     type = money
+    comment = "The amount listed on the receipt for this entry."
   }
   column "deductible" {
     null = false
     type = double_precision
-    comment = "percentage of expense that is deductible"
+    comment = "The percentage of the expense that is deductible."
   }
   column "create_time" {
     null = false
@@ -53,6 +55,7 @@ table "expense_snapshot_v1" {
 }
 table "expense_v1" {
   schema = schema.public
+  comment = "This table links expenses back to its project. No data should be stored here."
   column "project_id" {
     null = false
     type = bigint
@@ -82,6 +85,7 @@ index "expense_id_idx" {
 }
 table "income_snapshot_v1" {
   schema = schema.public
+  comment = "A snapshot in time of a given income entry. A new snapshot is created every time the income entry is modified."
   column "income_id" {
     null = false
     type = bigint
@@ -102,7 +106,7 @@ table "income_snapshot_v1" {
   column "title" {
     null = false
     type = text
-    comment = "name of product/service source of income"
+    comment = "The name of the source of income."
   }
   column "amount" {
     null = false
@@ -130,6 +134,7 @@ table "income_snapshot_v1" {
 }
 table "income_v1" {
   schema = schema.public
+  comment = "This table links income back to its project. No data should be stored here. Note that income does not mean revenue."
   column "project_id" {
     null = false
     type = bigint
@@ -160,6 +165,7 @@ table "income_v1" {
 
 table "organization_snapshot_v1" {
   schema = schema.public
+  comment = "A snapshot in time of a given organization entry. A new snapshot is created every time the organization entry is modified."
   column "organization_id" {
     null = false
     type = bigint
@@ -176,7 +182,7 @@ table "organization_snapshot_v1" {
   column "title" {
     null = false
     type = text
-    comment = "name of organization"
+    comment = "The name of organization."
   }
   column "income_type" {
     null = false
@@ -189,17 +195,18 @@ table "organization_snapshot_v1" {
   column "main_product" {
     null = true
     type = text
-    comment = "main product/service sold by the organization"
+    comment = "The main product/service sold by the organization. This field is optional on the T2125 form."
   }
   column "partnership" {
     null = false
     type = bool
     default = false
+    comment = "An attribute of the T2125 form - additional info required if the business is a partnership."
   }
   column "address" {
     null = true
     type = text
-    comment = "organization physical address if applicable"
+    comment = "The organization's physical address if applicable."
   }
   column "create_time" {
     null = false
@@ -217,7 +224,7 @@ table "organization_snapshot_v1" {
 }
 table "organization_v1" {
   schema = schema.public
-  comment = "Refer to the link for explanations of the organization table fields: https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125"
+  comment = "Refer to the link for explanations of the organization table fields: https://help.wealthsimple.com/hc/en-ca/articles/4408339655323-How-do-I-report-my-self-employment-income-on-a-T2125."
   column "organization_id" {
     null = false
     type = bigint
@@ -230,30 +237,33 @@ table "organization_v1" {
  column "title" {
     null = false
     type = text
-    comment = "name of organization"
+    comment = "The name of organization."
   }
   column "income_type" {
     null = false
     type = text
+    comment = "This is either Commission or Business/Professional. See link for more information."
   }
   column "industry_code" {
     null = false
     type = text
+    comment = "The code pertaining to the industry the business is related to. These are mostly used for statistical purposes."
   }
   column "main_product" {
     null = true
     type = text
-    comment = "main product/service sold by the organization"
+    comment = "The main product/service sold by the organization. This field is optional on the T2125 form."
   }
   column "partnership" {
     null = false
     type = bool
     default = false
+    comment = "An attribute of the T2125 form - additional info required if the business is a partnership."
   }
   column "address" {
     null = true
     type = text
-    comment = "organization physical address if applicable"
+    comment = "The organization's physical address if applicable."
   }
   column "create_time" {
     null = false
@@ -265,6 +275,7 @@ table "organization_v1" {
 }
 table "project_v1" {
   schema = schema.public
+  comment = "A project can be any time a user starts a new form. A user can have many projects."
   column "user_id" {
     null = false
     type = bigint
@@ -294,6 +305,7 @@ index "project_id_idx" {
 }
 table "scan_inference_v1" {
   schema = schema.public
+  comment = "This table stores the results of inferencing on the image scans."
   column "scan_id" {
     null = false
     type = bigint
@@ -310,7 +322,7 @@ table "scan_inference_v1" {
   column "inference_result" {
     null = false
     type = jsonb
-    comment = "JSON of inference output"
+    comment = "JSON of image scan inference output."
   }
   primary_key {
     columns = [column.scan_id, column.scan_inference_id]
@@ -324,6 +336,7 @@ table "scan_inference_v1" {
 }
 table "scan_v1" {
   schema = schema.public
+  comment = "Stores the compressed images to be scanned and inferenced."
   column "project_id" {
     null = false
     type = bigint
@@ -340,6 +353,7 @@ table "scan_v1" {
   column "image" {
     null = false
     type = bytea
+    comment = "The storage of the compressed image file."
   }
   column "create_time" {
     null = false
@@ -361,6 +375,7 @@ index "scan_id_idx" {
 }
 table "user_snapshot_v1" {
   schema = schema.public
+  comment = "A snapshot in time of a user profile. A new snapshot is generated everytime a user modifies information related to their profile."
   column "user_id" {
     null = false
     type = bigint
@@ -418,6 +433,7 @@ table "user_snapshot_v1" {
 }
 table "user_v1" {
   schema = schema.public
+  comment = "A user can open many projects and belongs to an organization."
   column "organization_id" {
     null = false
     type = bigint
