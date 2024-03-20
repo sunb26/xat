@@ -139,12 +139,12 @@ go_deps.from_file(go_mod = "//:go.mod")
 # use_repo(go_deps, "")
 
 NODE_VERSION = "20.10.0"
-node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
 use_repo(node, "nodejs_toolchains")
 node.toolchain(node_version = NODE_VERSION)
-pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm", dev_dependency = True)
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 use_repo(pnpm, "pnpm")
-npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
   name = "npm",
   npmrc = "//:.npmrc",
@@ -161,7 +161,7 @@ npm.npm_translate_lock(
 )
 use_repo(npm, "npm")
 
-python = use_extension("@rules_python//python/extensions:python.bzl", "python", dev_dependency = True)
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = PYTHON_VERSION, configure_coverage_tool = True)
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
