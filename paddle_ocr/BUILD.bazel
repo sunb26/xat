@@ -1,4 +1,3 @@
-load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
 load("@aspect_bazel_lib//lib:tar.bzl", "mtree_spec", "tar")
 load("@aspect_rules_py//py:defs.bzl", "py_binary")
 load("@pip_aarch64-apple-darwin//:requirements.bzl", requirement_aarch64_apple_darwin = "requirement")
@@ -8,8 +7,22 @@ load("@rules_python//python/pip_install:repositories.bzl", requirement_builtin =
 py_binary(
     name = "paddle_ocr",
     srcs = ["main.py"],
-    data = [":data"],
-    env = {"PADDLE_MODEL": "$$RUNFILES_DIR/$(rlocationpath :data)/model"},
+    data = [
+        "@en_PP-OCRv3_det_infer//:inference.pdiparams",
+        "@en_PP-OCRv3_det_infer//:inference.pdiparams.info",
+        "@en_PP-OCRv3_det_infer//:inference.pdmodel",
+        "@en_PP-OCRv4_rec_infer//:inference.pdiparams",
+        "@en_PP-OCRv4_rec_infer//:inference.pdiparams.info",
+        "@en_PP-OCRv4_rec_infer//:inference.pdmodel",
+        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams",
+        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams.info",
+        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdmodel",
+    ],
+    env = {
+        "PADDLE_DET_MODEL": "$$(dirname $(rootpath @en_PP-OCRv3_det_infer//:inference.pdiparams))",
+        "PADDLE_REC_MODEL": "$$(dirname $(rootpath @en_PP-OCRv4_rec_infer//:inference.pdiparams))",
+        "PADDLE_CLS_MODEL": "$$(dirname $(rootpath @ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams))",
+    },
     main = "main.py",
     visibility = ["//cmd/serve:__pkg__"],
     deps = [
@@ -35,12 +48,6 @@ py_binary(
         ],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-)
-
-copy_to_directory(
-    name = "data",
-    srcs = glob(["data/**"]),
-    root_paths = ["paddle_ocr/data"],
 )
 
 mtree_spec(
