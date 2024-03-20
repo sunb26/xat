@@ -17,7 +17,7 @@ table "expense_snapshot_v1" {
   column "scan_id" {
     null = true
     type = bigint
-    comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry."
+    comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry. If it is not null, that means this snapshot is based on the inference result of an image scan."
   }
   column "title" {
     null = false
@@ -103,7 +103,7 @@ table "income_snapshot_v1" {
   column "scan_id" {
     null = true
     type = bigint
-    comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry."
+    comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry. If it is not null, that means this snapshot is based on the inference result of an image scan."
   }
   column "title" {
     null = false
@@ -320,10 +320,14 @@ table "scan_v1" {
       increment = 1
     }
   }
-  column "image" {
+  column "image_content" {
     null = false
     type = bytea
     comment = "The content of the compressed image file."
+  }
+  column "image_compression_algorithm" {
+    null = false
+    type = text
   }
   column "create_time" {
     null = false
