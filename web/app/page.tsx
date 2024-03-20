@@ -1,17 +1,41 @@
-import { Button, Input } from "@nextui-org/react";
+import { MailingForm } from "@/components/mailing";
+import { ReceiptForm } from "@/components/receiptForm";
+import { UserInfo } from "@/components/userInfo";
+import { Divider, Link } from "@nextui-org/react";
 
 export default function Home() {
   return (
-    <main className="flex flex-col justify-between items-center p-24 min-h-screen">
-      <div>
-        <form className="flex flex-col gap-2">
-          <Input type="text" label="Name" />
-          <Input type="date" label="Date" />
-          <Input type="number" label="Amount" />
-          <Input type="number" label="GST/HST" />
-          <Button color="primary">Submit</Button>
-        </form>
+    <section className="flex flex-col items-center">
+      <div className="flex justify-between p-6 mt-8 w-full max-w-4xl">
+        <div className="hidden flex-col gap-4 pr-4 min-w-48 md:flex fixed">
+          <h1>2024 Tax Return</h1>
+          <Divider />
+          <Link isBlock color="foreground" href="#userinfo">
+            About you
+          </Link>
+          <Link isBlock color="foreground" href="#mailing">
+            Mailing Address
+          </Link>
+          <Link isBlock color="foreground" href="#receipt">
+            Add Receipts
+          </Link>
+          <Link isBlock color="foreground">
+            Autofill your return
+          </Link>
+          <Link isBlock color="foreground">
+            Summary
+          </Link>
+          <Link isBlock color="foreground">
+            Submit
+          </Link>
+        </div>
+        <div className="flex flex-col gap-8 w-full md:ml-48">
+          <h1 className="text-2xl">Your 2024 Tax Return</h1>
+          <UserInfo />
+          <MailingForm />
+          <ReceiptForm />
+        </div>
       </div>
-    </main>
+    </section>
   );
 }

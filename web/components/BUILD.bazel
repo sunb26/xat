@@ -1,0 +1,14 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+js_library(
+    name = "components",
+    srcs = [
+        "mailing.tsx",
+        "userInfo.tsx",
+        "receiptForm.tsx",
+    ],
+    visibility = ["//web:__pkg__"],
+    deps = [
+        "//web:node_modules/@nextui-org/react",
+    ],
+)
