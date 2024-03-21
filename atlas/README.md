@@ -5,7 +5,7 @@
 Reads database schema from database at `<DSN>` and writes to `./schema.hcl`.
 
 ```bash
-bazel run //atlas:inspect --action_env=DSN=<DSN>
+bazel run //atlas:inspect --action_env="DSN=<DSN>"
 ```
 
 ## Apply
@@ -13,5 +13,5 @@ bazel run //atlas:inspect --action_env=DSN=<DSN>
 Applies `schema.hcl` to database at `<DSN>`.
 
 ```bash
-bazel run //atlas:apply --action_env=DSN=<DSN>
+bazel run //atlas:apply --action_env="DSN=<DSN>"
 ```

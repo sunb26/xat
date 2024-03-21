@@ -23,6 +23,27 @@ http_archive(
   build_file_content = """filegroup(name = "sysroot", srcs = glob(["*/**"]), visibility = ["//visibility:public"])""",
 )
 http_archive(
+  name = "en_PP-OCRv3_det_infer",
+  integrity = "sha256-50DrUiUhgnzIPaO6M+HHDM/Zs899miSkIM5Mpeu4eU8=",
+  strip_prefix = "en_PP-OCRv3_det_infer",
+  urls = ["https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_det_infer.tar"],
+  build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "en_PP-OCRv4_rec_infer",
+  integrity = "sha256-1a4VOm+9rNV3ZUPTGUxCWBVO1vg0Z9Vd4cw0X33SAyI=",
+  strip_prefix = "en_PP-OCRv4_rec_infer",
+  urls = ["https://paddleocr.bj.bcebos.com/PP-OCRv4/english/en_PP-OCRv4_rec_infer.tar"],
+  build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+)
+http_archive(
+  name = "ch_ppocr_mobile_v2.0_cls_infer",
+  integrity = "sha256-UHNSWFBA0DXaOx5jdGlK1nmoUKywo2qNDUeYQXY1dxc=",
+  strip_prefix = "ch_ppocr_mobile_v2.0_cls_infer",
+  urls = ["https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar"],
+  build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+)
+http_archive(
   name = "libgomp_x86_64-unknown-linux",
   sha256 = "1dbc499d2055cb128fa4ed678a7adbcced3d882b3509e26d5aa3742a4b9e5b2f",
   urls = ["http://ftp.us.debian.org/debian/pool/main/g/gcc-12/libgomp1_12.2.0-14_amd64.deb"],
@@ -87,13 +108,11 @@ http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_
 http_file(
   name = "atlas_aarch64-apple-darwin",
   executable = True,
-  integrity = "sha256-kIyE+33TP9qSco1Gi1GGhytoDtABiQPLocelicTo92s=",
   urls = ["https://release.ariga.io/atlas/atlas-darwin-arm64-latest"],
 )
 http_file(
   name = "atlas_x86_64-unknown-linux",
   executable = True,
-  integrity = "sha256-f+Ia7x1JfEQZojrxNGwUtC2W3gaXwBeVQHRmZTn1o5Q=",
   urls = ["https://release.ariga.io/atlas/atlas-linux-amd64-latest"],
 )
 

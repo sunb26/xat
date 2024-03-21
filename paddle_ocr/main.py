@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 from typing import Annotated, Any
 
 import pykka
@@ -35,14 +34,12 @@ class Model(pykka.ThreadingActor):
     def __init__(self, mock: bool) -> None:
         super().__init__()
         self._mock = mock
-        paddle_model = Path(os.environ["PADDLE_MODEL"])
         self._ocr = PaddleOCR(
             use_angle_cls=True,
             lang="en",
-            # NOTE: model dirs taken from paddleocr.py (containing PaddleOCR)
-            det_model_dir=str(paddle_model / "en_PP-OCRv3_det_infer"),
-            rec_model_dir=str(paddle_model / "en_PP-OCRv4_rec_infer"),
-            cls_model_dir=str(paddle_model / "ch_ppocr_mobile_v2.0_cls_infer"),
+            det_model_dir=os.environ["PADDLE_DET_MODEL"],
+            rec_model_dir=os.environ["PADDLE_REC_MODEL"],
+            cls_model_dir=os.environ["PADDLE_CLS_MODEL"],
         )
 
     def infer(self, uri_or_content: str | bytes) -> list[list[Any]]:
