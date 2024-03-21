@@ -12,208 +12,251 @@ bazel_dep(name = "rules_python", version = "0.31.0")
 bazel_dep(name = "toolchains_llvm", version = "1.0.0")
 
 LLVM_VERSION = "17.0.6"
+
 GO_VERSION = "1.22.1"
+
 PYTHON_VERSION = "3.11.7"
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 http_archive(
-  name = "org_chromium_sysroot_linux_x86_64",
-  integrity = "sha256-G+YOfEVqvFkKYTxk+rTqx2MsgexvInNKYbU2aaRAc0Y=",
-  urls = ["https://commondatastorage.googleapis.com/chrome-linux-sysroot/toolchain/2028cdaf24259d23adcff95393b8cc4f0eef714b/debian_bullseye_amd64_sysroot.tar.xz"],
-  build_file_content = """filegroup(name = "sysroot", srcs = glob(["*/**"]), visibility = ["//visibility:public"])""",
+    name = "org_chromium_sysroot_linux_x86_64",
+    build_file_content = """filegroup(name = "sysroot", srcs = glob(["*/**"]), visibility = ["//visibility:public"])""",
+    integrity = "sha256-G+YOfEVqvFkKYTxk+rTqx2MsgexvInNKYbU2aaRAc0Y=",
+    urls = ["https://commondatastorage.googleapis.com/chrome-linux-sysroot/toolchain/2028cdaf24259d23adcff95393b8cc4f0eef714b/debian_bullseye_amd64_sysroot.tar.xz"],
 )
+
 http_archive(
-  name = "en_PP-OCRv3_det_infer",
-  integrity = "sha256-50DrUiUhgnzIPaO6M+HHDM/Zs899miSkIM5Mpeu4eU8=",
-  strip_prefix = "en_PP-OCRv3_det_infer",
-  urls = ["https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_det_infer.tar"],
-  build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+    name = "en_PP-OCRv3_det_infer",
+    build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+    integrity = "sha256-50DrUiUhgnzIPaO6M+HHDM/Zs899miSkIM5Mpeu4eU8=",
+    strip_prefix = "en_PP-OCRv3_det_infer",
+    urls = ["https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_det_infer.tar"],
 )
+
 http_archive(
-  name = "en_PP-OCRv4_rec_infer",
-  integrity = "sha256-1a4VOm+9rNV3ZUPTGUxCWBVO1vg0Z9Vd4cw0X33SAyI=",
-  strip_prefix = "en_PP-OCRv4_rec_infer",
-  urls = ["https://paddleocr.bj.bcebos.com/PP-OCRv4/english/en_PP-OCRv4_rec_infer.tar"],
-  build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+    name = "en_PP-OCRv4_rec_infer",
+    build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+    integrity = "sha256-1a4VOm+9rNV3ZUPTGUxCWBVO1vg0Z9Vd4cw0X33SAyI=",
+    strip_prefix = "en_PP-OCRv4_rec_infer",
+    urls = ["https://paddleocr.bj.bcebos.com/PP-OCRv4/english/en_PP-OCRv4_rec_infer.tar"],
 )
+
 http_archive(
-  name = "ch_ppocr_mobile_v2.0_cls_infer",
-  integrity = "sha256-UHNSWFBA0DXaOx5jdGlK1nmoUKywo2qNDUeYQXY1dxc=",
-  strip_prefix = "ch_ppocr_mobile_v2.0_cls_infer",
-  urls = ["https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar"],
-  build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+    name = "ch_ppocr_mobile_v2.0_cls_infer",
+    build_file_content = """exports_files(["inference.pdiparams", "inference.pdiparams.info", "inference.pdmodel"], visibility = ["//visibility:public"])""",
+    integrity = "sha256-UHNSWFBA0DXaOx5jdGlK1nmoUKywo2qNDUeYQXY1dxc=",
+    strip_prefix = "ch_ppocr_mobile_v2.0_cls_infer",
+    urls = ["https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar"],
 )
+
 http_archive(
-  name = "libgomp_x86_64-unknown-linux",
-  sha256 = "1dbc499d2055cb128fa4ed678a7adbcced3d882b3509e26d5aa3742a4b9e5b2f",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/g/gcc-12/libgomp1_12.2.0-14_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libgomp_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "1dbc499d2055cb128fa4ed678a7adbcced3d882b3509e26d5aa3742a4b9e5b2f",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/g/gcc-12/libgomp1_12.2.0-14_amd64.deb"],
 )
+
 http_archive(
-  name = "libgl_x86_64-unknown-linux",
-  sha256 = "6f89b1702c48e9a2437bb3c1ffac8e1ab2d828fc28b3d14b2eecd4cc19b2c790",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libgl1_1.6.0-1_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libgl_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "6f89b1702c48e9a2437bb3c1ffac8e1ab2d828fc28b3d14b2eecd4cc19b2c790",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libgl1_1.6.0-1_amd64.deb"],
 )
+
 http_archive(
-  name = "libglib_x86_64-unknown-linux",
-  sha256 = "7e90ba4670377ae29f1a718798b4d5e088ac97d2dfa20a13b4b2ea357b61ec29",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/g/glib2.0/libglib2.0-0_2.74.6-2_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libglib_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "7e90ba4670377ae29f1a718798b4d5e088ac97d2dfa20a13b4b2ea357b61ec29",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/g/glib2.0/libglib2.0-0_2.74.6-2_amd64.deb"],
 )
+
 http_archive(
-  name = "libglvnd_x86_64-unknown-linux",
-  sha256 = "b6da5b153dd62d8b5e5fbe25242db1fc05c068707c365db49abda8c2427c75f8",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libglvnd0_1.6.0-1_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libglvnd_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "b6da5b153dd62d8b5e5fbe25242db1fc05c068707c365db49abda8c2427c75f8",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libglvnd0_1.6.0-1_amd64.deb"],
 )
+
 http_archive(
-  name = "libglx_x86_64-unknown-linux",
-  sha256 = "95f568df73dedf43ae66834a75502112e0d4f3ad7124f3dbfa790b739383b896",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libglx0_1.6.0-1_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libglx_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "95f568df73dedf43ae66834a75502112e0d4f3ad7124f3dbfa790b739383b896",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libg/libglvnd/libglx0_1.6.0-1_amd64.deb"],
 )
+
 http_archive(
-  name = "libx11_x86_64-unknown-linux",
-  sha256 = "d88c973e79fd9b65838d77624142952757e47a6eb1a58602acf0911cf35989f4",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libx11/libx11-6_1.8.4-2+deb12u2_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libx11_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "d88c973e79fd9b65838d77624142952757e47a6eb1a58602acf0911cf35989f4",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libx11/libx11-6_1.8.4-2+deb12u2_amd64.deb"],
 )
+
 http_archive(
-  name = "libxcb_x86_64-unknown-linux",
-  sha256 = "fdc61332a3892168f3cc9cfa1fe9cf11a91dc3e0acacbc47cbc50ebaa234cc71",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxcb/libxcb1_1.15-1_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libxcb_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "fdc61332a3892168f3cc9cfa1fe9cf11a91dc3e0acacbc47cbc50ebaa234cc71",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxcb/libxcb1_1.15-1_amd64.deb"],
 )
+
 http_archive(
-  name = "libxau_x86_64-unknown-linux",
-  sha256 = "679db1c4579ec7c61079adeaae8528adeb2e4bf5465baa6c56233b995d714750",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxau/libxau6_1.0.9-1_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libxau_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "679db1c4579ec7c61079adeaae8528adeb2e4bf5465baa6c56233b995d714750",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxau/libxau6_1.0.9-1_amd64.deb"],
 )
+
 http_archive(
-  name = "libxdmcp_x86_64-unknown-linux",
-  sha256 = "ecb8536f5fb34543b55bb9dc5f5b14c9dbb4150a7bddb3f2287b7cab6e9d25ef",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxdmcp/libxdmcp6_1.1.2-3_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libxdmcp_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "ecb8536f5fb34543b55bb9dc5f5b14c9dbb4150a7bddb3f2287b7cab6e9d25ef",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libx/libxdmcp/libxdmcp6_1.1.2-3_amd64.deb"],
 )
+
 http_archive(
-  name = "libbsd_x86_64-unknown-linux",
-  sha256 = "bb31cc8b40f962a85b2cec970f7f79cc704a1ae4bad24257a822055404b2c60b",
-  urls = ["http://ftp.us.debian.org/debian/pool/main/libb/libbsd/libbsd0_0.11.7-2_amd64.deb"],
-  build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    name = "libbsd_x86_64-unknown-linux",
+    build_file_content = """exports_files(["data.tar.xz"], visibility = ["//visibility:public"])""",
+    sha256 = "bb31cc8b40f962a85b2cec970f7f79cc704a1ae4bad24257a822055404b2c60b",
+    urls = ["http://ftp.us.debian.org/debian/pool/main/libb/libbsd/libbsd0_0.11.7-2_amd64.deb"],
 )
 
 http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
 http_file(
-  name = "atlas_aarch64-apple-darwin",
-  executable = True,
-  urls = ["https://release.ariga.io/atlas/atlas-darwin-arm64-latest"],
+    name = "atlas_aarch64-apple-darwin",
+    executable = True,
+    urls = ["https://release.ariga.io/atlas/atlas-darwin-arm64-latest"],
 )
+
 http_file(
-  name = "atlas_x86_64-unknown-linux",
-  executable = True,
-  urls = ["https://release.ariga.io/atlas/atlas-linux-amd64-latest"],
+    name = "atlas_x86_64-unknown-linux",
+    executable = True,
+    urls = ["https://release.ariga.io/atlas/atlas-linux-amd64-latest"],
 )
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
-  name = "debian",
-  # bookworm-slim
-  digest = "sha256:ccb33c3ac5b02588fc1d9e4fc09b952e433d0c54d8618d0ee1afadf1f3cf2455",
-  image = "docker.io/library/debian",
-  platforms = [
-    "linux/amd64",
-    "linux/arm/v5",
-    "linux/arm/v7",
-    "linux/arm64/v8",
-    "linux/386",
-    "linux/mips64le",
-    "linux/ppc64le",
-    "linux/s390x",
-  ],
+    name = "debian",
+    # bookworm-slim
+    digest = "sha256:ccb33c3ac5b02588fc1d9e4fc09b952e433d0c54d8618d0ee1afadf1f3cf2455",
+    image = "docker.io/library/debian",
+    platforms = [
+        "linux/amd64",
+        "linux/arm/v5",
+        "linux/arm/v7",
+        "linux/arm64/v8",
+        "linux/386",
+        "linux/mips64le",
+        "linux/ppc64le",
+        "linux/s390x",
+    ],
 )
 use_repo(oci, "debian")
 
 llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
 llvm.toolchain(llvm_version = LLVM_VERSION)
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
+
 register_toolchains("@llvm_toolchain//:all")
-llvm.toolchain(name = "llvm_toolchain_with_sysroot", llvm_version = LLVM_VERSION)
-llvm.toolchain_root(name = "llvm_toolchain_with_sysroot", label = "@llvm_toolchain_llvm//:BUILD")
+
+llvm.toolchain(
+    name = "llvm_toolchain_with_sysroot",
+    llvm_version = LLVM_VERSION,
+)
+llvm.toolchain_root(
+    name = "llvm_toolchain_with_sysroot",
+    label = "@llvm_toolchain_llvm//:BUILD",
+)
 llvm.sysroot(
-  name = "llvm_toolchain_with_sysroot",
-  targets = ["linux-x86_64"],
-  label = "@org_chromium_sysroot_linux_x86_64//:sysroot",
+    name = "llvm_toolchain_with_sysroot",
+    label = "@org_chromium_sysroot_linux_x86_64//:sysroot",
+    targets = ["linux-x86_64"],
 )
 use_repo(llvm, "llvm_toolchain_with_sysroot")
 
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(version = GO_VERSION)
-go_sdk.download(version = GO_VERSION, goarch = "amd64", goos = "linux")
+go_sdk.download(
+    goarch = "amd64",
+    goos = "linux",
+    version = GO_VERSION,
+)
 go_sdk.nogo(nogo = "//:nogo")
+
 go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "//:go.mod")
 # https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md#external-dependencies
 # use_repo(go_deps, "")
 
+use_repo(go_deps, "com_github_jmoiron_sqlx", "com_github_lib_pq")
+
 NODE_VERSION = "20.10.0"
+
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
 use_repo(node, "nodejs_toolchains")
 node.toolchain(node_version = NODE_VERSION)
+
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 use_repo(pnpm, "pnpm")
+
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
-  name = "npm",
-  npmrc = "//:.npmrc",
-  pnpm_lock = "//:pnpm-lock.yaml",
-  quiet = False,
-  update_pnpm_lock = True,
-  verify_node_modules_ignored = "//:.bazelignore",
-  data = [
-    "//:package.json",
-    "//:pnpm-lock.yaml",
-    "//:pnpm-workspace.yaml",
-    "//:web/package.json",
-  ],
+    name = "npm",
+    data = [
+        "//:package.json",
+        "//:pnpm-lock.yaml",
+        "//:pnpm-workspace.yaml",
+        "//:web/package.json",
+    ],
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+    quiet = False,
+    update_pnpm_lock = True,
+    verify_node_modules_ignored = "//:.bazelignore",
 )
 use_repo(npm, "npm")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
-python.toolchain(python_version = PYTHON_VERSION, configure_coverage_tool = True)
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = PYTHON_VERSION,
+)
+
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
-  hub_name = "pip_x86_64-unknown-linux",
-  python_version = PYTHON_VERSION,
-  requirements_lock = "//:requirements.patched.txt",
-  download_only = True,
-  extra_pip_args = [
-    "--platform",
-    "linux_86_64",
-    "--platform",
-    "manylinux_2_28",
-    "--platform",
-    "manylinux_2_24",
-    "--platform",
-    "manylinux1_x86_64",
-    "--platform",
-    "manylinux2010_x86_64",
-    "--platform",
-    "manylinux2014_x86_64",
-  ],
+    download_only = True,
+    extra_pip_args = [
+        "--platform",
+        "linux_86_64",
+        "--platform",
+        "manylinux_2_28",
+        "--platform",
+        "manylinux_2_24",
+        "--platform",
+        "manylinux1_x86_64",
+        "--platform",
+        "manylinux2010_x86_64",
+        "--platform",
+        "manylinux2014_x86_64",
+    ],
+    hub_name = "pip_x86_64-unknown-linux",
+    python_version = PYTHON_VERSION,
+    requirements_lock = "//:requirements.patched.txt",
 )
 use_repo(pip, "pip_x86_64-unknown-linux")
 pip.parse(
-  hub_name = "pip_aarch64-apple-darwin",
-  python_version = PYTHON_VERSION,
-  requirements_lock = "//:requirements.patched.txt",
-  download_only = True,
-  extra_pip_args = ["--platform", "macosx_14_4_arm64"],
+    download_only = True,
+    extra_pip_args = [
+        "--platform",
+        "macosx_14_4_arm64",
+    ],
+    hub_name = "pip_aarch64-apple-darwin",
+    python_version = PYTHON_VERSION,
+    requirements_lock = "//:requirements.patched.txt",
 )
 use_repo(pip, "pip_aarch64-apple-darwin")
 pip.override(
-  file = "paddleocr-2.7.0.3-py3-none-any.whl",
-  patch_strip = 1,
-  patches = ["//:patch/paddleocr_2_7_0_3.patch"],
+    file = "paddleocr-2.7.0.3-py3-none-any.whl",
+    patch_strip = 1,
+    patches = ["//:patch/paddleocr_2_7_0_3.patch"],
 )
