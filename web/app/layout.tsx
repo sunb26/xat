@@ -1,8 +1,8 @@
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { NavBar } from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <main className="flex flex-col min-h-screen max-w-screen">
-            <Navbar>
-              <NavbarContent justify="start">
-                <NavbarItem>Your return</NavbarItem>
-                <NavbarItem>Saved</NavbarItem>
-              </NavbarContent>
-              <NavbarContent justify="end">
-                <NavbarItem>Account</NavbarItem>
-                <NavbarItem>Help</NavbarItem>
-              </NavbarContent>
-            </Navbar>
+            <NavBar />
             {children}
           </main>
         </Providers>
