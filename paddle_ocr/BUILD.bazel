@@ -19,9 +19,9 @@ py_binary(
         "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdmodel",
     ],
     env = {
-        "PADDLE_DET_MODEL": "$$(dirname $(rootpath @en_PP-OCRv3_det_infer//:inference.pdiparams))",
-        "PADDLE_REC_MODEL": "$$(dirname $(rootpath @en_PP-OCRv4_rec_infer//:inference.pdiparams))",
-        "PADDLE_CLS_MODEL": "$$(dirname $(rootpath @ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams))",
+        "PADDLE_DET_MODEL": "$$(dirname $$RUNFILES_DIR/$(rlocationpath @en_PP-OCRv3_det_infer//:inference.pdiparams))",
+        "PADDLE_REC_MODEL": "$$(dirname $$RUNFILES_DIR/$(rlocationpath @en_PP-OCRv4_rec_infer//:inference.pdiparams))",
+        "PADDLE_CLS_MODEL": "$$(dirname $$RUNFILES_DIR/$(rlocationpath @ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams))",
     },
     main = "main.py",
     visibility = ["//cmd/serve:__pkg__"],
