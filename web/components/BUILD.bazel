@@ -4,11 +4,13 @@ js_library(
     name = "components",
     srcs = [
         "mailing.tsx",
-        "userInfo.tsx",
         "receiptForm.tsx",
+        "userInfo.tsx",
+        "navbar.tsx",
     ],
     visibility = ["//web:__pkg__"],
     deps = [
         "//web:node_modules/@nextui-org/react",
+        "//web:node_modules/@clerk/clerk-react",
     ],
 )

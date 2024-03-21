@@ -22,7 +22,11 @@ NEXT = [
     ":node_modules/tailwindcss",
     ":node_modules/tailwindcss-animate",
     ":node_modules/typescript",
-]
+    ":node_modules/@clerk/clerk-react",
+] + (
+    # NOTE: add optional `.env.local`
+    glob([".env.local"])
+)
 
 js_run_devserver(
     name = "dev",

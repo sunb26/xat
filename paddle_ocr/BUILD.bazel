@@ -8,15 +8,15 @@ py_binary(
     name = "paddle_ocr",
     srcs = ["main.py"],
     data = [
+        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams",
+        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams.info",
+        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdmodel",
         "@en_PP-OCRv3_det_infer//:inference.pdiparams",
         "@en_PP-OCRv3_det_infer//:inference.pdiparams.info",
         "@en_PP-OCRv3_det_infer//:inference.pdmodel",
         "@en_PP-OCRv4_rec_infer//:inference.pdiparams",
         "@en_PP-OCRv4_rec_infer//:inference.pdiparams.info",
         "@en_PP-OCRv4_rec_infer//:inference.pdmodel",
-        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams",
-        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdiparams.info",
-        "@ch_ppocr_mobile_v2.0_cls_infer//:inference.pdmodel",
     ],
     env = {
         "PADDLE_DET_MODEL": "$$(dirname $$RUNFILES_DIR/$(rlocationpath @en_PP-OCRv3_det_infer//:inference.pdiparams))",
