@@ -5,8 +5,8 @@ load("@aspect_rules_py//py:defs.bzl", "py_binary")
 load("@gazelle//:def.bzl", "gazelle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//:pm2/package_json.bzl", pm2_bin = "bin")
-load("@pip_macos_arm64//:requirements.bzl", requirement_macos_arm64 = "requirement")
-load("@pip_linux_x86_64//:requirements.bzl", requirement_linux_x86_64 = "requirement")
+load("@pip_aarch64-apple-darwin//:requirements.bzl", requirement_aarch64_apple_darwin = "requirement")
+load("@pip_x86_64-unknown-linux//:requirements.bzl", requirement_x86_64_unknwon_linux = "requirement")
 load("@rules_go//go:def.bzl", "TOOLS_NOGO", "go_binary", "go_library", "nogo")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python/pip_install:requirements.bzl", "compile_pip_requirements")
@@ -34,8 +34,8 @@ nogo(
 alias(
     name = "absl_py",
     actual = select({
-        ":linux_x86_64": requirement_linux_x86_64("absl-py"),
-        ":macos_arm64": requirement_macos_arm64("absl-py"),
+        "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": requirement_x86_64_unknwon_linux("absl-py"),
+        "@rules_rust//rust/platform:aarch64-apple-darwin": requirement_aarch64_apple_darwin("absl-py"),
         "//conditions:default": "@platforms//:incompatible",
     }),
 )
@@ -43,8 +43,8 @@ alias(
 alias(
     name = "pip_requirements_parser",
     actual = select({
-        ":linux_x86_64": requirement_linux_x86_64("pip-requirements-parser"),
-        ":macos_arm64": requirement_macos_arm64("pip-requirements-parser"),
+        "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": requirement_x86_64_unknwon_linux("pip-requirements-parser"),
+        "@rules_rust//rust/platform:aarch64-apple-darwin": requirement_aarch64_apple_darwin("pip-requirements-parser"),
         "//conditions:default": "@platforms//:incompatible",
     }),
 )
@@ -91,11 +91,11 @@ write_source_file(
 
 run_binary(
     name = "libgomp_tar",
-    srcs = ["@libgomp_x86_64//:data.tar.xz"],
+    srcs = ["@libgomp_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libgomp.tar"],
     args = [
         "--input",
-        "$(execpath @libgomp_x86_64//:data.tar.xz)",
+        "$(execpath @libgomp_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -105,11 +105,11 @@ run_binary(
 
 run_binary(
     name = "libgl_tar",
-    srcs = ["@libgl_x86_64//:data.tar.xz"],
+    srcs = ["@libgl_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libgl.tar"],
     args = [
         "--input",
-        "$(execpath @libgl_x86_64//:data.tar.xz)",
+        "$(execpath @libgl_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -119,11 +119,11 @@ run_binary(
 
 run_binary(
     name = "libglib_tar",
-    srcs = ["@libglib_x86_64//:data.tar.xz"],
+    srcs = ["@libglib_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libglib.tar"],
     args = [
         "--input",
-        "$(execpath @libglib_x86_64//:data.tar.xz)",
+        "$(execpath @libglib_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -133,11 +133,11 @@ run_binary(
 
 run_binary(
     name = "libglvnd_tar",
-    srcs = ["@libglvnd_x86_64//:data.tar.xz"],
+    srcs = ["@libglvnd_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libglvnd.tar"],
     args = [
         "--input",
-        "$(execpath @libglvnd_x86_64//:data.tar.xz)",
+        "$(execpath @libglvnd_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -147,11 +147,11 @@ run_binary(
 
 run_binary(
     name = "libglx_tar",
-    srcs = ["@libglx_x86_64//:data.tar.xz"],
+    srcs = ["@libglx_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libglx.tar"],
     args = [
         "--input",
-        "$(execpath @libglx_x86_64//:data.tar.xz)",
+        "$(execpath @libglx_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -161,11 +161,11 @@ run_binary(
 
 run_binary(
     name = "libx11_tar",
-    srcs = ["@libx11_x86_64//:data.tar.xz"],
+    srcs = ["@libx11_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libx11.tar"],
     args = [
         "--input",
-        "$(execpath @libx11_x86_64//:data.tar.xz)",
+        "$(execpath @libx11_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -175,11 +175,11 @@ run_binary(
 
 run_binary(
     name = "libxcb_tar",
-    srcs = ["@libxcb_x86_64//:data.tar.xz"],
+    srcs = ["@libxcb_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libxcb.tar"],
     args = [
         "--input",
-        "$(execpath @libxcb_x86_64//:data.tar.xz)",
+        "$(execpath @libxcb_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -189,11 +189,11 @@ run_binary(
 
 run_binary(
     name = "libxau_tar",
-    srcs = ["@libxau_x86_64//:data.tar.xz"],
+    srcs = ["@libxau_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libxau.tar"],
     args = [
         "--input",
-        "$(execpath @libxau_x86_64//:data.tar.xz)",
+        "$(execpath @libxau_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -203,11 +203,11 @@ run_binary(
 
 run_binary(
     name = "libxdmcp_tar",
-    srcs = ["@libxdmcp_x86_64//:data.tar.xz"],
+    srcs = ["@libxdmcp_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libxdmcp.tar"],
     args = [
         "--input",
-        "$(execpath @libxdmcp_x86_64//:data.tar.xz)",
+        "$(execpath @libxdmcp_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
@@ -217,42 +217,16 @@ run_binary(
 
 run_binary(
     name = "libbsd_tar",
-    srcs = ["@libbsd_x86_64//:data.tar.xz"],
+    srcs = ["@libbsd_x86_64-unknown-linux//:data.tar.xz"],
     outs = ["libbsd.tar"],
     args = [
         "--input",
-        "$(execpath @libbsd_x86_64//:data.tar.xz)",
+        "$(execpath @libbsd_x86_64-unknown-linux//:data.tar.xz)",
         "--output",
         "$@",
     ],
     tool = ":lzma",
     visibility = ["//cmd/serve:__pkg__"],
-)
-
-config_setting(
-    name = "linux_x86_64",
-    constraint_values = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-    visibility = [
-        "//atlas:__pkg__",
-        "//cmd/serve:__pkg__",
-        "//paddle_ocr:__pkg__",
-    ],
-)
-
-config_setting(
-    name = "macos_arm64",
-    constraint_values = [
-        "@platforms//os:macos",
-        "@platforms//cpu:arm64",
-    ],
-    visibility = [
-        "//atlas:__pkg__",
-        "//cmd/serve:__pkg__",
-        "//paddle_ocr:__pkg__",
-    ],
 )
 
 # gazelle:prefix github.com/sunb26/xat
