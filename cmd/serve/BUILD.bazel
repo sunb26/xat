@@ -29,7 +29,6 @@ go_binary(
 
 sh_binary(
     name = "local",
-    deps = ["@bazel_tools//tools/bash/runfiles"],
     srcs = ["local_sh"],
     args = select({
         "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [],
@@ -40,15 +39,16 @@ sh_binary(
         "//conditions:default": ["@platforms//:incompatible"],
     }),
     data = [
+        ":serve",
         "//:pm2_cli",
         "//paddle_ocr",
-        ":serve",
     ],
     env = {
         "PADDLE_OCR": "$(rootpath //paddle_ocr)",
         "PM2": "$(rootpath //:pm2_cli)",
         "SERVE": "$(rootpath :serve)",
     },
+    deps = ["@bazel_tools//tools/bash/runfiles"],
 )
 
 write_file(
@@ -71,7 +71,10 @@ write_file(
     is_executable = True,
 )
 
-pkg_tar(name = "tar", srcs = [":serve"])
+pkg_tar(
+    name = "tar",
+    srcs = [":serve"],
+)
 
 oci_image(
     name = "image",
