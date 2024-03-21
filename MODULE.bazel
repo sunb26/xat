@@ -108,13 +108,11 @@ http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_
 http_file(
   name = "atlas_aarch64-apple-darwin",
   executable = True,
-  integrity = "sha256-kIyE+33TP9qSco1Gi1GGhytoDtABiQPLocelicTo92s=",
   urls = ["https://release.ariga.io/atlas/atlas-darwin-arm64-latest"],
 )
 http_file(
   name = "atlas_x86_64-unknown-linux",
   executable = True,
-  integrity = "sha256-f+Ia7x1JfEQZojrxNGwUtC2W3gaXwBeVQHRmZTn1o5Q=",
   urls = ["https://release.ariga.io/atlas/atlas-linux-amd64-latest"],
 )
 
