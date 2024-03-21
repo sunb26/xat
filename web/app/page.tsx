@@ -1,3 +1,4 @@
+import { Camera } from "@/components/camera";
 import { MailingForm } from "@/components/mailing";
 import { ReceiptForm } from "@/components/receiptForm";
 import { UserInfo } from "@/components/userInfo";
@@ -19,8 +20,8 @@ export default function Home() {
           <Link isBlock color="foreground" href="#receipt">
             Add Receipts
           </Link>
-          <Link isBlock color="foreground">
-            Autofill your return
+          <Link isBlock color="foreground" href="#camera">
+            Upload a Receipt
           </Link>
           <Link isBlock color="foreground">
             Summary
@@ -34,6 +35,7 @@ export default function Home() {
           <UserInfo />
           <MailingForm />
           <ReceiptForm />
+          <Camera />
         </div>
       </div>
     </section>
