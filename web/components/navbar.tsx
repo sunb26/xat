@@ -1,12 +1,12 @@
 "use client";
 
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/react";
 import {
   RedirectToSignIn,
   SignedIn,
   SignedOut,
   UserButton,
 } from "@clerk/clerk-react";
+import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/react";
 
 export const NavBar = () => {
   return (

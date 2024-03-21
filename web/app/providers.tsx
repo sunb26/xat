@@ -1,8 +1,8 @@
 "use client";
 
+import { ClerkProvider } from "@clerk/clerk-react";
 import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { ClerkProvider } from "@clerk/clerk-react";
 
 const FAKE_PUBLISHABLE_KEY =
   "pk_test_d2VsY29tZS1zdGFyZmlzaC02NS5jbGVyay5hY2NvdW50cy5kZXYk";
