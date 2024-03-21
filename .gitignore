@@ -3,7 +3,7 @@
 /node_modules
 /rust-project.json
 .DS_Store
-# .env*.local
+.env*.local
 build
 coverage
 data
