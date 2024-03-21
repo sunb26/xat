@@ -11,6 +11,7 @@ js_library(
     ],
     visibility = ["//web:__pkg__"],
     deps = [
+        "//web:node_modules/@clerk/clerk-react",
         "//web:node_modules/@nextui-org/react",
         "//web:node_modules/@types/react",
         "//web:node_modules/@types/react-dom",

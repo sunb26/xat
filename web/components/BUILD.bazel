@@ -4,8 +4,8 @@ js_library(
     name = "components",
     srcs = [
         "mailing.tsx",
-        "userInfo.tsx",
         "receiptForm.tsx",
+        "userInfo.tsx",
     ],
     visibility = ["//web:__pkg__"],
     deps = [
