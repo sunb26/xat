@@ -15,7 +15,6 @@ NEXT = [
     "postcss.config.js",
     "tailwind.config.ts",
     "tsconfig.json",
-    ".env.local",
     ":node_modules/@nextui-org/theme",
     ":node_modules/@types/node",
     ":node_modules/autoprefixer",
@@ -24,7 +23,10 @@ NEXT = [
     ":node_modules/tailwindcss-animate",
     ":node_modules/typescript",
     ":node_modules/@clerk/clerk-react",
-]
+] + (
+    # NOTE: add optional `.env.local`
+    glob([".env.local"])
+)
 
 js_run_devserver(
     name = "dev",
