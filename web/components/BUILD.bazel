@@ -3,14 +3,16 @@ load("@aspect_rules_js//js:defs.bzl", "js_library")
 js_library(
     name = "components",
     srcs = [
+        "camera.tsx",
         "mailing.tsx",
+        "navbar.tsx",
         "receiptForm.tsx",
         "userInfo.tsx",
-        "navbar.tsx",
     ],
     visibility = ["//web:__pkg__"],
     deps = [
-        "//web:node_modules/@nextui-org/react",
         "//web:node_modules/@clerk/clerk-react",
+        "//web:node_modules/@nextui-org/react",
+        "//web:node_modules/react-webcam",
     ],
 )
