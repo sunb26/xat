@@ -6,6 +6,8 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
+
+	handler_v1 "github.com/sunb26/xat/handler"
 )
 
 //go:embed all:web all:web/_next
@@ -17,6 +19,7 @@ func main() {
 		log.Fatal(err)
 	}
 	http.Handle("/", http.FileServerFS(content))
+	http.HandleFunc("/api/v1/user", http.HandlerFunc(handler_v1.CreateUser))
 	fmt.Println("Listening on 127.0.0.1:3000")
 	log.Fatal(http.ListenAndServe(":3000", nil))
 }
