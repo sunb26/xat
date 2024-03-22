@@ -14,6 +14,7 @@ load("@rules_python//python/pip_install:requirements.bzl", "compile_pip_requirem
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
 buildifier(name = "buildifier")
+
 buildifier_test(name = "buildifier_test")
 
 npm_link_all_packages(name = "node_modules")
