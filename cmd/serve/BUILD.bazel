@@ -9,9 +9,7 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 go_library(
     name = "serve_lib",
     srcs = ["main.go"],
-    deps = [
-        "//handler"
-    ],
+    deps = ["//handler"],
     embedsrcs = [":web"],
     importpath = "github.com/sunb26/xat/cmd/serve",
     visibility = ["//visibility:private"],
