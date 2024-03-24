@@ -18,8 +18,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	http.Handle("/", http.FileServerFS(content))
+
 	http.HandleFunc("/api/v1/user", http.HandlerFunc(handler_v1.CreateUser))
+	http.Handle("/", http.FileServerFS(content))
+
 	fmt.Println("Listening on 127.0.0.1:3000")
 	log.Fatal(http.ListenAndServe(":3000", nil))
 }
