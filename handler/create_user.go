@@ -12,17 +12,19 @@ import (
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	db, err := sqlx.Connect("postgres", os.Getenv("POSTGRES_DSN"))
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(fmt.Sprintf("db connection error: %s", err.Error())))
-		return
-	}
+	ctx := r.Context()
 
-	err = r.ParseForm()
+	err := r.ParseForm()
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(fmt.Sprintf("parse form error: %s", err.Error())))
+		return
+	}
+
+	db, err := sqlx.Connect("postgres", os.Getenv("DSN"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(fmt.Sprintf("db connection error: %s", err.Error())))
 		return
 	}
 
@@ -34,9 +36,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tx := db.MustBegin()
+	defer tx.Rollback()
 
 	var orgId int64
-	insertOrgRes := tx.QueryRowx(`INSERT INTO public.organization_v1 DEFAULT VALUES RETURNING organization_id`)
+	insertOrgRes := tx.QueryRowxContext(ctx, `INSERT INTO public.organization_v1 DEFAULT VALUES RETURNING organization_id`)
 	err = insertOrgRes.Scan(&orgId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -44,7 +47,12 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tx.MustExec(`INSERT INTO public.user_v1 (organization_id, user_id) VALUES ($1, $2) RETURNING user_id`, orgId, userId)
+	_, err = tx.QueryxContext(ctx, `INSERT INTO public.user_v1 (organization_id, user_id) VALUES ($1, $2) RETURNING user_id`, orgId, userId)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(fmt.Sprintf("insert user error: %s", err.Error())))
+		return
+	}
 
 	err = tx.Commit()
 	if err != nil {
