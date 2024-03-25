@@ -2,11 +2,15 @@ load("@rules_go//go:def.bzl", "go_library")
 
 go_library(
     name = "handler",
-    srcs = ["create_user.go"],
+    srcs = [
+        "create_user.go",
+        "create_user_snapshot.go",
+    ],
     importpath = "github.com/sunb26/xat/handler",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_jmoiron_sqlx//:sqlx",
         "@com_github_lib_pq//:pq",
+        "@com_github_rs_zerolog//log",
     ],
 )

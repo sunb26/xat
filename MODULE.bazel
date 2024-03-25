@@ -188,7 +188,7 @@ go_deps.from_file(go_mod = "//:go.mod")
 # https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md#external-dependencies
 # use_repo(go_deps, "")
 
-use_repo(go_deps, "com_github_jmoiron_sqlx", "com_github_lib_pq")
+use_repo(go_deps, "com_github_jmoiron_sqlx", "com_github_lib_pq", "com_github_rs_zerolog")
 
 NODE_VERSION = "20.10.0"
 
