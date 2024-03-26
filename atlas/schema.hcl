@@ -415,7 +415,7 @@ table "user_v1" {
   column "user_id" {
     null = false
     type = uuid
-    comment = "UUID generated from clerk"
+    comment = "The UUID generated from Clerk <https://clerk.com/>."
   }
   primary_key {
     columns = [column.user_id]
