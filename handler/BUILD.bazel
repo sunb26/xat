@@ -4,7 +4,6 @@ go_library(
     name = "handler",
     srcs = [
         "create_user.go",
-        "create_user_snapshot.go",
     ],
     importpath = "github.com/sunb26/xat/handler",
     visibility = ["//visibility:public"],
