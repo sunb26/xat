@@ -18,7 +18,7 @@ sh_binary(
 write_file(
     name = "apply_sh",
     out = "apply.sh",
-    content = ["echo $ATLAS schema apply --url $DSN --to \"file://$SCHEMA\" ${@:-}"],
+    content = ["$ATLAS schema apply --url $DSN --to \"file://$SCHEMA\" ${@:-}"],
     is_executable = True,
 )
 
