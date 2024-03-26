@@ -2,56 +2,58 @@ package handler
 
 import (
 	"encoding/json"
-	"io"
 	"net/http"
-
-	"os"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/rs/zerolog/log"
 )
 
+type createUserRequest struct {
+	UserId string `json:"user_id"`
+}
+
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	body, err := io.ReadAll(r.Body)
+	var reqBody createUserRequest
+
+	// TODO: Put error handling in helper function
+	dec := json.NewDecoder(r.Body)
+	dec.DisallowUnknownFields()
+	err := dec.Decode(&reqBody)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusBadRequest)
 		log.Info().Ctx(ctx).Msgf("read body error: %s", err.Error())
 		return
 	}
 
-	log.Info().Ctx(ctx).Msgf("request body: %s", body)
+	log.Info().Ctx(ctx).Msgf("request body: %#v", reqBody)
 
 	w.Header().Set("Content-Type", "application/json")
 
-	err = r.ParseForm()
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		log.Info().Ctx(ctx).Msgf("parsing form error: %s", err.Error())
+	if reqBody.UserId == "" {
+		log.Info().Ctx(ctx).Msg("user_id field is empty")
+		http.Error(w, "empty fields", http.StatusUnprocessableEntity)
 		return
 	}
 
-	db, err := sqlx.Connect("postgres", os.Getenv("DSN"))
+	db, ok := r.Context().Value("db").(*sqlx.DB)
+	if !ok {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Info().Ctx(ctx).Msg("db not found in context")
+		return
+	}
+
+	tx, err := db.Beginx()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msgf("db connection error: %s", err.Error())
-		w.Write([]byte("error: db not connected"))
+		log.Info().Ctx(ctx).Msgf("tx begin error: %s", err.Error())
 		return
 	}
 
-	userId := r.FormValue("user_id")
-	if userId == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		log.Info().Ctx(ctx).Msgf("error: missing user_id field")
-		w.Write([]byte("error: missing fields"))
-		return
-	}
-
-	tx := db.MustBegin()
 	defer tx.Rollback()
 
-	var orgId int64
+	var orgId uint64
 	insertOrgRes := tx.QueryRowxContext(ctx, `INSERT INTO public.organization_v1 DEFAULT VALUES RETURNING organization_id`)
 	err = insertOrgRes.Scan(&orgId)
 	if err != nil {
@@ -60,7 +62,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = tx.QueryxContext(ctx, `INSERT INTO public.user_v1 (organization_id, user_id) VALUES ($1, $2) RETURNING user_id`, orgId, userId)
+	_, err = tx.QueryxContext(ctx, `INSERT INTO public.user_v1 (organization_id, user_id) VALUES ($1, $2) RETURNING user_id`, orgId, reqBody.UserId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Info().Ctx(ctx).Msgf("insert user error: %s", err.Error())
@@ -74,7 +76,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := json.Marshal(map[string]string{"user_id": userId})
+	res, err := json.Marshal(map[string]string{"user_id": reqBody.UserId})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Info().Ctx(ctx).Msgf("json marshal error: %s", err.Error())

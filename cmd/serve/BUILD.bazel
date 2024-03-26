@@ -9,7 +9,11 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 go_library(
     name = "serve_lib",
     srcs = ["main.go"],
-    deps = ["//handler"],
+    deps = [
+        "//handler",
+        "@com_github_jmoiron_sqlx//:sqlx",
+        "@com_github_lib_pq//:pq",
+        ],
     embedsrcs = [":web"],
     importpath = "github.com/sunb26/xat/cmd/serve",
     visibility = ["//visibility:private"],
