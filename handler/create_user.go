@@ -20,6 +20,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	// TODO: Put error handling in helper function
 	dec := json.NewDecoder(r.Body)
 	dec.DisallowUnknownFields()
+
 	err := dec.Decode(&reqBody)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -28,8 +29,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Info().Ctx(ctx).Msgf("request body: %#v", reqBody)
-
-	w.Header().Set("Content-Type", "application/json")
 
 	if reqBody.UserId == "" {
 		log.Info().Ctx(ctx).Msg("user_id field is empty")
@@ -84,6 +83,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(res)
 	log.Info().Ctx(ctx).Msgf("response body: %s", res)
 }
