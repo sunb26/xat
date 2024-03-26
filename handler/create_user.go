@@ -58,7 +58,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	err = insertOrgRes.Scan(&orgId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msgf("scan error: %s", err.Error())
+		log.Info().Ctx(ctx).Msgf("failed to insert into organization table: %s", err.Error())
 		return
 	}
 
