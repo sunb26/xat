@@ -2,11 +2,11 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"github.com/rs/zerolog/log"
 )
 
 type createUserRequest struct {
@@ -24,14 +24,14 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	err := dec.Decode(&reqBody)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		log.Info().Ctx(ctx).Msgf("read body error: %s", err.Error())
+		log.Printf("read body error: %s", err.Error())
 		return
 	}
 
-	log.Info().Ctx(ctx).Msgf("request body: %#v", reqBody)
+	log.Printf("request body: %#v", reqBody)
 
 	if reqBody.UserId == "" {
-		log.Info().Ctx(ctx).Msg("user_id field is empty")
+		log.Printf("user_id field is empty")
 		http.Error(w, "empty fields", http.StatusUnprocessableEntity)
 		return
 	}
@@ -39,14 +39,14 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	db, ok := r.Context().Value("db").(*sqlx.DB)
 	if !ok {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msg("db not found in context")
+		log.Printf("db not found in context")
 		return
 	}
 
 	tx, err := db.Beginx()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msgf("tx begin error: %s", err.Error())
+		log.Printf("tx begin error: %s", err.Error())
 		return
 	}
 
@@ -57,33 +57,33 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	err = insertOrgRes.Scan(&orgId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msgf("failed to insert into organization table: %s", err.Error())
+		log.Printf("failed to insert into organization table: %s", err.Error())
 		return
 	}
 
 	_, err = tx.QueryxContext(ctx, `INSERT INTO public.user_v1 (organization_id, user_id) VALUES ($1, $2) RETURNING user_id`, orgId, reqBody.UserId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msgf("insert user error: %s", err.Error())
+		log.Printf("insert user error: %s", err.Error())
 		return
 	}
 
 	err = tx.Commit()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msgf("tx commit error: %s", err.Error())
+		log.Printf("tx commit error: %s", err.Error())
 		return
 	}
 
 	res, err := json.Marshal(map[string]string{"user_id": reqBody.UserId})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Info().Ctx(ctx).Msgf("json marshal error: %s", err.Error())
+		log.Printf("json marshal error: %s", err.Error())
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(res)
-	log.Info().Ctx(ctx).Msgf("response body: %s", res)
+	log.Printf("response body: %s", res)
 }
