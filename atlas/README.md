@@ -13,5 +13,5 @@ bazel run //atlas:inspect --action_env="DSN=<DSN>"
 Applies `schema.hcl` to database at `<DSN>`.
 
 ```bash
-bazel run //atlas:apply --action_env="DSN=<DSN>"
+DSN="<DSN>" bazel run //atlas:apply
 ```
