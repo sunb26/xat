@@ -38,7 +38,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	db, err := sqlx.Open("postgres", os.Getenv("DSN"))
+	db, err := sqlx.Connect("postgres", os.Getenv("DSN"))
 	if err != nil {
 		log.Fatalf("failed to open to database: %v", err)
 	}
