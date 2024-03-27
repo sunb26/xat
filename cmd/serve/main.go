@@ -12,7 +12,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 
-	handler_v1 "github.com/sunb26/xat/handler"
+	create_user_v1 "github.com/sunb26/xat/handler/create_user"
 )
 
 //go:embed all:web all:web/_next
@@ -37,7 +37,7 @@ func main() {
 		log.Fatalf("failed to open to database: %v", err)
 	}
 
-	http.HandleFunc("/api/v1/user", injectDB(db, handler_v1.CreateUser))
+	http.HandleFunc("/api/v1/user", injectDB(db, create_user_v1.CreateUser))
 	http.Handle("/", http.FileServerFS(content))
 
 	fmt.Println("Listening on 127.0.0.1:3000")
