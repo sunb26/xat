@@ -18,12 +18,18 @@ import (
 //go:embed all:web all:web/_next
 var content embed.FS
 
-func injectDB(db *sqlx.DB, next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ctx := context.WithValue(r.Context(), "db", db)
+type injector struct {
+	handler http.Handler
+	db      *sqlx.DB
+}
 
-		next.ServeHTTP(w, r.WithContext(ctx))
-	}
+func (i *injector) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	ctx := context.WithValue(r.Context(), "db", i.db)
+	i.handler.ServeHTTP(w, r.WithContext(ctx))
+}
+
+func newInjector(handler http.Handler, db *sqlx.DB) *injector {
+	return &injector{handler: handler, db: db}
 }
 
 func main() {
@@ -37,9 +43,12 @@ func main() {
 		log.Fatalf("failed to open to database: %v", err)
 	}
 
-	http.HandleFunc("/api/v1/user", injectDB(db, create_user_v1.CreateUser))
-	http.Handle("/", http.FileServerFS(content))
+	mux := http.NewServeMux()
+	mux.HandleFunc("/api/v1/user", create_user_v1.CreateUser)
+	mux.Handle("/", http.FileServerFS(content))
+
+	wrappedMux := newInjector(mux, db)
 
 	fmt.Println("Listening on 127.0.0.1:3000")
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	log.Fatal(http.ListenAndServe(":3000", wrappedMux))
 }
