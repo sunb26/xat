@@ -43,11 +43,17 @@ func main() {
 		log.Fatalf("failed to open to database: %v", err)
 	}
 
-	mux := http.NewServeMux()
+	topMux := http.NewServeMux()
+	apiMux := http.NewServeMux()
+	staticMux := http.NewServeMux()
+	wrappedApiMux := newMiddleware(apiMux, db)
 
-	mux.Handle("/api/v1/user", newMiddleware(http.HandlerFunc(create_user_v1.CreateUser), db))
-	mux.Handle("/", http.FileServerFS(content))
+	apiMux.Handle("/v1/user", http.HandlerFunc(create_user_v1.CreateUser))
+	staticMux.Handle("/", http.FileServer(http.FS(content)))
+
+	topMux.Handle("/api/", http.StripPrefix("/api", wrappedApiMux))
+	topMux.Handle("/", staticMux)
 
 	fmt.Println("Listening on 127.0.0.1:3000")
-	log.Fatal(http.ListenAndServe(":3000", mux))
+	log.Fatal(http.ListenAndServe(":3000", topMux))
 }

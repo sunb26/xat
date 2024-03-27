@@ -14,10 +14,8 @@ type createUserRequest struct {
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
 	var reqBody createUserRequest
 
-	// TODO: Put error handling in helper function
 	dec := json.NewDecoder(r.Body)
 	dec.DisallowUnknownFields()
 
@@ -53,7 +51,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	defer tx.Rollback()
 
 	var orgId uint64
-	insertOrgRes := tx.QueryRowxContext(ctx, `INSERT INTO public.organization_v1 DEFAULT VALUES RETURNING organization_id`)
+	insertOrgRes := tx.QueryRowxContext(r.Context(), `INSERT INTO public.organization_v1 DEFAULT VALUES RETURNING organization_id`)
 	err = insertOrgRes.Scan(&orgId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -61,7 +59,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = tx.QueryxContext(ctx, `INSERT INTO public.user_v1 (organization_id, user_id) VALUES ($1, $2) RETURNING user_id`, orgId, reqBody.UserId)
+	_, err = tx.QueryxContext(r.Context(), `INSERT INTO public.user_v1 (organization_id, user_id) VALUES ($1, $2) RETURNING user_id`, orgId, reqBody.UserId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("insert user error: %s", err.Error())
