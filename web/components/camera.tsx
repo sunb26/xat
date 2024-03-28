@@ -1,17 +1,23 @@
 "use client";
 
-import { Button, Card, CardBody, CardHeader, Image } from "@nextui-org/react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button, Image } from "@nextui-org/react";
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
   width: 720,
-  height: 360,
+  height: 480,
   facingMode: "user",
 };
 
 export const Camera = () => {
-  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
+  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(true);
   const webcamRef = useRef<Webcam>(null);
   const [url, setUrl] = useState<string | null>(null);
   const capture = useCallback(() => {
@@ -21,23 +27,20 @@ export const Camera = () => {
     }
     setCaptureEnable(false);
   }, []);
+  function resetCamera() {
+    setUrl(null);
+    setCaptureEnable(true);
+  }
 
   return (
-    <Card className="p-6" id="camera">
-      <CardHeader className="text-lg font-semibold">
-        Upload a Receipt
-      </CardHeader>
-      <CardBody className="flex flex-col items-center justify-center gap-4 min-h-96 border-dashed border-2 rounded-lg">
-        {!isCaptureEnable && url == null ? (
-          <Button onClick={() => setCaptureEnable(true)} color="primary">
-            Enable Camera
-          </Button>
-        ) : (
-          <></>
-        )}
-        {isCaptureEnable && (
-          <>
-            <div>
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button size="sm">Open camera</Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <div className="flex flex-col p-4 gap-4 min-h-96 mx-auto w-full max-w-md">
+          {isCaptureEnable && (
+            <>
               {/*
             NOTE: https://github.com/microsoft/TypeScript/issues/31147
             // @ts-ignore*/}
@@ -50,23 +53,29 @@ export const Camera = () => {
                 videoConstraints={videoConstraints}
                 className="rounded-md"
               />
-            </div>
-            <Button onPress={capture} color="primary">
-              Capture
-            </Button>
-          </>
-        )}
-        {url && (
-          <>
-            <div>
+              <Button onPress={capture} color="primary">
+                Capture
+              </Button>
+            </>
+          )}
+          {url && (
+            <>
               <Image src={url} alt="receipt screenshot" />
-            </div>
-            <Button onPress={() => setUrl(null)} color="danger">
-              Delete
-            </Button>
-          </>
-        )}
-      </CardBody>
-    </Card>
+              <div className="flex gap-2">
+                <Button onPress={resetCamera} className="w-full">
+                  Re-take
+                </Button>
+                <Button color="primary" className="w-full">
+                  Continue
+                </Button>
+              </div>
+            </>
+          )}
+          <DrawerClose asChild>
+            <Button variant="bordered">Cancel</Button>
+          </DrawerClose>
+        </div>
+      </DrawerContent>
+    </Drawer>
   );
 };

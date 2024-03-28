@@ -3,7 +3,10 @@ load("@aspect_rules_js//js:defs.bzl", "js_library")
 js_library(
     name = "lib",
     srcs = ["utils.ts"],
-    visibility = ["//web:__pkg__"],
+    visibility = [
+        "//web:__pkg__",
+        "//web/components/ui:__pkg__",
+    ],
     deps = [
         "//web:node_modules/clsx",
         "//web:node_modules/tailwind-merge",
