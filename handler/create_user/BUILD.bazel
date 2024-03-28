@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "create_user",
+    srcs = ["create_user.go"],
+    importpath = "github.com/sunb26/xat/handler/create_user",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_jmoiron_sqlx//:sqlx",
+        "@com_github_lib_pq//:pq",
+    ],
+)

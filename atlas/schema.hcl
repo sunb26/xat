@@ -248,7 +248,7 @@ table "project_v1" {
   comment = "A project can be any time a user starts a new form. A user can have many projects."
   column "user_id" {
     null = false
-    type = bigint
+    type = uuid
   }
   column "project_id" {
     null = false
@@ -352,7 +352,7 @@ table "user_snapshot_v1" {
   comment = "A snapshot in time of a user profile. A new snapshot is generated everytime a user modifies information related to their profile."
   column "user_id" {
     null = false
-    type = bigint
+    type = uuid
   }
   column "snapshot_id" {
     null = false
@@ -414,12 +414,8 @@ table "user_v1" {
   }
   column "user_id" {
     null = false
-    type = bigint
-    identity {
-      generated = ALWAYS
-      start = 0
-      increment = 1
-    }
+    type = uuid
+    comment = "The UUID generated from Clerk <https://clerk.com/>."
   }
   primary_key {
     columns = [column.user_id]
