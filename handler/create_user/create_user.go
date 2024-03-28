@@ -26,7 +26,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("request: %s %s %#v", r.Method, r.URL, reqBody)
+	log.Printf("request body: %#v", reqBody)
 
 	if reqBody.UserId == "" {
 		log.Printf("user_id field is empty")
@@ -80,7 +80,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(res)
 	log.Printf("response body: %s", res)

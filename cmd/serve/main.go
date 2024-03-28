@@ -25,7 +25,9 @@ type middleware struct {
 
 func (i *middleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx := context.WithValue(r.Context(), "db", i.db)
+	log.Printf("request header: %s %s", r.Method, r.URL)
 	i.handler.ServeHTTP(w, r.WithContext(ctx))
+	log.Printf("response header: %#v", w.Header())
 }
 
 func newMiddleware(handler http.Handler, db *sqlx.DB) *middleware {
