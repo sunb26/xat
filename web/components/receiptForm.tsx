@@ -1,3 +1,4 @@
+import { Camera } from "@/components/camera";
 import {
   Drawer,
   DrawerClose,
@@ -9,7 +10,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button, Input } from "@nextui-org/react";
-import { Camera } from "@/components/camera";
 
 export const ReceiptForm = () => {
   return (

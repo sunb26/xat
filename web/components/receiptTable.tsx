@@ -1,5 +1,5 @@
-import { Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { ReceiptForm } from "@/components/receiptForm";
+import { Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 
 export const ReceiptTable = () => {
   return (
