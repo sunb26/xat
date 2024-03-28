@@ -1,6 +1,5 @@
-import { Camera } from "@/components/camera";
 import { MailingForm } from "@/components/mailing";
-import { ReceiptForm } from "@/components/receiptForm";
+import { ReceiptTable } from "@/components/receiptTable";
 import { UserInfo } from "@/components/userInfo";
 import { Divider, Link } from "@nextui-org/react";
 
@@ -34,8 +33,7 @@ export default function Home() {
           <h1 className="text-2xl">Your 2024 Tax Return</h1>
           <UserInfo />
           <MailingForm />
-          <ReceiptForm />
-          <Camera />
+          <ReceiptTable />
         </div>
       </div>
     </section>

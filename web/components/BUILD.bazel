@@ -7,6 +7,7 @@ js_library(
         "mailing.tsx",
         "navbar.tsx",
         "receiptForm.tsx",
+        "receiptTable.tsx",
         "userInfo.tsx",
     ],
     visibility = ["//web:__pkg__"],
@@ -14,5 +15,6 @@ js_library(
         "//web:node_modules/@clerk/clerk-react",
         "//web:node_modules/@nextui-org/react",
         "//web:node_modules/react-webcam",
+        "//web/components/ui",
     ],
 )
