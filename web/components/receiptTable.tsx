@@ -1,5 +1,15 @@
+"use client";
+
 import { ReceiptForm } from "@/components/receiptForm";
-import { Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+} from "@nextui-org/react";
 
 export const ReceiptTable = () => {
   return (
@@ -8,16 +18,14 @@ export const ReceiptTable = () => {
         Your Receipts <ReceiptForm />
       </CardHeader>
       <CardBody>
-        <form className="flex flex-col gap-4">
-          <Input required type="number" placeholder="Amount" startContent="$" />
-          <Input
-            required
-            type="number"
-            placeholder="GST/HST"
-            startContent="$"
-          />
-          <Input required type="date" label="Date" />
-        </form>
+        <Table removeWrapper aria-label="Receipts table">
+          <TableHeader>
+            <TableColumn>GST/HST</TableColumn>
+            <TableColumn>TOTAL</TableColumn>
+            <TableColumn>HISTORY</TableColumn>
+          </TableHeader>
+          <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
+        </Table>
       </CardBody>
     </Card>
   );
