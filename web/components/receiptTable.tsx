@@ -6,9 +6,9 @@ import {
   CardBody,
   CardHeader,
   Table,
-  TableHeader,
-  TableColumn,
   TableBody,
+  TableColumn,
+  TableHeader,
 } from "@nextui-org/react";
 
 export const ReceiptTable = () => {
