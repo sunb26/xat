@@ -1,3 +1,89 @@
+table "receipt_snapshot_v1" {
+  schema = schema.public
+  comment = "The cumulative totals associated with a receipt such as subtotal, gratuity, tax, etc. The breakdown of the subtotal is tracked as individual expenses."
+  column "receipt_id" {
+    null = false
+    type = bigint
+  }
+  column "snapshot_id" {
+    null = false
+    type = bigint
+    identity {
+      generated = ALWAYS
+      start = 0
+      increment = 1
+    }
+  }
+  column "scan_id" {
+    null = true
+    type = bigint
+    comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry. If it is not null, that means this snapshot is based on the inference result of an image scan."
+  }
+  column "tax" {
+    null = false
+    type = money
+    comment = "The GST/HST amount listed on the receipt."
+  }
+  column "gratuity" {
+    null = false
+    type = money
+    comment = "The gratuity listed on the receipt."
+  }
+  column "receipt_date" {
+    null = false
+    type = date
+    comment = "The date of purchase for the receipt."
+  }
+  column "create_time" {
+    null = false
+    type = timestamptz
+  }
+  primary_key {
+    columns = [column.receipt_id, column.snapshot_id]
+  }
+  foreign_key "receipt_id" {
+    columns     = [column.receipt_id]
+    ref_columns = [table.receipt_v1.column.receipt_id]
+    on_update   = CASCADE
+    on_delete   = CASCADE
+  }
+  foreign_key "scan_id" {
+    columns     = [column.scan_id]
+    ref_columns = [table.scan_v1.column.scan_id]
+    on_update   = CASCADE
+    on_delete   = CASCADE
+  }
+}
+table "receipt_v1" {
+  schema = schema.public
+  comment = "This table links receipts back to their project. No data should be stored here."
+  column "project_id" {
+    null = false
+    type = bigint
+  }
+  column "receipt_id" {
+    null = false
+    type = bigint
+    identity {
+      generated = ALWAYS
+      start = 0
+      increment = 1
+    }
+  }
+  index "receipt_id_idx" {
+    unique  = true
+    columns = [column.receipt_id]
+  }
+  primary_key {
+    columns = [column.project_id, column.receipt_id]
+  }
+  foreign_key "project_id" {
+    columns     = [column.project_id]
+    ref_columns = [table.project_v1.column.project_id]
+    on_update   = CASCADE
+    on_delete   = CASCADE
+  }
+}
 table "expense_snapshot_v1" {
   schema = schema.public
   comment = "A snapshot in time of a given expense entry. A new snapshot is created every time the expense entry is modified."
@@ -56,8 +142,8 @@ table "expense_snapshot_v1" {
 }
 table "expense_v1" {
   schema = schema.public
-  comment = "This table links expenses back to its project. No data should be stored here."
-  column "project_id" {
+  comment = "This table links expenses back to its receipt. No data should be stored here."
+  column "receipt_id" {
     null = false
     type = bigint
   }
@@ -71,11 +157,11 @@ table "expense_v1" {
     }
   }
   primary_key {
-    columns = [column.project_id, column.expense_id]
+    columns = [column.receipt_id, column.expense_id]
   }
-  foreign_key "project_id" {
-    columns     = [column.project_id]
-    ref_columns = [table.project_v1.column.project_id]
+  foreign_key "receipt_id" {
+    columns     = [column.receipt_id]
+    ref_columns = [table.receipt_v1.column.receipt_id]
     on_update   = CASCADE
     on_delete   = CASCADE
   }
