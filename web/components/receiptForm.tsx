@@ -9,7 +9,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Tooltip } from "@nextui-org/react";
+import { CircleHelp } from "lucide-react";
 
 export const ReceiptForm = () => {
   return (
@@ -31,11 +32,43 @@ export const ReceiptForm = () => {
           </DrawerHeader>
           <div className="p-4">
             <form className="flex flex-col gap-4">
-              <Input required type="number" label="Subtotal" startContent="$" />
-              <Input required type="number" label="GST/HST" startContent="$" />
-              <Input type="number" label="Gratuity" startContent="$" />
-              <Input required type="date" label="Date" />
-              <Input disabled type="number" label="Total" />
+              <div className="flex items-center">
+                <label className="text-sm">Subtotal</label>
+                <Tooltip content="The pre-tax ammount">
+                  <CircleHelp className="mr-2 ml-1" />
+                </Tooltip>
+                <Input required type="number" startContent="$" />
+              </div>
+              <div className="flex items-center">
+                <label className="text-sm">GST/HST</label>
+                <Tooltip content="Goods and services tax/harmonized sales tax">
+                  <CircleHelp className="mr-2 ml-1" />
+                </Tooltip>
+                <Input required type="number" startContent="$" />
+              </div>
+              <div className="flex items-center">
+                <label className="text-sm">Gratuity</label>
+                <Tooltip content="The gratuity provided on this expense">
+                  <CircleHelp className="mr-2 ml-1" />
+                </Tooltip>
+                <Input type="number" startContent="$" />
+              </div>
+              <div className="flex items-center">
+                <label className="text-sm">Date</label>
+                <Input required type="date" className="ml-2" />
+              </div>
+              <div className="flex items-center">
+                <label className="text-sm">Total</label>
+                <Tooltip content="The sum of all items in this expense">
+                  <CircleHelp className="mr-2 ml-1" />
+                </Tooltip>
+                <Input
+                  isReadOnly
+                  type="number"
+                  startContent="$"
+                  placeholder="0.00"
+                />
+              </div>
             </form>
           </div>
           <DrawerFooter>
