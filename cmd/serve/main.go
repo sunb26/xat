@@ -13,6 +13,7 @@ import (
 	_ "github.com/lib/pq"
 
 	create_user_v1 "github.com/sunb26/xat/handler/create_user"
+	get_receipt_v1 "github.com/sunb26/xat/handler/get_receipt"
 )
 
 //go:embed all:web all:web/_next
@@ -51,6 +52,7 @@ func main() {
 	wrappedApiMux := newMiddleware(apiMux, db)
 
 	apiMux.Handle("/v1/user", http.HandlerFunc(create_user_v1.CreateUser))
+	apiMux.Handle("/v1/receipt", http.HandlerFunc(get_receipt_v1.GetReceipt))
 	staticMux.Handle("/", http.FileServer(http.FS(content)))
 
 	topMux.Handle("/api/", http.StripPrefix("/api", wrappedApiMux))
