@@ -1,6 +1,6 @@
 module github.com/sunb26/xat
 
-go 1.22.1
+go 1.22.2
 
 require (
 	github.com/jmoiron/sqlx v1.3.5
