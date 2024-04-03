@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-type Money struct {
+type Amount struct {
 	Dollars int
 	Cents   int
 }
 
-func ParseMoney(strInput string, money *Money) (err error) {
+func ParseMoney(strInput string, money *Amount) (err error) {
 
 	strInput = strings.TrimPrefix(strInput, "$")
 	strInput = strings.Replace(strInput, ",", "", -1)
@@ -37,9 +37,9 @@ func ParseMoney(strInput string, money *Money) (err error) {
 	return nil
 }
 
-func AddMoney(m1, m2 Money) Money {
+func AddMoney(m1, m2 Amount) Amount {
 	totalCents := m1.Cents + m2.Cents
 	dollars := m1.Dollars + m2.Dollars + totalCents/100
 	cents := totalCents % 100
-	return Money{Dollars: dollars, Cents: cents}
+	return Amount{Dollars: dollars, Cents: cents}
 }
