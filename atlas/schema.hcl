@@ -19,7 +19,7 @@ table "receipt_snapshot_v1" {
     type = bigint
     comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry. If it is not null, that means this snapshot is based on the inference result of an image scan."
   }
-  column "tax" {
+  column "tax_gst_hst" {
     null = false
     type = money
     comment = "The GST/HST amount listed on the receipt."
