@@ -7,8 +7,6 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-
-	money "github.com/sunb26/xat/utils"
 )
 
 type getReceiptRequest struct {
@@ -28,11 +26,11 @@ type snapshot struct {
 type receiptResponse struct {
 	ReceiptId uint64
 	ScanId    uint64
-	Subtotal  money.Amount
-	Tax       money.Amount
-	Gratuity  money.Amount
+	Subtotal  string
+	Tax       string
+	Gratuity  string
 	Date      string
-	Total     money.Amount
+	Total     string
 }
 
 func GetReceipt(w http.ResponseWriter, r *http.Request) {
@@ -64,10 +62,8 @@ func GetReceipt(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var receiptSnapshot snapshot
-	var subtotalAmount string
-	var subtotal money.Amount
-	var gratuity money.Amount
-	var tax money.Amount
+	var subtotal string
+	var total string
 
 	err = db.Get(&receiptSnapshot, `SELECT * FROM public.receipt_snapshot_v1 WHERE receipt_id = $1 LIMIT 1`, reqBody.ReceiptId)
 	if err != nil {
@@ -76,37 +72,21 @@ func GetReceipt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = db.Get(&subtotalAmount, `SELECT SUM(es.amount) AS subtotal FROM expense_v1 AS e JOIN expense_snapshot_v1 AS es ON e.expense_id = es.expense_id WHERE e.receipt_id = $1 GROUP BY e.receipt_id`, reqBody.ReceiptId)
+	err = db.Get(&subtotal, `SELECT SUM(es.amount) AS subtotal FROM expense_v1 AS e JOIN expense_snapshot_v1 AS es ON e.expense_id = es.expense_id WHERE e.receipt_id = $1 GROUP BY e.receipt_id`, reqBody.ReceiptId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("failed to get subtotal: %s", err.Error())
 		return
 	}
 
-	err = money.ParseMoney(subtotalAmount, &subtotal)
+	err = db.Get(&total, `SELECT COALESCE(SUM(e.amount), '$0'::money) + COALESCE(rs.gratuity, '$0'::money) + COALESCE(rs.tax, '$0'::money) AS total_amount FROM receipt_v1 r LEFT JOIN expense_v1 ex ON r.receipt_id = ex.receipt_id LEFT JOIN expense_snapshot_v1 e ON ex.expense_id = e.expense_id LEFT JOIN receipt_snapshot_v1 rs ON r.receipt_id = rs.receipt_id WHERE r.receipt_id = $1 GROUP BY rs.gratuity, rs.tax`, reqBody.ReceiptId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Print(err.Error())
+		log.Printf("failed to get subtotal: %s", err.Error())
 		return
 	}
 
-	err = money.ParseMoney(receiptSnapshot.Gratuity, &gratuity)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		log.Print(err.Error())
-		return
-	}
-
-	err = money.ParseMoney(receiptSnapshot.Tax, &tax)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		log.Print(err.Error())
-		return
-	}
-
-	total := money.AddMoney(subtotal, gratuity)
-	total = money.AddMoney(total, tax)
-
+	// handle NULL scan_id values
 	var scanId uint64
 	if receiptSnapshot.ScanId != nil {
 		scanId = *receiptSnapshot.ScanId
@@ -116,8 +96,8 @@ func GetReceipt(w http.ResponseWriter, r *http.Request) {
 		ReceiptId: reqBody.ReceiptId,
 		ScanId:    scanId,
 		Subtotal:  subtotal,
-		Tax:       tax,
-		Gratuity:  gratuity,
+		Tax:       receiptSnapshot.Tax,
+		Gratuity:  receiptSnapshot.Gratuity,
 		Date:      receiptSnapshot.ReceiptDate,
 		Total:     total,
 	}

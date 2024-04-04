@@ -10,7 +10,7 @@ table "receipt_snapshot_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -66,7 +66,7 @@ table "receipt_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -96,7 +96,7 @@ table "expense_snapshot_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -152,7 +152,7 @@ table "expense_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -182,7 +182,7 @@ table "income_snapshot_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -233,7 +233,7 @@ table "income_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -264,7 +264,7 @@ table "organization_snapshot_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -321,7 +321,7 @@ table "organization_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -341,7 +341,7 @@ table "project_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -371,7 +371,7 @@ table "scan_inference_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -402,7 +402,7 @@ table "scan_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
@@ -445,7 +445,7 @@ table "user_snapshot_v1" {
     type = bigint
     identity {
       generated = ALWAYS
-      start = 0
+      start = 1
       increment = 1
     }
   }
