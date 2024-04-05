@@ -32,41 +32,67 @@ export const ReceiptForm = () => {
           </DrawerHeader>
           <div className="p-4">
             <form className="flex flex-col gap-4">
-              <div className="flex items-center">
-                <label className="text-sm">Subtotal</label>
-                <Tooltip content="The pre-tax ammount">
-                  <CircleHelp className="mr-2 ml-1" />
-                </Tooltip>
-                <Input required type="number" startContent="$" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <label className="text-sm">Subtotal</label>
+                  <Tooltip content="The pre-tax ammount">
+                    <CircleHelp className="w-4 h-4 ml-2" />
+                  </Tooltip>
+                </div>
+                <Input
+                  required
+                  type="number"
+                  startContent="$"
+                  placeholder="0.00"
+                  className="max-w-52"
+                />
               </div>
-              <div className="flex items-center">
-                <label className="text-sm">GST/HST</label>
-                <Tooltip content="Goods and services tax/harmonized sales tax">
-                  <CircleHelp className="mr-2 ml-1" />
-                </Tooltip>
-                <Input required type="number" startContent="$" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <label className="text-sm">GST/HST</label>
+                  <Tooltip content="Goods and services tax/harmonized sales tax">
+                    <CircleHelp className="w-4 h-4 ml-2" />
+                  </Tooltip>
+                </div>
+                <Input
+                  required
+                  type="number"
+                  startContent="$"
+                  placeholder="0.00"
+                  className="max-w-52"
+                />
               </div>
-              <div className="flex items-center">
-                <label className="text-sm">Gratuity</label>
-                <Tooltip content="The gratuity provided on this expense">
-                  <CircleHelp className="mr-2 ml-1" />
-                </Tooltip>
-                <Input type="number" startContent="$" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <label className="text-sm">Gratuity</label>
+                  <Tooltip content="The gratuity provided on this expense">
+                    <CircleHelp className="w-4 h-4 ml-2" />
+                  </Tooltip>
+                </div>
+                <Input
+                  type="number"
+                  startContent="$"
+                  placeholder="0.00"
+                  className="max-w-52"
+                />
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-between">
                 <label className="text-sm">Date</label>
-                <Input required type="date" className="ml-2" />
+                <Input required type="date" className="max-w-52" />
               </div>
-              <div className="flex items-center">
-                <label className="text-sm">Total</label>
-                <Tooltip content="The sum of all items in this expense">
-                  <CircleHelp className="mr-2 ml-1" />
-                </Tooltip>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <label className="text-sm">Total</label>
+                  <Tooltip content="The sum of all items in this expense">
+                    <CircleHelp className="w-4 h-4 ml-2" />
+                  </Tooltip>
+                </div>
                 <Input
                   isReadOnly
                   type="number"
                   startContent="$"
                   placeholder="0.00"
+                  className="max-w-52"
                 />
               </div>
             </form>
