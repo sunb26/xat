@@ -15,8 +15,8 @@ importers:
   web:
     dependencies:
       '@clerk/clerk-react':
-        specifier: 4.30.8
-        version: 4.30.8(react@18.2.0)
+        specifier: 4.30.9
+        version: 4.30.9(react@18.2.0)
       '@nextui-org/react':
         specifier: 2.2.10
         version: 2.2.10(@types/react@18.2.74)(framer-motion@11.0.24)(react-dom@18.2.0)(react@18.2.0)(tailwind-variants@0.2.1)(tailwindcss@3.4.3)
@@ -76,8 +76,8 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(tailwindcss@3.4.3)
       typescript:
-        specifier: 5.4.3
-        version: 5.4.3
+        specifier: 5.4.4
+        version: 5.4.4
 
 packages:
 
@@ -92,20 +92,20 @@ packages:
       regenerator-runtime: 0.14.1
     dev: false
 
-  /@clerk/clerk-react@4.30.8(react@18.2.0):
-    resolution: {integrity: sha512-MehccfniWs2v7WSx4qGjJYxL+jtnsK6sETrzBuWctb7rLbvv4jDqjalhXbCm8YTV4qG19jHZl/WNsHOXSzBc7Q==}
+  /@clerk/clerk-react@4.30.9(react@18.2.0):
+    resolution: {integrity: sha512-UWY+XmpbKjkABgmyfy2FUiTQQiN8QSdzyswPoTO9QyosXMZZp+vo/UhVor5V2kIeBoPibyW01oG/Nor2l0a7sA==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16'
     dependencies:
-      '@clerk/shared': 1.4.0(react@18.2.0)
+      '@clerk/shared': 1.4.1(react@18.2.0)
       '@clerk/types': 3.63.0
       react: 18.2.0
       tslib: 2.4.1
     dev: false
 
-  /@clerk/shared@1.4.0(react@18.2.0):
-    resolution: {integrity: sha512-LANWfdw3n7lCN90oY+myuCN74CfGgBQE/T11ry/bTSNVqUxXiYaUlfu5Fkp0GsR4icYiA6NRyROFmYdYZfBMAA==}
+  /@clerk/shared@1.4.1(react@18.2.0):
+    resolution: {integrity: sha512-3rlZy0Hadnb1dw6x+4MGEC7dpZLlIVY3mZTwWRRS4CILWowVAccwfW84paN2XNlM12lJgMc+w66WNdw19XFtpg==}
     peerDependencies:
       react: '>=16'
     peerDependenciesMeta:
@@ -4713,8 +4713,8 @@ packages:
     dev: true
     optional: true
 
-  /typescript@5.4.3:
-    resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
+  /typescript@5.4.4:
+    resolution: {integrity: sha512-dGE2Vv8cpVvw28v8HCPqyb08EzbBURxDpuhJvTrusShUfGnhHBafDsLdS1EhhxyL6BJQE+2cT3dDPAv+MQ6oLw==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
