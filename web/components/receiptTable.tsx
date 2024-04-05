@@ -1,29 +1,32 @@
 "use client";
 
-import { useCallback } from "react";
 import { ReceiptForm } from "@/components/receiptForm";
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
   Table,
   TableBody,
-  TableColumn,
   TableCell,
+  TableColumn,
   TableHeader,
   TableRow,
-  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@nextui-org/react";
 import { History } from "lucide-react";
+import { useCallback } from "react";
 
 const data = [
   {
     id: 1,
     gst: 13.0,
     total: {
-      total: 123.0,
       subtotal: 100.0,
       gratuity: 10.0,
+      total: 123.0,
     },
     history: [
       {
@@ -50,7 +53,21 @@ export const ReceiptTable = () => {
       case "gst":
         return <div>{data.gst.toFixed(2)}</div>;
       case "total":
-        return <div>{data.total.total.toFixed(2)}</div>;
+        return (
+          <Popover placement="right">
+            <PopoverTrigger>
+              <Button variant="light">{data.total.total.toFixed(2)}</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              {Object.entries(data.total).map(([key, value]) => (
+                <span key={key}>
+                  {key.charAt(0).toUpperCase() + key.slice(1)}: $
+                  {value.toFixed(2)}
+                </span>
+              ))}
+            </PopoverContent>
+          </Popover>
+        );
       case "history":
         return (
           <Button isIconOnly variant="light">
