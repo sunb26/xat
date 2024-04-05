@@ -14,8 +14,8 @@ js_library(
     deps = [
         "//web:node_modules/@clerk/clerk-react",
         "//web:node_modules/@nextui-org/react",
+        "//web:node_modules/lucide-react",
         "//web:node_modules/react-webcam",
         "//web/components/ui",
-        "//web:node_modules/lucide-react",
     ],
 )
