@@ -23,10 +23,11 @@ const data = [
   {
     id: 1,
     gst: 13.0,
-    total: {
+    date: new Date("2024-04-04T18:25:43.511Z"),
+    total: 123.0,
+    items: {
       subtotal: 100.0,
       gratuity: 10.0,
-      total: 123.0,
     },
     history: [
       {
@@ -39,8 +40,9 @@ const data = [
 type Receipt = (typeof data)[0];
 
 const columns = [
-  { name: "GST/HST ($)", id: "gst" },
-  { name: "TOTAL ($)", id: "total" },
+  { name: "TOTAL", id: "total" },
+  { name: "GST/HST", id: "gst" },
+  { name: "DATE", id: "date" },
   { name: "HISTORY", id: "history" },
 ];
 type Column = (typeof columns)[0];
@@ -51,20 +53,28 @@ export const ReceiptTable = () => {
 
     switch (columnKey) {
       case "gst":
-        return <div>{data.gst.toFixed(2)}</div>;
+        return <div>${data.gst.toFixed(2)}</div>;
+      case "date":
+        return <div>{data.date.toLocaleDateString()}</div>;
       case "total":
         return (
           <Popover placement="right">
             <PopoverTrigger>
-              <Button variant="light">{data.total.total.toFixed(2)}</Button>
+              <Button variant="light">${data.total.toFixed(2)}</Button>
             </PopoverTrigger>
-            <PopoverContent>
-              {Object.entries(data.total).map(([key, value]) => (
-                <span key={key}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}: $
-                  {value.toFixed(2)}
-                </span>
-              ))}
+            <PopoverContent className="p-4">
+              <div className="flex flex-col gap-0.5">
+                {Object.entries(data.items).map(([key, value]) => (
+                  <div key={key} className="flex justify-between gap-3">
+                    <span>{key.charAt(0).toUpperCase() + key.slice(1)}:</span>
+                    <span>${value.toFixed(2)}</span>
+                  </div>
+                ))}
+                <div className="flex justify-between gap-3">
+                  <span>GST/HST</span>
+                  <span>${data.gst.toFixed(2)}</span>
+                </div>
+              </div>
             </PopoverContent>
           </Popover>
         );
