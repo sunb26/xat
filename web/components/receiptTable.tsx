@@ -6,15 +6,15 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
 } from "@nextui-org/react";
 import { History } from "lucide-react";
 import { useCallback } from "react";
