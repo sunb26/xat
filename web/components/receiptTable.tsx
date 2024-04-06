@@ -9,6 +9,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Slider,
   Table,
   TableBody,
   TableCell,
@@ -18,6 +19,14 @@ import {
 } from "@nextui-org/react";
 import { History } from "lucide-react";
 import { useCallback } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const data = [
   {
@@ -31,7 +40,13 @@ const data = [
     },
     history: [
       {
-        change: "Updated gratuity",
+        id: 2,
+        change: "Updated gratuity value",
+        date: "2024-04-04",
+      },
+      {
+        id: 1,
+        change: "Created Receipt",
         date: "2024-04-01",
       },
     ],
@@ -80,9 +95,41 @@ export const ReceiptTable = () => {
         );
       case "history":
         return (
-          <Button isIconOnly variant="light">
-            <History className="w-5 h-5" />
-          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button isIconOnly variant="light">
+                <History className="w-5 h-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Receipt History</SheetTitle>
+                <SheetDescription>
+                  Here are all the changes made to this receipt
+                </SheetDescription>
+              </SheetHeader>
+              <div className="h-full p-6">
+                {data.history.map((item) => (
+                  <div className="flex gap-4 mb-4" key={item.id}>
+                    <Slider
+                      isDisabled
+                      orientation="vertical"
+                      size="sm"
+                      color="foreground"
+                      maxValue={1}
+                      minValue={0}
+                      defaultValue={0.8}
+                      className="h-16"
+                    />
+                    <div className="flex flex-col gap-2">
+                      <div className="font-semibold">{item.date}</div>
+                      <div className="text-sm">{item.change}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
         );
       default:
         return cellValue;
