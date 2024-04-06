@@ -2,6 +2,14 @@
 
 import { ReceiptForm } from "@/components/receiptForm";
 import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
   Button,
   Card,
   CardBody,
@@ -19,14 +27,6 @@ import {
 } from "@nextui-org/react";
 import { History } from "lucide-react";
 import { useCallback } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 
 const data = [
   {
