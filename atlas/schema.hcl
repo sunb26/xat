@@ -574,6 +574,7 @@ view "receipt_data_v1" {
 enum "expense_tag" {
   schema = schema.public
   values = ["purchase", "gratuity", "tax"]
+  comment = "The tags associated with expenses for filtering during calculations."
 }
 schema "public" {
   comment = "standard public schema"
