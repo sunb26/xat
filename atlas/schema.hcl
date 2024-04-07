@@ -19,16 +19,6 @@ table "receipt_snapshot_v1" {
     type = bigint
     comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry. If it is not null, that means this snapshot is based on the inference result of an image scan."
   }
-  column "tax" {
-    null = false
-    type = money
-    comment = "The GST/HST amount listed on the receipt."
-  }
-  column "gratuity" {
-    null = false
-    type = money
-    comment = "The gratuity listed on the receipt."
-  }
   column "receipt_date" {
     null = false
     type = date
@@ -104,6 +94,11 @@ table "expense_snapshot_v1" {
     null = true
     type = bigint
     comment = "If scan_id is null, this means the snapshot is a result of manual alterations to the entry. If it is not null, that means this snapshot is based on the inference result of an image scan."
+  }
+  column "tag" {
+    null = false
+    type = enum.expense_tag
+    comment = "The tag associated with an expense to differentiate between expense types."
   }
   column "title" {
     null = false
@@ -512,6 +507,73 @@ table "user_v1" {
     on_update   = CASCADE
     on_delete   = CASCADE
   }
+}
+view "receipt_data_v1" {
+  schema = schema.public
+  column "receipt_id" {
+    type = bigint
+  }
+  column "subtotal" {
+    type = money
+    comment = "The subtotal of all expenses before tax on a receipt."
+  }
+  column "tax" {
+    type = money
+    comment = "The tax on the given receipt."
+  }
+  column "gratuity" {
+    type = money
+    comment = "The gratuity on the given receipt."
+  }
+  column "total" {
+    type = money
+    comment = "The total after tax on the given receipt."
+  }
+  as  = <<-SQL
+    WITH LatestReceiptSnapshots AS (
+        SELECT DISTINCT ON (receipt_id)
+          receipt_id,
+          receipt_date,
+          scan_id
+        FROM receipt_snapshot_v1
+        ORDER BY receipt_id, create_time DESC
+    ),
+    LatestExpenseSnapshots AS (
+        SELECT DISTINCT ON (es.expense_id)
+            es.expense_id,
+            es.tag,
+            es.amount
+        FROM expense_snapshot_v1 es
+        ORDER BY es.expense_id, es.create_time DESC
+    ),
+    AggregatedExpenses AS (
+        SELECT
+            e.receipt_id,
+            SUM(CASE WHEN les.tag = 'purchase' OR les.tag = 'gratuity' THEN les.amount ELSE 0::money END) AS subtotal,
+            SUM(CASE WHEN les.tag = 'tax' THEN les.amount ELSE 0::money END) AS tax,
+            SUM(CASE WHEN les.tag = 'gratuity' THEN les.amount ELSE 0::money END) AS gratuity
+        FROM LatestExpenseSnapshots les
+        JOIN expense_v1 e ON les.expense_id = e.expense_id
+        GROUP BY e.receipt_id
+    )
+    SELECT
+        lrs.receipt_id,
+        ae.subtotal,
+        ae.tax,
+        ae.gratuity,
+        (ae.subtotal + ae.tax) AS total,
+        lrs.receipt_date,
+        lrs.scan_id
+    FROM LatestReceiptSnapshots lrs
+    JOIN AggregatedExpenses ae ON lrs.receipt_id = ae.receipt_id;
+  SQL
+  depends_on = [table.expense_v1, table.expense_snapshot_v1, table.receipt_snapshot_v1]
+  comment = "A view to store the information displayed on the receipt form of a given receipt id. Note that gratuity is included in the subtotal already but tax is not."
+}
+
+enum "expense_tag" {
+  schema = schema.public
+  values = ["purchase", "gratuity", "tax"]
 }
 schema "public" {
   comment = "standard public schema"
