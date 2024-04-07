@@ -35,7 +35,7 @@ export const ReceiptForm = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <label className="text-sm">Subtotal</label>
-                  <Tooltip content="The pre-tax ammount">
+                  <Tooltip content="The pre-tax ammount.">
                     <CircleHelp className="w-4 h-4 ml-2" />
                   </Tooltip>
                 </div>
@@ -50,7 +50,7 @@ export const ReceiptForm = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <label className="text-sm">GST/HST</label>
-                  <Tooltip content="Goods and services tax/harmonized sales tax">
+                  <Tooltip content="Goods and Services Tax/Harmonized Sales Tax.">
                     <CircleHelp className="w-4 h-4 ml-2" />
                   </Tooltip>
                 </div>
@@ -65,7 +65,7 @@ export const ReceiptForm = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <label className="text-sm">Gratuity</label>
-                  <Tooltip content="The gratuity provided on this expense">
+                  <Tooltip content="The gratuity listed on this receipt.">
                     <CircleHelp className="w-4 h-4 ml-2" />
                   </Tooltip>
                 </div>
@@ -77,13 +77,18 @@ export const ReceiptForm = () => {
                 />
               </div>
               <div className="flex items-center justify-between">
-                <label className="text-sm">Date</label>
+                <div className="flex items-center">
+                  <label className="text-sm">Date</label>
+                  <Tooltip content="The date this receipt was issued.">
+                    <CircleHelp className="w-4 h-4 ml-2" />
+                  </Tooltip>
+                </div>
                 <Input required type="date" className="max-w-52" />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <label className="text-sm">Total</label>
-                  <Tooltip content="The sum of all items in this expense">
+                  <Tooltip content="The sum of all expenses on this receipt after tax.">
                     <CircleHelp className="w-4 h-4 ml-2" />
                   </Tooltip>
                 </div>
