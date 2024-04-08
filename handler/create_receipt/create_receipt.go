@@ -10,10 +10,11 @@ import (
 )
 
 type createReceiptRequest struct {
-	ProjectId string `json:"project_id"`
-	Tax       string `json:"tax"`
-	Gratuity  string `json:"gratuity"`
-	Date      string `json:"date"`
+	ProjectId *uint64 `json:"project_id"`
+	Tax       string  `json:"tax"`
+	Gratuity  string  `json:"gratuity"`
+	Date      string  `json:"date"`
+	ScanId    *uint64 `json:"scan_id"`
 }
 
 func CreateReceipt(w http.ResponseWriter, r *http.Request) {
@@ -31,7 +32,7 @@ func CreateReceipt(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("request body: %#v", reqBody)
 
-	if reqBody.ProjectId == "" || reqBody.Tax == "" || reqBody.Gratuity == "" || reqBody.Date == "" {
+	if reqBody.ProjectId == nil || reqBody.Tax == "" || reqBody.Gratuity == "" || reqBody.Date == "" {
 		log.Printf("request body contains empty fields")
 		http.Error(w, "empty fields", http.StatusUnprocessableEntity)
 		return
@@ -53,7 +54,7 @@ func CreateReceipt(w http.ResponseWriter, r *http.Request) {
 
 	defer tx.Rollback()
 
-	insertReceiptRes := tx.QueryRowxContext(r.Context(), `INSERT INTO public.receipt_v1 VALUES (project_id) RETURNING receipt_id`)
+	insertReceiptRes := tx.QueryRowxContext(r.Context(), `INSERT INTO public.receipt_v1 (project_id) VALUES ($1) RETURNING receipt_id`, reqBody.ProjectId)
 	var receiptId uint64
 	err = insertReceiptRes.Scan(&receiptId)
 	if err != nil {
@@ -62,49 +63,48 @@ func CreateReceipt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = tx.QueryxContext(r.Context(), `INSERT INTO public.receipt_snapshot_v1 (receipt_id, receipt_date, create_time) VALUES ($1, $2, NOW()) RETURNING receipt_id`, receiptId, reqBody.Date)
+	rows, err := tx.QueryxContext(r.Context(), `INSERT INTO public.receipt_snapshot_v1 (receipt_id, scan_id, receipt_date, create_time) VALUES ($1, $2, $3, NOW())`, receiptId, reqBody.ScanId, reqBody.Date)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("insert receipt error: %s", err.Error())
+		log.Printf("insert receipt_snapshot table error: %s", err.Error())
 		return
 	}
+	rows.Close()
 
 	ids, err := tx.QueryxContext(r.Context(), `INSERT INTO public.expense_v1 (receipt_id) VALUES ($1), ($1) RETURNING expense_id`, receiptId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("insert receipt error: %s", err.Error())
+		log.Printf("insert expense table error: %s", err.Error())
 		return
 	}
+	var expenseIds []uint64
 
-	var expenseId uint64
-
-	err = ids.Scan(&expenseId)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("scan tax expense id error: %s", err.Error())
-		return
+	for ids.Next() {
+		var expenseId uint64
+		err = ids.Scan(&expenseId)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			log.Printf("scan tax and gratuity expense ids error: %s", err.Error())
+			return
+		}
+		expenseIds = append(expenseIds, expenseId)
 	}
-	_, err = tx.QueryxContext(r.Context(), `INSERT INTO public.expense_snapshot_v1 (expense_id, tag, title, amount, deductible, create_time) VALUES ($1, "tax", "GST/HST", $2, 0, NOW())`, expenseId, reqBody.Tax)
+
+	rows, err = tx.QueryxContext(r.Context(), `INSERT INTO public.expense_snapshot_v1 (expense_id, scan_id, tag, title, amount, deductible, create_time) VALUES ($1, $2, 'tax', 'GST/HST', $3, 0, NOW())`, expenseIds[0], reqBody.ScanId, reqBody.Tax)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("insert tax expense error: %s", err.Error())
 		return
 	}
+	rows.Close()
 
-	ids.Next()
-	err = ids.Scan(&expenseId)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("scan gratuity expense id error: %s", err.Error())
-		return
-	}
-
-	_, err = tx.QueryxContext(r.Context(), `INSERT INTO public.expense_snapshot_v1 (expense_id, tag, title, amount, deductible, create_time) VALUES ($1, "gratuity", "Gratuity", $2, 0, NOW())`, expenseId, reqBody.Gratuity)
+	rows, err = tx.QueryxContext(r.Context(), `INSERT INTO public.expense_snapshot_v1 (expense_id, scan_id, tag, title, amount, deductible, create_time) VALUES ($1, $2, 'gratuity', 'Gratuity', $3, 0, NOW())`, expenseIds[1], reqBody.ScanId, reqBody.Gratuity)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("insert gratuity expense error: %s", err.Error())
 		return
 	}
+	rows.Close()
 
 	err = tx.Commit()
 	if err != nil {
