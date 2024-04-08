@@ -11,7 +11,7 @@ import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
-  width: 720,
+  width: 240,
   height: 480,
   facingMode: "user",
 };
@@ -46,12 +46,12 @@ export const Camera = () => {
             // @ts-ignore*/}
               <Webcam
                 audio={false}
-                width={540}
+                width={240}
                 height={360}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
-                className="rounded-md"
+                className="rounded-md mx-auto"
               />
               <Button onPress={capture} color="primary">
                 Capture
@@ -60,7 +60,9 @@ export const Camera = () => {
           )}
           {url && (
             <>
-              <Image src={url} alt="receipt screenshot" />
+              <div className="flex mx-auto">
+                <Image src={url} alt="receipt screenshot" />
+              </div>
               <div className="flex gap-2">
                 <Button onPress={resetCamera} className="w-full">
                   Re-take
