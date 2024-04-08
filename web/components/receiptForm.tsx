@@ -35,7 +35,7 @@ export const ReceiptForm = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <label className="text-sm">Subtotal</label>
-                  <Tooltip content="The pre-tax ammount.">
+                  <Tooltip content="The pre-tax amount.">
                     <CircleHelp className="w-4 h-4 ml-2" />
                   </Tooltip>
                 </div>
