@@ -12,6 +12,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 
+	create_receipt_v1 "github.com/sunb26/xat/handler/create_receipt"
 	create_user_v1 "github.com/sunb26/xat/handler/create_user"
 	get_receipt_v1 "github.com/sunb26/xat/handler/get_receipt"
 )
@@ -51,8 +52,9 @@ func main() {
 	staticMux := http.NewServeMux()
 	wrappedApiMux := newMiddleware(apiMux, db)
 
-	apiMux.Handle("/v1/user", http.HandlerFunc(create_user_v1.CreateUser))
-	apiMux.Handle("/v1/receipt", http.HandlerFunc(get_receipt_v1.GetReceipt))
+	apiMux.Handle("PUT /v1/user", http.HandlerFunc(create_user_v1.CreateUser))
+	apiMux.Handle("GET /v1/receipt", http.HandlerFunc(get_receipt_v1.GetReceipt))
+	apiMux.Handle("PUT /v1/receipt", http.HandlerFunc(create_receipt_v1.CreateReceipt))
 	staticMux.Handle("/", http.FileServer(http.FS(content)))
 
 	topMux.Handle("/api/", http.StripPrefix("/api", wrappedApiMux))
