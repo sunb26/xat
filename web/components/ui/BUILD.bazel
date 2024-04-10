@@ -3,12 +3,16 @@ load("@aspect_rules_js//js:defs.bzl", "js_library")
 js_library(
     name = "ui",
     srcs = [
+        "collapsible.tsx",
         "drawer.tsx",
+        "scroll-area.tsx",
         "sheet.tsx",
     ],
     visibility = ["//web/components:__pkg__"],
     deps = [
+        "//web:node_modules/@radix-ui/react-collapsible",
         "//web:node_modules/@radix-ui/react-dialog",
+        "//web:node_modules/@radix-ui/react-scroll-area",
         "//web:node_modules/class-variance-authority",
         "//web:node_modules/vaul",
         "//web/lib",

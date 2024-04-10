@@ -4,7 +4,9 @@
   "dependencies": {
     "@clerk/clerk-react": "4.30.10",
     "@nextui-org/react": "2.2.10",
+    "@radix-ui/react-collapsible": "1.0.3",
     "@radix-ui/react-dialog": "1.0.5",
+    "@radix-ui/react-scroll-area": "1.0.5",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.0",
     "framer-motion": "11.0.25",
