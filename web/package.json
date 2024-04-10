@@ -9,8 +9,8 @@
     "@radix-ui/react-scroll-area": "1.0.5",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.0",
-    "framer-motion": "11.0.25",
-    "lucide-react": "0.365.0",
+    "framer-motion": "11.0.27",
+    "lucide-react": "0.367.0",
     "next": "14.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -20,13 +20,13 @@
   },
   "devDependencies": {
     "@nextui-org/theme": "2.1.18",
-    "@types/node": "20.12.5",
-    "@types/react": "18.2.74",
+    "@types/node": "20.12.7",
+    "@types/react": "18.2.75",
     "@types/react-dom": "18.2.24",
     "autoprefixer": "10.4.19",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.3",
     "tailwindcss-animate": "1.0.7",
-    "typescript": "5.4.4"
+    "typescript": "5.4.5"
   }
 }
