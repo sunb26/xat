@@ -1,4 +1,8 @@
-import { Camera } from "@/components/camera";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   Drawer,
   DrawerClose,
@@ -9,11 +13,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button, Input, Tooltip } from "@nextui-org/react";
 import { ChevronsUpDown, CircleHelp, CircleX, Plus } from "lucide-react";
@@ -43,7 +42,7 @@ export const ReceiptForm = () => {
   const handleItemChange = (
     id: number,
     key: string,
-    value: string | number
+    value: string | number,
   ) => {
     const updatedItems = [...items];
     updatedItems[id] = { ...updatedItems[id], [key]: value };
@@ -53,14 +52,16 @@ export const ReceiptForm = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button>Add receipt</Button>
+        <Button className="w-full" color="primary">
+          Continue
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-md">
           <DrawerHeader>
             <DrawerTitle>
               <div className="flex items-center justify-between">
-                Add a Receipt <Camera />
+                Add a Receipt
               </div>
             </DrawerTitle>
             <DrawerDescription>
@@ -103,7 +104,7 @@ export const ReceiptForm = () => {
                             handleItemChange(
                               index,
                               "price",
-                              Number.parseFloat(e.target.value)
+                              Number.parseFloat(e.target.value),
                             )
                           }
                         />

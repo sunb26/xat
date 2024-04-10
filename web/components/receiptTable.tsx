@@ -1,6 +1,6 @@
 "use client";
 
-import { ReceiptForm } from "@/components/receiptForm";
+import { Camera } from "@/components/camera";
 import {
   Sheet,
   SheetContent,
@@ -139,7 +139,7 @@ export const ReceiptTable = () => {
   return (
     <Card className="p-6" id="receipt">
       <CardHeader className="text-lg font-semibold justify-between">
-        Your Receipts <ReceiptForm />
+        Your Receipts <Camera />
       </CardHeader>
       <CardBody>
         <Table removeWrapper aria-label="Receipts table">

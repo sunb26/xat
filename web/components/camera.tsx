@@ -1,5 +1,6 @@
 "use client";
 
+import { ReceiptForm } from "@/components/receiptForm";
 import {
   Drawer,
   DrawerClose,
@@ -35,7 +36,7 @@ export const Camera = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button size="sm">Open camera</Button>
+        <Button>Add receipt</Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="flex flex-col p-4 gap-4 min-h-96 mx-auto w-full max-w-md">
@@ -67,9 +68,7 @@ export const Camera = () => {
                 <Button onPress={resetCamera} className="w-full">
                   Re-take
                 </Button>
-                <Button color="primary" className="w-full">
-                  Continue
-                </Button>
+                <ReceiptForm />
               </div>
             </>
           )}
