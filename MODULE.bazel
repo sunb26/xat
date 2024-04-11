@@ -10,7 +10,14 @@ bazel_dep(name = "rules_nodejs", version = "6.1.0")
 bazel_dep(name = "rules_oci", version = "1.7.5")
 bazel_dep(name = "rules_pkg", version = "0.10.1")
 bazel_dep(name = "rules_python", version = "0.31.0")
+bazel_dep(name = "rules_rust", version = "0.41.1")
 bazel_dep(name = "toolchains_llvm", version = "1.0.0")
+
+git_override(
+    module_name = "rules_rust",
+    commit = "8802f4ddbd2393ff87c494cb52c2e29313201a61",
+    remote = "https://github.com/bazelbuild/rules_rust",
+)
 
 LLVM_VERSION = "17.0.6"
 
@@ -258,3 +265,41 @@ pip.override(
     patch_strip = 1,
     patches = ["//:patch/paddleocr_2_7_0_3.patch"],
 )
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2021",
+    extra_target_triples = ["x86_64-unknown-linux-musl"],
+    sha256s = {
+        "rustc-1.77.2-aarch64-apple-darwin.tar.xz": "eb530841527f601da0c2354182a740d67c9fa1345011c73907ba66a497300bdb",
+        "clippy-1.77.2-aarch64-apple-darwin.tar.xz": "88d4d6a2410343db97d188240d8f7760889be5168ec4369a080acf1bf337720c",
+        "cargo-1.77.2-aarch64-apple-darwin.tar.xz": "e20eb22ffb465a2de9c1f775992a17a096119025a04f901e8dc62e356c29aea2",
+        "llvm-tools-1.77.2-aarch64-apple-darwin.tar.xz": "de02275fd0a9064a229a76901cdbf31e24c5f05cd7491f62681f15c5821d322a",
+        "rust-std-1.77.2-aarch64-apple-darwin.tar.xz": "2251b669682bb1e4290c488d58574ba1eb332c1558a185aa2e9a5711aeb69648",
+        "rust-std-1.77.2-x86_64-unknown-linux-musl.tar.xz": "8d99fbfd3278c6e5382317011c3cae9376359116ebe71b42365f4d0d56f9c4c8",
+    },
+    versions = ["1.77.2"],
+)
+use_repo(rust, "rust_toolchains")
+
+register_toolchains("@rust_toolchains//:all")
+
+crate = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
+crate.spec(
+    package = "color-eyre",
+    version = "0.6.2",
+)
+crate.spec(
+    package = "eyre",
+    version = "0.6.12",
+)
+crate.spec(
+    package = "libc",
+    version = "0.2.153",
+)
+crate.spec(
+    package = "tap",
+    version = "1.0.1",
+)
+crate.from_specs()
+use_repo(crate, "crates")
