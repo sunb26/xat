@@ -1,0 +1,12 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+rust_library(
+    name = "ghst",
+    srcs = ["lib.rs"],
+    visibility = ["//ghst/tool:__pkg__"],
+    deps = [
+        "@crates//:eyre",
+        "@crates//:pdf",
+        "@crates//:tracing",
+    ],
+)
