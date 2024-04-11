@@ -6,6 +6,8 @@ rust_library(
     visibility = ["//ghst/tool:__pkg__"],
     deps = [
         "@crates//:eyre",
+        "@crates//:itertools",
+        "@crates//:lazy-regex",
         "@crates//:pdf",
         "@crates//:tracing",
     ],

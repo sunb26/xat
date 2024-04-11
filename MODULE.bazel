@@ -309,12 +309,21 @@ crate.spec(
     version = "0.6.12",
 )
 crate.spec(
+    package = "itertools",
+    version = "0.12.1",
+)
+crate.spec(
+    package = "lazy-regex",
+    version = "3.1.0",
+)
+crate.spec(
     package = "libc",
     version = "0.2.153",
 )
 crate.spec(
     package = "pdf",
-    version = "0.9.0",
+    git = "https://github.com/pdf-rs/pdf",
+    branch = "master",
 )
 crate.spec(
     package = "tracing",

@@ -5,5 +5,8 @@ pub struct Args {
   pub form: camino::Utf8PathBuf,
   /// Path to write filled GST/HST Return Working Copy form.
   #[arg(long, env = "GHST_OUT")]
-  pub out: camino::Utf8PathBuf,
+  pub out: Option<camino::Utf8PathBuf>,
+  /// Form fields to fill out in `<selector>=<value>` flags.
+  #[arg(long, env = "GHST_FIELDS")]
+  pub fields: Vec<ghst::Field>,
 }

@@ -9,8 +9,14 @@ fn main() -> eyre::Result<()> {
     .try_init()
     .map_err(|err| eyre::eyre!("{err:?}"))?;
   color_eyre::install()?;
-  let args::Args { form, out } = args::Args::parse();
+  let args::Args { form, out, fields } = args::Args::parse();
   tracing::info!(?form, ?out);
-  ghst::fill_form(&mut pdf::file::FileOptions::cached().open(form)?)?;
+  let mut pdf = ghst::fill_form(
+    pdf::file::FileOptions::cached().open(form)?,
+    fields.as_slice(),
+  )?;
+  if let Some(out) = out {
+    pdf.save_to(out)?;
+  }
   Ok(())
 }
