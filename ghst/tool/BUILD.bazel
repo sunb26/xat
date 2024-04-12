@@ -1,0 +1,27 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library")
+
+rust_binary(
+    name = "tool",
+    srcs = ["main.rs"],
+    data = ["form.pdf"],
+    deps = [
+        ":args",
+        "//ghst",
+        "@crates//:clap",
+        "@crates//:color-eyre",
+        "@crates//:eyre",
+        "@crates//:pdf",
+        "@crates//:tracing",
+        "@crates//:tracing-subscriber",
+    ],
+)
+
+rust_library(
+    name = "args",
+    srcs = ["args.rs"],
+    deps = [
+        "//ghst",
+        "@crates//:camino",
+        "@crates//:clap",
+    ],
+)

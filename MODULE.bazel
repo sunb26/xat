@@ -286,6 +286,21 @@ register_toolchains("@rust_toolchains//:all")
 
 crate = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
 crate.spec(
+    features = ["serde1"],
+    package = "camino",
+    version = "1.1.6",
+)
+crate.spec(
+    features = [
+        "derive",
+        "env",
+        "unicode",
+        "wrap_help",
+    ],
+    package = "clap",
+    version = "4.5.4",
+)
+crate.spec(
     package = "color-eyre",
     version = "0.6.2",
 )
@@ -294,8 +309,30 @@ crate.spec(
     version = "0.6.12",
 )
 crate.spec(
+    package = "itertools",
+    version = "0.12.1",
+)
+crate.spec(
+    package = "lazy-regex",
+    version = "3.1.0",
+)
+crate.spec(
     package = "libc",
     version = "0.2.153",
+)
+crate.spec(
+    package = "pdf",
+    git = "https://github.com/pdf-rs/pdf",
+    branch = "master",
+)
+crate.spec(
+    package = "tracing",
+    version = "0.1.40",
+)
+crate.spec(
+    features = ["env-filter"],
+    package = "tracing-subscriber",
+    version = "0.3.18",
 )
 crate.spec(
     package = "tap",
