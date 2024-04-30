@@ -15,7 +15,7 @@ bazel_dep(name = "toolchains_llvm", version = "1.0.0")
 
 git_override(
     module_name = "rules_rust",
-    commit = "78d920ba913c4302d0791002ec0a8ff9d232d0fc",
+    commit = "1fc0f8c1672e66ea1e41b5cff35bb6a567e12a81",
     remote = "https://github.com/bazelbuild/rules_rust",
 )
 
