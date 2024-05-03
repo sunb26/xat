@@ -5,13 +5,10 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
-
-type getReceiptRequest struct {
-	ReceiptId uint64 `json:"receipt_id"`
-}
 
 type receiptResponse struct {
 	ReceiptId uint64  `db:"receipt_id"`
@@ -24,23 +21,14 @@ type receiptResponse struct {
 }
 
 func GetReceipt(w http.ResponseWriter, r *http.Request) {
-	var reqBody getReceiptRequest
+	log.Printf("get_receipt handler: %s", r.URL)
+	vars := mux.Vars(r)
+	log.Print(vars)
+	receiptId := vars["receiptId"]
 
-	dec := json.NewDecoder(r.Body)
-	dec.DisallowUnknownFields()
-
-	err := dec.Decode(&reqBody)
-	if err != nil {
+	if receiptId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		log.Printf("read body error: %s", err.Error())
-		return
-	}
-
-	log.Printf("request body: %#v", reqBody)
-
-	if reqBody.ReceiptId == 0 {
-		log.Printf("receipt_id field is empty")
-		http.Error(w, "empty fields", http.StatusUnprocessableEntity)
+		log.Printf("empty receipt id")
 		return
 	}
 
@@ -52,7 +40,7 @@ func GetReceipt(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var receipt receiptResponse
-	err = db.Get(&receipt, `SELECT * FROM public.receipt_data_v1 WHERE receipt_id = $1 LIMIT 1`, reqBody.ReceiptId)
+	err := db.Get(&receipt, `SELECT * FROM public.receipt_data_v1 WHERE receipt_id = $1 LIMIT 1`, receiptId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("failed to get receipt snapshot: %s", err.Error())
