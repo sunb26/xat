@@ -529,14 +529,25 @@ view "receipt_data_v1" {
     type = money
     comment = "The total after tax on the given receipt."
   }
+  column "receipt_date" {
+    type = date
+  }
+  column "scan_id" {
+    type = bigint
+  }
+  column "project_id" {
+    type = bigint
+  }
   as  = <<-SQL
     WITH LatestReceiptSnapshots AS (
-        SELECT DISTINCT ON (receipt_id)
-          receipt_id,
-          receipt_date,
-          scan_id
-        FROM receipt_snapshot_v1
-        ORDER BY receipt_id, create_time DESC
+        SELECT DISTINCT ON (rs.receipt_id)
+          rs.receipt_id,
+          rc.project_id,
+          rs.receipt_date,
+          rs.scan_id
+        FROM receipt_snapshot_v1 rs
+        JOIN receipt_v1 rc ON rs.receipt_id = rc.receipt_id
+        ORDER BY rs.receipt_id, rs.create_time DESC
     ),
     LatestExpenseSnapshots AS (
         SELECT DISTINCT ON (es.expense_id)
@@ -563,7 +574,8 @@ view "receipt_data_v1" {
         ae.gratuity,
         (ae.subtotal + ae.tax) AS total,
         lrs.receipt_date,
-        lrs.scan_id
+        lrs.scan_id,
+        lrs.project_id
     FROM LatestReceiptSnapshots lrs
     JOIN AggregatedExpenses ae ON lrs.receipt_id = ae.receipt_id;
   SQL
