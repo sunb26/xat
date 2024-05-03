@@ -16,6 +16,7 @@ import (
 	create_receipt_v1 "github.com/sunb26/xat/handler/create_receipt"
 	create_user_v1 "github.com/sunb26/xat/handler/create_user"
 	get_receipt_v1 "github.com/sunb26/xat/handler/get_receipt"
+	list_receipts_v1 "github.com/sunb26/xat/handler/list_receipts"
 )
 
 //go:embed all:web all:web/_next
@@ -61,6 +62,9 @@ func main() {
 	userMux.HandleFunc("/v1/user", create_user_v1.CreateUser).Methods("PUT")
 	userMux.HandleFunc("/v1/receipt/{receiptId:[0-9]+}", get_receipt_v1.GetReceipt).Methods("GET")
 	userMux.HandleFunc("/v1/receipt", create_receipt_v1.CreateReceipt).Methods("PUT")
+	// Specifying two routes for list endpoint to handle optional query parameters. Either specify both params or none.
+	userMux.HandleFunc("/v1/{userId}/receipts", list_receipts_v1.ListReceipts).Methods("GET").Queries("limit", "{limit:[0-9]+}", "offset", "{offset:[0-9]+}")
+	userMux.HandleFunc("/v1/{userId}/receipts", list_receipts_v1.ListReceipts).Methods("GET")
 
 	topMux.Handle("/api/", http.StripPrefix("/api", prefixMux))
 	topMux.Handle("/", http.FileServer(http.FS(content)))
