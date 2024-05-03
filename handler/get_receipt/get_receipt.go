@@ -11,6 +11,7 @@ import (
 )
 
 type receiptResponse struct {
+	ProjectId uint64  `db:"project_id"`
 	ReceiptId uint64  `db:"receipt_id"`
 	ScanId    *uint64 `db:"scan_id"`
 	Subtotal  string  `db:"subtotal"`
@@ -21,14 +22,13 @@ type receiptResponse struct {
 }
 
 func GetReceipt(w http.ResponseWriter, r *http.Request) {
-	log.Printf("get_receipt handler: %s", r.URL)
 	vars := mux.Vars(r)
 	log.Print(vars)
 	receiptId := vars["receiptId"]
 
 	if receiptId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		log.Printf("empty receipt id")
+		log.Printf("invalid receipt id")
 		return
 	}
 
