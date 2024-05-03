@@ -15,8 +15,8 @@ importers:
   web:
     dependencies:
       '@clerk/clerk-react':
-        specifier: 5.0.1
-        version: 5.0.1(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
+        specifier: 5.0.3
+        version: 5.0.3(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
       '@nextui-org/react':
         specifier: 2.3.6
         version: 2.3.6(@types/react@18.3.1)(framer-motion@11.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwind-variants@0.2.1(tailwindcss@3.4.3))(tailwindcss@3.4.3)
@@ -106,15 +106,15 @@ packages:
     resolution: {integrity: sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==}
     engines: {node: '>=6.9.0'}
 
-  '@clerk/clerk-react@5.0.1':
-    resolution: {integrity: sha512-JMwOtFFYGfEOI7Ux3Hg5QbuSYSUN1srf3rL6ORK6hgNuTbS1Cd24v6XZz3c7xfMo6yL70o870gXi20FecdeYYw==}
+  '@clerk/clerk-react@5.0.3':
+    resolution: {integrity: sha512-VlPLm2g3zBSl+xtqDv6qkV59Yj717A/WU9grs6NZWcydkB0oPwuo4ftxW/OiY0IUtA638qyj0ovotVX9tZagTw==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  '@clerk/shared@2.0.0':
-    resolution: {integrity: sha512-HRbBGhAetOE6gSFd2jlLJTo+BFjuEr9lD1xigtBXdJUnmVngunciikQU2dZ4i/20X7B4VTrofhNpYi9MsCm7dw==}
+  '@clerk/shared@2.0.1':
+    resolution: {integrity: sha512-iRjvWCGVzcN5vi9O3+/bEbA22TegxlnHJJE1a6989OFeeXqSKFqmYwDrvM48umJrbvX5cMbKEgctSVXT2IOgCw==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18'
@@ -125,8 +125,8 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/types@4.1.0':
-    resolution: {integrity: sha512-e9vsD7EdQE0q9mPwPMq1kPtPC9BYGR8BucEoEu+pEyXXD5cdSkzM+WvhUonnTHNzYE/W/X5d1zFDNvCV5YfS5Q==}
+  '@clerk/types@4.2.0':
+    resolution: {integrity: sha512-JtQINgvRGkO9K8os8pSj3QvNrBDvdc0lFpbTwpF3J1CBLafiJmJiBUyUSzWcI/k/9FlClMZxauZufVp9jlSBjg==}
     engines: {node: '>=18.17.0'}
 
   '@eslint-community/eslint-utils@4.4.0':
@@ -3409,10 +3409,10 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
-  '@clerk/clerk-react@5.0.1(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)':
+  '@clerk/clerk-react@5.0.3(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)':
     dependencies:
-      '@clerk/shared': 2.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/types': 4.1.0
+      '@clerk/shared': 2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/types': 4.2.0
       eslint-config-custom: 0.0.0(eslint@8.57.0)(typescript@5.4.5)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -3423,7 +3423,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@clerk/shared@2.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/shared@2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       glob-to-regexp: 0.4.1
       js-cookie: 3.0.1
@@ -3433,7 +3433,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@clerk/types@4.1.0':
+  '@clerk/types@4.2.0':
     dependencies:
       csstype: 3.1.1
 
