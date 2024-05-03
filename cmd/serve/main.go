@@ -59,7 +59,7 @@ func main() {
 	userMux.Use(mw.ServeHTTP)
 
 	userMux.HandleFunc("/v1/user", create_user_v1.CreateUser).Methods("PUT")
-	userMux.HandleFunc("/v1/receipt", get_receipt_v1.GetReceipt).Methods("GET")
+	userMux.HandleFunc("/v1/receipt/{receiptId:[0-9]+}", get_receipt_v1.GetReceipt).Methods("GET")
 	userMux.HandleFunc("/v1/receipt", create_receipt_v1.CreateReceipt).Methods("PUT")
 
 	topMux.Handle("/api/", http.StripPrefix("/api", prefixMux))
