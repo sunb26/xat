@@ -10,8 +10,9 @@ import (
 )
 
 type createScanInferenceRequest struct {
-	ProjectId       *uint64 `json:"project_id"`
-	InferenceResult string  `json:"inference_result"`
+	ProjectId       *uint64                `json:"project_id"`
+	ImageUrl        string                 `json:"image_url"`
+	InferenceResult map[string]interface{} `json:"inference_result"`
 }
 
 func CreateScanInference(w http.ResponseWriter, r *http.Request) {
@@ -29,8 +30,8 @@ func CreateScanInference(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("request body: %#v", reqBody)
 
-	if reqBody.ProjectId == nil || reqBody.InferenceResult == "" {
-		log.Printf("request body contains empty fields")
+	if reqBody.ProjectId == nil || reqBody.InferenceResult == nil || reqBody.ImageUrl == "" {
+		log.Printf("store scan request body contains empty fields")
 		http.Error(w, "empty fields", http.StatusUnprocessableEntity)
 		return
 	}
@@ -38,20 +39,20 @@ func CreateScanInference(w http.ResponseWriter, r *http.Request) {
 	db, ok := r.Context().Value("db").(*sqlx.DB)
 	if !ok {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("db not found in context")
+		log.Printf("store scan db not found in context")
 		return
 	}
 
 	tx, err := db.Beginx()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("tx begin error: %s", err.Error())
+		log.Printf("store scan tx begin error: %s", err.Error())
 		return
 	}
 
 	defer tx.Rollback()
 
-	insertScanRes := tx.QueryRowxContext(r.Context(), `INSERT INTO public.scan_v1 (project_id) VALUES ($1) RETURNING scan_id`, reqBody.ProjectId)
+	insertScanRes := tx.QueryRowxContext(r.Context(), `INSERT INTO public.scan_v1 (project_id, image_url, create_time) VALUES ($1, $2, NOW()) RETURNING scan_id`, reqBody.ProjectId, reqBody.ImageUrl)
 	var scanId uint64
 	err = insertScanRes.Scan(&scanId)
 	if err != nil {
@@ -61,11 +62,25 @@ func CreateScanInference(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var inferenceId uint64
-	row := tx.QueryRowxContext(r.Context(), `INSERT INTO public.scan_inference_v1 (scan_id, inference_result) VALUES ($1, $2) RETURNING scan_inference_id`, scanId, reqBody.InferenceResult)
+	inferenceResult, err := json.Marshal(reqBody.InferenceResult)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("store inference result json marshal error: %s", err.Error())
+		return
+	}
+
+	row := tx.QueryRowxContext(r.Context(), `INSERT INTO public.scan_inference_v1 (scan_id, inference_result) VALUES ($1, $2) RETURNING scan_inference_id`, scanId, inferenceResult)
 	err = row.Scan(&inferenceId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("insert scan_inference table error: %s", err.Error())
+		return
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("store scan tx commit error: %s", err.Error())
 		return
 	}
 
