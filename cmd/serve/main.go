@@ -14,6 +14,7 @@ import (
 	_ "github.com/lib/pq"
 
 	create_receipt_v1 "github.com/sunb26/xat/handler/create_receipt"
+	create_scan_inference_v1 "github.com/sunb26/xat/handler/create_scan_inference"
 	create_user_v1 "github.com/sunb26/xat/handler/create_user"
 	get_receipt_v1 "github.com/sunb26/xat/handler/get_receipt"
 	list_receipts_v1 "github.com/sunb26/xat/handler/list_receipts"
@@ -65,6 +66,7 @@ func main() {
 	// Specifying two routes for list endpoint to handle optional query parameters. Either specify both params or none.
 	userMux.HandleFunc("/v1/{userId}/receipts", list_receipts_v1.ListReceipts).Methods("GET").Queries("limit", "{limit:[0-9]+}", "offset", "{offset:[0-9]+}")
 	userMux.HandleFunc("/v1/{userId}/receipts", list_receipts_v1.ListReceipts).Methods("GET")
+	userMux.HandleFunc("/v1/scan/inference", create_scan_inference_v1.CreateScanInference).Methods("PUT")
 
 	topMux.Handle("/api/", http.StripPrefix("/api", prefixMux))
 	topMux.Handle("/", http.FileServer(http.FS(content)))
