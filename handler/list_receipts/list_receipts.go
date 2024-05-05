@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
@@ -23,15 +22,13 @@ type receiptResponse struct {
 }
 
 func ListReceipts(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	log.Print(vars)
-	userId := vars["userId"]
-	limit := vars["limit"]
-	offset := vars["offset"]
+	userId := r.PathValue("userId")
+	limit := r.URL.Query().Get("limit")
+	offset := r.URL.Query().Get("offset")
 
 	if userId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		log.Printf("invalid receipt id")
+		log.Printf("list receipts: empty user id")
 		return
 	}
 
@@ -42,11 +39,12 @@ func ListReceipts(w http.ResponseWriter, r *http.Request) {
 	if offset != "" {
 		query += " OFFSET " + offset
 	}
+	log.Printf("query: %s", query)
 
 	db, ok := r.Context().Value("db").(*sqlx.DB)
 	if !ok {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("db not found in context")
+		log.Printf("list receipts: db not found in context")
 		return
 	}
 
@@ -54,7 +52,7 @@ func ListReceipts(w http.ResponseWriter, r *http.Request) {
 	err := db.Select(&receipts, query, userId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("failed to get receipt snapshot: %s", err.Error())
+		log.Printf("list receipts: failed to get receipt snapshot: %s", err.Error())
 		return
 	}
 
@@ -62,7 +60,7 @@ func ListReceipts(w http.ResponseWriter, r *http.Request) {
 	res, err := json.Marshal(receipts)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("json marshal error: %s", err.Error())
+		log.Printf("list receipts: json marshal error: %s", err.Error())
 		return
 	}
 
