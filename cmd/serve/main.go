@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 
@@ -28,13 +27,11 @@ type middleware struct {
 	db      *sqlx.DB
 }
 
-func (i *middleware) ServeHTTP(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ctx := context.WithValue(r.Context(), "db", i.db)
-		log.Printf("request header: %s %s", r.Method, r.URL)
-		next.ServeHTTP(w, r.WithContext(ctx))
-		log.Printf("response header: %#v", w.Header())
-	})
+func (i *middleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	ctx := context.WithValue(r.Context(), "db", i.db)
+	log.Printf("request header: %s %s", r.Method, r.URL)
+	i.handler.ServeHTTP(w, r.WithContext(ctx))
+	log.Printf("response header: %#v", w.Header())
 }
 
 func newMiddleware(handler http.Handler, db *sqlx.DB) *middleware {
@@ -52,24 +49,20 @@ func main() {
 		log.Fatalf("failed to open to database: %v", err)
 	}
 
-	// Use a combination of ServeMux and Router because Router does not handle FileServer well
 	topMux := http.NewServeMux()
-	prefixMux := mux.NewRouter()
-	userMux := prefixMux.PathPrefix("/users/").Subrouter()
+	apiMux := http.NewServeMux()
+	staticMux := http.NewServeMux()
+	wrappedApiMux := newMiddleware(apiMux, db)
 
-	mw := newMiddleware(userMux, db)
-	userMux.Use(mw.ServeHTTP)
+	apiMux.HandleFunc("PUT /v1/user", create_user_v1.CreateUser)
+	apiMux.HandleFunc("GET /v1/receipt/{receiptId}", get_receipt_v1.GetReceipt)
+	apiMux.HandleFunc("PUT /v1/receipt", create_receipt_v1.CreateReceipt)
+	apiMux.HandleFunc("GET /v1/users/{userId}/receipts", list_receipts_v1.ListReceipts)
+	apiMux.HandleFunc("PUT /v1/scan/inference", create_scan_inference_v1.CreateScanInference)
+	staticMux.Handle("/", http.FileServer(http.FS(content)))
 
-	userMux.HandleFunc("/v1/user", create_user_v1.CreateUser).Methods("PUT")
-	userMux.HandleFunc("/v1/receipt/{receiptId:[0-9]+}", get_receipt_v1.GetReceipt).Methods("GET")
-	userMux.HandleFunc("/v1/receipt", create_receipt_v1.CreateReceipt).Methods("PUT")
-	// Specifying two routes for list endpoint to handle optional query parameters. Either specify both params or none.
-	userMux.HandleFunc("/v1/{userId}/receipts", list_receipts_v1.ListReceipts).Methods("GET").Queries("limit", "{limit:[0-9]+}", "offset", "{offset:[0-9]+}")
-	userMux.HandleFunc("/v1/{userId}/receipts", list_receipts_v1.ListReceipts).Methods("GET")
-	userMux.HandleFunc("/v1/scan/inference", create_scan_inference_v1.CreateScanInference).Methods("PUT")
-
-	topMux.Handle("/api/", http.StripPrefix("/api", prefixMux))
-	topMux.Handle("/", http.FileServer(http.FS(content)))
+	topMux.Handle("/api/", http.StripPrefix("/api", wrappedApiMux))
+	topMux.Handle("/", staticMux)
 
 	fmt.Println("Listening on 127.0.0.1:3000")
 	log.Fatal(http.ListenAndServe(":3000", topMux))
