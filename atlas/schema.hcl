@@ -401,14 +401,10 @@ table "scan_v1" {
       increment = 1
     }
   }
-  column "image_content" {
-    null = false
-    type = bytea
-    comment = "The content of the compressed image file."
-  }
-  column "image_compression_algorithm" {
+  column "image_url" {
     null = false
     type = text
+    comment = "The url of where the image is stored on Google Drive."
   }
   column "create_time" {
     null = false
