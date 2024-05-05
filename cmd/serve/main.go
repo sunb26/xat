@@ -32,11 +32,6 @@ func (i *middleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Printf("request header: %s %s", r.Method, r.URL)
 	i.handler.ServeHTTP(w, r.WithContext(ctx))
 	log.Printf("response header: %#v", w.Header())
-func (i *middleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ctx := context.WithValue(r.Context(), "db", i.db)
-	log.Printf("request header: %s %s", r.Method, r.URL)
-	i.handler.ServeHTTP(w, r.WithContext(ctx))
-	log.Printf("response header: %#v", w.Header())
 }
 
 func newMiddleware(handler http.Handler, db *sqlx.DB) *middleware {
@@ -66,8 +61,6 @@ func main() {
 	apiMux.HandleFunc("PUT /v1/scan/inference", create_scan_inference_v1.CreateScanInference)
 	staticMux.Handle("/", http.FileServer(http.FS(content)))
 
-	topMux.Handle("/api/", http.StripPrefix("/api", wrappedApiMux))
-	topMux.Handle("/", staticMux)
 	topMux.Handle("/api/", http.StripPrefix("/api", wrappedApiMux))
 	topMux.Handle("/", staticMux)
 
