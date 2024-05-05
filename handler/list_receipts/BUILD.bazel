@@ -1,9 +1,9 @@
 load("@rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "get_receipt",
-    srcs = ["get_receipt.go"],
-    importpath = "github.com/sunb26/xat/handler/get_receipt",
+    name = "list_receipts",
+    srcs = ["list_receipts.go"],
+    importpath = "github.com/sunb26/xat/handler/list_receipts",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_jmoiron_sqlx//:sqlx",
