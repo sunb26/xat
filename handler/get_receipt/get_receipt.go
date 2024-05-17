@@ -9,11 +9,8 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type getReceiptRequest struct {
-	ReceiptId uint64 `json:"receipt_id"`
-}
-
 type receiptResponse struct {
+	ProjectId uint64  `db:"project_id"`
 	ReceiptId uint64  `db:"receipt_id"`
 	ScanId    *uint64 `db:"scan_id"`
 	Subtotal  string  `db:"subtotal"`
@@ -24,45 +21,33 @@ type receiptResponse struct {
 }
 
 func GetReceipt(w http.ResponseWriter, r *http.Request) {
-	var reqBody getReceiptRequest
+	receiptId := r.PathValue("receiptId")
 
-	dec := json.NewDecoder(r.Body)
-	dec.DisallowUnknownFields()
-
-	err := dec.Decode(&reqBody)
-	if err != nil {
+	if receiptId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		log.Printf("read body error: %s", err.Error())
-		return
-	}
-
-	log.Printf("request body: %#v", reqBody)
-
-	if reqBody.ReceiptId == 0 {
-		log.Printf("receipt_id field is empty")
-		http.Error(w, "empty fields", http.StatusUnprocessableEntity)
+		log.Printf("get receipt: empty receipt id")
 		return
 	}
 
 	db, ok := r.Context().Value("db").(*sqlx.DB)
 	if !ok {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("db not found in context")
+		log.Printf("get receipt: db not found in context")
 		return
 	}
 
 	var receipt receiptResponse
-	err = db.Get(&receipt, `SELECT * FROM public.receipt_data_v1 WHERE receipt_id = $1 LIMIT 1`, reqBody.ReceiptId)
+	err := db.Get(&receipt, `SELECT * FROM public.receipt_data_v1 WHERE receipt_id = $1 LIMIT 1`, receiptId)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("failed to get receipt snapshot: %s", err.Error())
+		log.Printf("get receipt: failed to get receipt snapshot: %s", err.Error())
 		return
 	}
 
 	res, err := json.Marshal(receipt)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("json marshal error: %s", err.Error())
+		log.Printf("get receipt: json marshal error: %s", err.Error())
 		return
 	}
 

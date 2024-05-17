@@ -13,8 +13,10 @@ import (
 	_ "github.com/lib/pq"
 
 	create_receipt_v1 "github.com/sunb26/xat/handler/create_receipt"
+	create_scan_inference_v1 "github.com/sunb26/xat/handler/create_scan_inference"
 	create_user_v1 "github.com/sunb26/xat/handler/create_user"
 	get_receipt_v1 "github.com/sunb26/xat/handler/get_receipt"
+	list_receipts_v1 "github.com/sunb26/xat/handler/list_receipts"
 )
 
 //go:embed all:web all:web/_next
@@ -52,9 +54,11 @@ func main() {
 	staticMux := http.NewServeMux()
 	wrappedApiMux := newMiddleware(apiMux, db)
 
-	apiMux.Handle("PUT /v1/user", http.HandlerFunc(create_user_v1.CreateUser))
-	apiMux.Handle("GET /v1/receipt", http.HandlerFunc(get_receipt_v1.GetReceipt))
-	apiMux.Handle("PUT /v1/receipt", http.HandlerFunc(create_receipt_v1.CreateReceipt))
+	apiMux.HandleFunc("PUT /v1/user", create_user_v1.CreateUser)
+	apiMux.HandleFunc("GET /v1/receipt/{receiptId}", get_receipt_v1.GetReceipt)
+	apiMux.HandleFunc("PUT /v1/receipt", create_receipt_v1.CreateReceipt)
+	apiMux.HandleFunc("GET /v1/users/{userId}/receipts", list_receipts_v1.ListReceipts)
+	apiMux.HandleFunc("PUT /v1/scan/inference", create_scan_inference_v1.CreateScanInference)
 	staticMux.Handle("/", http.FileServer(http.FS(content)))
 
 	topMux.Handle("/api/", http.StripPrefix("/api", wrappedApiMux))
