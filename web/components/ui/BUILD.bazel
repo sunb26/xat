@@ -5,6 +5,7 @@ js_library(
     srcs = [
         "collapsible.tsx",
         "drawer.tsx",
+        "input.tsx",
         "scroll-area.tsx",
         "sheet.tsx",
     ],
