@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Button, Image } from "@nextui-org/react";
-import React, { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
@@ -37,7 +37,7 @@ export const AddReciept = () => {
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.files && e.target.files[0]) {
+    if (e.target.files?.[0]) {
       setUploadedFile(e.target.files);
     }
   };
