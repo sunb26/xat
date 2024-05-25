@@ -18,6 +18,7 @@ go_library(
         "//handler/create_receipt",
         "//handler/list_receipts",
         "//handler/create_scan_inference",
+        "//handler/create_scan",
         "@com_github_jmoiron_sqlx//:sqlx",
         "@com_github_lib_pq//:pq",
     ],
