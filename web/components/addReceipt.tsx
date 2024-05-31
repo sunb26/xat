@@ -7,10 +7,10 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@clerk/clerk-react";
 import { Button, Image } from "@nextui-org/react";
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import { useUser } from "@clerk/clerk-react";
 
 const videoConstraints = {
   width: 240,
@@ -63,7 +63,7 @@ export const AddReciept = () => {
             Authorization: `Bearer ${process.env.GOOGLE_API_KEY}`,
             "Content-Type": uploadedFile.type,
           },
-        }
+        },
       );
     } catch (err) {
       console.log(err);
