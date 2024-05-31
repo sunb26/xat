@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button, Image } from "@nextui-org/react";
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import { useUser } from "@clerk/clerk-react";
 
 const videoConstraints = {
   width: 240,
@@ -18,10 +19,12 @@ const videoConstraints = {
 };
 
 export const AddReciept = () => {
+  const { isLoaded, user } = useUser();
   const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
   const webcamRef = useRef<Webcam>(null);
   const [url, setUrl] = useState<string | null>(null);
-  const [uploadedFile, setUploadedFile] = useState<FileList>();
+  const [uploadedFile, setUploadedFile] = useState<File>();
+
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
@@ -29,21 +32,42 @@ export const AddReciept = () => {
     }
     setCaptureEnable(false);
   }, []);
+
   function handleCancel() {
     setUrl(null);
     setCaptureEnable(false);
     setUploadedFile(undefined);
   }
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.files?.[0]) {
-      setUploadedFile(e.target.files);
+      setUploadedFile(e.target.files[0]);
     }
   };
 
   const handleFileUpload = async () => {
-    const file = uploadedFile?.[0];
+    if (!uploadedFile) return;
+    const userId = user?.id;
+
+    const body = new FormData();
+    body.append("file", uploadedFile);
+
+    try {
+      await fetch(
+        "https://www.googleapis.com/upload/drive/v3/files?uploadType=media",
+        {
+          method: "POST",
+          body: body,
+          headers: {
+            Authorization: `Bearer ${process.env.GOOGLE_API_KEY}`,
+            "Content-Type": uploadedFile.type,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -111,6 +135,7 @@ export const AddReciept = () => {
               isDisabled={!url && !uploadedFile}
               color="primary"
               className="w-full"
+              onPress={handleFileUpload}
             >
               Continue
             </Button>
