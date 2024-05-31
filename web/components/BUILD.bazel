@@ -3,7 +3,7 @@ load("@aspect_rules_js//js:defs.bzl", "js_library")
 js_library(
     name = "components",
     srcs = [
-        "camera.tsx",
+        "addReceipt.tsx",
         "mailing.tsx",
         "navbar.tsx",
         "receiptForm.tsx",
