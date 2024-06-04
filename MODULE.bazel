@@ -1,7 +1,7 @@
 bazel_dep(name = "aspect_bazel_lib", version = "2.7.7")
 bazel_dep(name = "aspect_rules_js", version = "1.42.3")
 bazel_dep(name = "aspect_rules_py", version = "0.7.3")
-bazel_dep(name = "bazel_skylib", version = "1.7.0")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "buildifier_prebuilt", version = "6.4.0")
 bazel_dep(name = "gazelle", version = "0.37.0")
 bazel_dep(name = "platforms", version = "0.0.10")
@@ -15,7 +15,7 @@ bazel_dep(name = "toolchains_llvm", version = "1.0.0")
 
 git_override(
     module_name = "rules_rust",
-    commit = "dc08bde7a83d882539a08cffa844854d564204b8",
+    commit = "e3f6258b1e1660652ae044f01c6dac074f9fb206",
     remote = "https://github.com/bazelbuild/rules_rust",
 )
 
