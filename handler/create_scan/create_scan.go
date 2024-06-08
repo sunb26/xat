@@ -71,15 +71,13 @@ func CreateScan(w http.ResponseWriter, r *http.Request) {
 
 	insertScanRes := tx.QueryRowxContext(r.Context(), `INSERT INTO public.scan_v1 (project_id, image_url, create_time) VALUES ($1, $2, NOW()) RETURNING scan_id`, reqBody.ProjectId, reqBody.ImageUrl)
 	var scanId uint64
-	err = insertScanRes.Scan(&scanId)
-	if err != nil {
+	if err := insertScanRes.Scan(&scanId); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("failed to insert into scan table: %s", err.Error())
 		return
 	}
 
-	err = tx.Commit()
-	if err != nil {
+	if err := tx.Commit(); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("store scan tx commit error: %s", err.Error())
 		return

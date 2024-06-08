@@ -10,7 +10,7 @@ import (
 )
 
 type createScanInferenceRequest struct {
-	ScanId          *uint64                `json:"project_id"`
+	ScanId          *uint64                `json:"scan_id"`
 	InferenceResult map[string]interface{} `json:"inference_result"`
 }
 
