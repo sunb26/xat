@@ -25,6 +25,16 @@ type createScanRequest struct {
 
 const fileIdPattern = `https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/`
 
+var re = regexp.MustCompile(fileIdPattern)
+var conf = &jwt.Config{
+	Email:      os.Getenv("GOOGLE_SERVICE_EMAIL"),
+	PrivateKey: []byte(os.Getenv("GOOGLE_PRIVATE_KEY")),
+	Scopes: []string{
+		"https://www.googleapis.com/auth/drive",
+	},
+	TokenURL: google.JWTTokenURL,
+}
+
 func CreateScan(w http.ResponseWriter, r *http.Request) {
 	var reqBody createScanRequest
 
@@ -71,13 +81,13 @@ func CreateScan(w http.ResponseWriter, r *http.Request) {
 
 	insertScanRes := tx.QueryRowxContext(r.Context(), `INSERT INTO public.scan_v1 (project_id, image_url, create_time) VALUES ($1, $2, NOW()) RETURNING scan_id`, reqBody.ProjectId, reqBody.ImageUrl)
 	var scanId uint64
-	if err := insertScanRes.Scan(&scanId); err != nil {
+	if err = insertScanRes.Scan(&scanId); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("failed to insert into scan table: %s", err.Error())
 		return
 	}
 
-	if err := tx.Commit(); err != nil {
+	if err = tx.Commit(); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("store scan tx commit error: %s", err.Error())
 		return
@@ -97,7 +107,6 @@ func CreateScan(w http.ResponseWriter, r *http.Request) {
 
 func verifyFileId(ctx context.Context, url string) error {
 
-	re := regexp.MustCompile(fileIdPattern)
 	match := re.FindStringSubmatch(url)
 
 	var fileId string
@@ -106,15 +115,6 @@ func verifyFileId(ctx context.Context, url string) error {
 		log.Printf("found file id: %s", fileId)
 	} else {
 		return fmt.Errorf("could not parse file id from url")
-	}
-
-	conf := &jwt.Config{
-		Email:      os.Getenv("GOOGLE_SERVICE_EMAIL"),
-		PrivateKey: []byte(os.Getenv("GOOGLE_PRIVATE_KEY")),
-		Scopes: []string{
-			"https://www.googleapis.com/auth/drive",
-		},
-		TokenURL: google.JWTTokenURL,
 	}
 
 	client := conf.Client(ctx)
