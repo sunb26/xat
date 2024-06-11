@@ -41,8 +41,7 @@ func CreateScan(w http.ResponseWriter, r *http.Request) {
 	dec := json.NewDecoder(r.Body)
 	dec.DisallowUnknownFields()
 
-	err := dec.Decode(&reqBody)
-	if err != nil {
+	if err := dec.Decode(&reqBody); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		log.Printf("read body error: %s", err.Error())
 		return
@@ -56,8 +55,7 @@ func CreateScan(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = verifyFileId(r.Context(), reqBody.ImageUrl)
-	if err != nil {
+	if err := verifyFileId(r.Context(), reqBody.ImageUrl); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("verify file id error: %s", err.Error())
 		return
