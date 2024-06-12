@@ -2,7 +2,7 @@
   "name": "web",
   "private": true,
   "dependencies": {
-    "@clerk/clerk-react": "5.2.3",
+    "@clerk/clerk-react": "5.2.4",
     "@nextui-org/react": "2.4.1",
     "@radix-ui/react-collapsible": "1.0.3",
     "@radix-ui/react-dialog": "1.0.5",
