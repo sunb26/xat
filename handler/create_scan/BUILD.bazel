@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "create_scan",
+    srcs = ["create_scan.go"],
+    importpath = "github.com/sunb26/xat/handler/create_scan",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_jmoiron_sqlx//:sqlx",
+        "@com_github_lib_pq//:pq",
+        "@org_golang_google_api//drive/v3:drive",
+        "@org_golang_google_api//option",
+        "@org_golang_x_oauth2//google",
+        "@org_golang_x_oauth2//jwt",
+    ],
+)
