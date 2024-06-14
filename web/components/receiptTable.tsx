@@ -27,7 +27,7 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { History, FileImage } from "lucide-react";
+import { FileImage, History } from "lucide-react";
 import { useCallback } from "react";
 
 const data = [
