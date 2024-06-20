@@ -85,8 +85,8 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(tailwindcss@3.4.4)
       typescript:
-        specifier: 5.4.5
-        version: 5.4.5
+        specifier: 5.5.2
+        version: 5.5.2
 
 packages:
 
@@ -4871,8 +4871,8 @@ packages:
     dev: true
     optional: true
 
-  /typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+  /typescript@5.5.2:
+    resolution: {integrity: sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
