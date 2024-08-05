@@ -15,8 +15,8 @@ importers:
   web:
     dependencies:
       '@clerk/clerk-react':
-        specifier: 5.3.1
-        version: 5.3.1(react-dom@18.3.1)(react@18.3.1)
+        specifier: 5.3.2
+        version: 5.3.2(react-dom@18.3.1)(react@18.3.1)
       '@nextui-org/react':
         specifier: 2.4.6
         version: 2.4.6(@types/react@18.3.3)(framer-motion@11.2.10)(react-dom@18.3.1)(react@18.3.1)(tailwindcss@3.4.7)
@@ -101,22 +101,22 @@ packages:
       regenerator-runtime: 0.14.1
     dev: false
 
-  /@clerk/clerk-react@5.3.1(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-TdZxa+kNEWHivUapDjlfnh+GZhEwlgvB3CnpZD3Qq6ovEmEaFL5eqFwo+hDoU+hUd9IkbvQ0WIi1wrVaaL8d2A==}
+  /@clerk/clerk-react@5.3.2(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-ZXV48wUut8+Mg3qAkL8TrZjS0O+1M2ctgGCL40YAp8u5xR3/WplhO75PtDmChfwgiZCuPI8Gu34VYaFBqdy1eQ==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18 || >=19.0.0-beta'
       react-dom: '>=18 || >=19.0.0-beta'
     dependencies:
-      '@clerk/shared': 2.4.3(react-dom@18.3.1)(react@18.3.1)
-      '@clerk/types': 4.11.0
+      '@clerk/shared': 2.4.4(react-dom@18.3.1)(react@18.3.1)
+      '@clerk/types': 4.12.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.4.1
     dev: false
 
-  /@clerk/shared@2.4.3(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-IME50BMoiUOEDrm8Dzx4A3QuMFlPEaoHnQ9kMHulWidcJ/cyj+3TEBPrW0Ls0v5ziwnMWeYsSrIv/XeU15hSNw==}
+  /@clerk/shared@2.4.4(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-DcyuVFoBzPC9ZIdLN8P0fIv+ACfWMc19hD9Jye4vXyM0HNh18X/2KUg8IPAaNBUusT5/RyBVtxK2g3MHR+x/0Q==}
     engines: {node: '>=18.17.0'}
     requiresBuild: true
     peerDependencies:
@@ -128,7 +128,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@clerk/types': 4.11.0
+      '@clerk/types': 4.12.0
       glob-to-regexp: 0.4.1
       js-cookie: 3.0.5
       react: 18.3.1
@@ -137,8 +137,8 @@ packages:
       swr: 2.2.0(react@18.3.1)
     dev: false
 
-  /@clerk/types@4.11.0:
-    resolution: {integrity: sha512-sMp3ATIH5ZoZ9veu9/LNH68GvahDm7sPLJf8xYyjc9hJYILz85xzI0JbwS6iFJw2NpTssvyl9viL7tgBrw46iA==}
+  /@clerk/types@4.12.0:
+    resolution: {integrity: sha512-y5P36XMWRphFPwcC8NxptAvPbeH6MZcicULn4x7c1K6gHyGwoieGywwPHAdrc5c/aKGIVp8Zlg93iQi7Vj0qJg==}
     engines: {node: '>=18.17.0'}
     dependencies:
       csstype: 3.1.1
