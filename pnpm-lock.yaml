@@ -64,8 +64,8 @@ importers:
         specifier: 2.2.9
         version: 2.2.9(tailwindcss@3.4.9)
       '@types/node':
-        specifier: 20.16.3
-        version: 20.16.3
+        specifier: 20.16.4
+        version: 20.16.4
       '@types/react':
         specifier: 18.3.5
         version: 18.3.5
@@ -3161,8 +3161,8 @@ packages:
     resolution: {integrity: sha512-zmNrEJaBvNskZXQWaUQq6bktF4IDGVfDS78M+YEk5aCn9M/b94/mB/6WCyfH2/MjwBdc6QuOor95CIlKWYRL3A==}
     dev: false
 
-  /@types/node@20.16.3:
-    resolution: {integrity: sha512-/wdGiWRkMOm53gAsSyFMXFZHbVg7C6CbkrzHNpaHoYfsUWPg7m6ZRKtvQjgvQ9i8WT540a3ydRlRQbxjY30XxQ==}
+  /@types/node@20.16.4:
+    resolution: {integrity: sha512-ioyQ1zK9aGEomJ45zz8S8IdzElyxhvP1RVWnPrXDf6wFaUb+kk1tEcVVJkF7RPGM0VWI7cp5U57oCPIn5iN1qg==}
     dependencies:
       undici-types: 6.19.6
     dev: true
