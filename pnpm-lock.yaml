@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       pm2:
-        specifier: 5.4.2
-        version: 5.4.2
+        specifier: 5.4.3
+        version: 5.4.3
 
   web:
     dependencies:
@@ -4443,8 +4443,8 @@ packages:
     dev: true
     optional: true
 
-  /pm2@5.4.2:
-    resolution: {integrity: sha512-ynVpBwZampRH3YWLwRepZpQ7X3MvpwLIaqIdFEeBYEhaXbHmEx2KqOdxGV4T54wvKBhH3LixvU1j1bK4/sq7Tw==}
+  /pm2@5.4.3:
+    resolution: {integrity: sha512-4/I1htIHzZk1Y67UgOCo4F1cJtas1kSds31N8zN0PybO230id1nigyjGuGFzUnGmUFPmrJ0On22fO1ChFlp7VQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -4473,7 +4473,7 @@ packages:
       pm2-deploy: 1.0.2
       pm2-multimeter: 0.1.2
       promptly: 2.2.0
-      semver: 7.6.2
+      semver: 7.6.3
       source-map-support: 0.5.21
       sprintf-js: 1.1.2
       vizion: 2.2.1
@@ -4784,19 +4784,11 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
-  /semver@7.6.2:
-    resolution: {integrity: sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dev: true
-
   /semver@7.6.3:
     resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
     engines: {node: '>=10'}
     hasBin: true
     requiresBuild: true
-    dev: false
-    optional: true
 
   /sharp@0.33.5:
     resolution: {integrity: sha512-haPVm1EkS9pgvHrQ/F3Xy+hgcuMV0Wm9vfIBSiwZ05k+xgb0PkBQpGsAA/oWdDobNaZTH5ppvHtzCFbnSEwHVw==}
