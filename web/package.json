@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@clerk/clerk-react": "5.19.3",
-    "@nextui-org/react": "2.6.5",
+    "@nextui-org/react": "2.6.7",
     "@radix-ui/react-collapsible": "1.1.1",
     "@radix-ui/react-dialog": "1.1.2",
     "@radix-ui/react-scroll-area": "1.2.1",
