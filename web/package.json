@@ -11,7 +11,7 @@
     "clsx": "2.1.1",
     "framer-motion": "11.2.10",
     "lucide-react": "0.468.0",
-    "next": "15.0.4",
+    "next": "15.1.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-webcam": "7.2.0",
