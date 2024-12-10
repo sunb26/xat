@@ -146,7 +146,7 @@ oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "debian",
     # bookworm-slim
-    digest = "sha256:ccb33c3ac5b02588fc1d9e4fc09b952e433d0c54d8618d0ee1afadf1f3cf2455",
+    digest = "sha256:17122fe3d66916e55c0cbd5bbf54bb3f87b3582f4d86a755a0fd3498d360f91b",
     image = "docker.io/library/debian",
     platforms = [
         "linux/amd64",
