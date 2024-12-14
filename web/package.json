@@ -16,7 +16,7 @@
     "react-dom": "19.0.0",
     "react-webcam": "7.2.0",
     "tailwind-merge": "2.5.5",
-    "vaul": "1.1.1"
+    "vaul": "1.1.2"
   },
   "devDependencies": {
     "@nextui-org/theme": "2.4.3",
