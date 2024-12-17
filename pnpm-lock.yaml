@@ -15,8 +15,8 @@ importers:
   web:
     dependencies:
       '@clerk/clerk-react':
-        specifier: 5.20.2
-        version: 5.20.2(react-dom@19.0.0)(react@19.0.0)
+        specifier: 5.20.3
+        version: 5.20.3(react-dom@19.0.0)(react@19.0.0)
       '@nextui-org/react':
         specifier: 2.6.8
         version: 2.6.8(@types/react@19.0.1)(framer-motion@11.2.10)(react-dom@19.0.0)(react@19.0.0)(tailwindcss@3.4.9)
@@ -101,22 +101,22 @@ packages:
       regenerator-runtime: 0.14.1
     dev: false
 
-  /@clerk/clerk-react@5.20.2(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-mwuWGss1U+vrAyhAqy0vUBmE+dq8kW+5iPfl/wCGeFVvHJfG7IpemOQtUBY+G5Xp9gyWPdfBC6umMT5wz+bsPg==}
+  /@clerk/clerk-react@5.20.3(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-aji/8m74ynthJoOhXG6jx7xnPB+tAYLMgNu1wBnvjWM9z8Qc7D6TD5uwCYOeNUOOrH4l45ZzWBRYC2JaZX0i5w==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
     dependencies:
-      '@clerk/shared': 2.20.2(react-dom@19.0.0)(react@19.0.0)
+      '@clerk/shared': 2.20.3(react-dom@19.0.0)(react@19.0.0)
       '@clerk/types': 4.39.4
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       tslib: 2.4.1
     dev: false
 
-  /@clerk/shared@2.20.2(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-d7TujIZCxgqRpspIUPqP8HsyyJ9jSCRKk9iDpZpDHNwmy6GQhmbY5bjV++J0sFMgsCiurwu0Qn0AYWKYDAz4Ww==}
+  /@clerk/shared@2.20.3(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-LtIPjtVSMBAvBjVd4oVzUyxFPmUdASpLBY9zYeEMwprwmKI8QRcQzocx68E/MDH3md6Jtrb6S9QhYPhbPGDAzg==}
     engines: {node: '>=18.17.0'}
     requiresBuild: true
     peerDependencies:
