@@ -19,7 +19,7 @@
     "vaul": "1.1.2"
   },
   "devDependencies": {
-    "@nextui-org/theme": "2.4.4",
+    "@nextui-org/theme": "2.4.5",
     "@types/node": "22.10.5",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
