@@ -1,11 +1,13 @@
 module github.com/sunb26/xat
 
-go 1.22.2
+go 1.23.0
+
+toolchain go1.24.0
 
 require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/lib/pq v1.10.9
-	golang.org/x/oauth2 v0.26.0
+	golang.org/x/oauth2 v0.27.0
 	google.golang.org/api v0.191.0
 )
 
